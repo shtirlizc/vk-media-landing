@@ -1,0 +1,19 @@
+---
+import { navigation } from "../data/navigation.ts";
+---
+
+<ul class="header">
+  {
+    navigation.map(({ label, href }) => (
+      <li>
+        <a href={`#${href}`}>{label}</a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .header {
+    list-style: none;
+  }
+</style>

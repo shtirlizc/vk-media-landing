@@ -1,33 +1,41 @@
 ---
-import Head from "../components/head.astro";
 import "../styles/_main.css";
+
+import Head from "../components/head.astro";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
+
+import Hero from "../blocks/1-business/hero/index.astro";
+import Products from "../blocks/1-business/products/index.astro";
+import Group from "../blocks/1-business/group/index.astro";
+
+import People from "../blocks/2-team/people/index.astro";
+import Culture from "../blocks/2-team/culture/index.astro";
+import MoreThan from "../blocks/2-team/more-than/index.astro";
+
+import Useful from "../blocks/3-useful/index.astro";
 ---
 
 <html lang="ru">
   <Head />
 
   <body>
-    <h1 style="margin: 0">Astro</h1>
+    <Header />
 
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-      </div>
-    </div>
+    <main>
+      <Hero />
+      <Products />
+      <Group />
+
+      <People />
+      <Culture />
+      <MoreThan />
+
+      <Useful />
+    </main>
+
+    <Footer />
   </body>
 </html>
-
-<style>
-  .swiper {
-    width: 50%;
-    border: 2px dashed yellow;
-
-    .swiper-slide {
-      padding: 40px;
-    }
-  }
-</style>
 
 <script src="../scripts/_app.js"></script>
