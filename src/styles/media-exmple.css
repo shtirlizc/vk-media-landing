@@ -1,0 +1,49 @@
+/* mobile */
+@media (width < 560px) {
+  /* media query rules */
+}
+
+/* wide-mobile */
+@media (width >= 560px) {
+  /* media query rules */
+}
+
+/* wide-mobile-only */
+@media (width >= 560px) and (width < 768px) {
+  /* media query rules */
+}
+
+/* tablet */
+@media (width >= 768px) {
+  /* media query rules */
+}
+
+/* tablet-only */
+@media (width >= 768px) and (width < 991px) {
+  /* media query rules */
+}
+
+/* desktop */
+@media (width >= 991px) {
+  /* media query rules */
+}
+
+/* desktop-only */
+@media (width >= 991px) and (width < 1200px) {
+  /* media query rules */
+}
+
+/* widescreen */
+@media (width >= 1200px) {
+  /* media query rules */
+}
+
+/* widescreen-only */
+@media (width >= 1200px) and (width < 1332px) {
+  /* media query rules */
+}
+
+/* fullhd */
+@media (width >= 1332px) {
+  /* media query rules */
+}

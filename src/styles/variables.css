@@ -1,0 +1,36 @@
+:root {
+  --color-text-primary: #ffffff;
+  --color-bg-main: #000000;
+  --color-primary: #0062ff;
+
+  --space: 4px;
+  --space8: calc(var(--space) * 2);
+  --space12: calc(var(--space) * 3);
+  --space16: calc(var(--space) * 4);
+  --space20: calc(var(--space) * 5);
+  --space24: calc(var(--space) * 6);
+  --space28: calc(var(--space) * 7);
+  --space32: calc(var(--space) * 8);
+  --space36: calc(var(--space) * 9);
+  --space40: calc(var(--space) * 10);
+  --space44: calc(var(--space) * 11);
+  --space48: calc(var(--space) * 12);
+
+  --border-radius: 4px;
+  --border-radius8: calc(var(--border-radius) * 2);
+  --border-radius12: calc(var(--border-radius) * 3);
+  --border-radius16: calc(var(--border-radius) * 4);
+
+  --transition-short: 0.1s;
+  --transition: 0.2s;
+  --transition-long: 0.4s;
+
+  --font-primary: "Inter Variable";
+
+  --scrollbar-track-color: transparent;
+  --scrollbar-color: var(--color-primary);
+  --scrollbar-side: var(--space8);
+
+  --container: 1300px;
+  --header: 64px;
+}
