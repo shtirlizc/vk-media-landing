@@ -8,33 +8,8 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.local(),
-      name: "VK Sans Display",
-      cssVariable: "--font-primary",
-      options: {
-        variants: [
-          {
-            src: [
-              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Regular.woff2",
-              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Regular.woff",
-            ],
-            weight: "400",
-            style: "normal",
-          },
-          {
-            src: [
-              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Medium.woff2",
-              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Medium.woff",
-            ],
-            weight: "500",
-            style: "normal",
-          },
-        ],
-      },
-    },
-    {
-      provider: fontProviders.local(),
       name: "VK Sans Display Expanded",
-      cssVariable: "--font-secondary",
+      cssVariable: "--font-primary",
       options: {
         variants: [
           {
@@ -72,6 +47,32 @@ export default defineConfig({
         ],
       },
     },
+    {
+      provider: fontProviders.local(),
+      name: "VK Sans Display",
+      cssVariable: "--font-secondary",
+      options: {
+        variants: [
+          {
+            src: [
+              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Regular.woff2",
+              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Regular.woff",
+            ],
+            weight: "400",
+            style: "normal",
+          },
+          {
+            src: [
+              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Medium.woff2",
+              "./src/assets/fonts/VKSansDisplay/VKSansDisplay-Medium.woff",
+            ],
+            weight: "500",
+            style: "normal",
+          },
+        ],
+      },
+    },
+
   ],
   build: {
     inlineStylesheets: "always",

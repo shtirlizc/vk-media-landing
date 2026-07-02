@@ -51,10 +51,6 @@ ol {
   -webkit-tap-highlight-color: transparent;
 }
 
-:is(button, input, textarea) {
-  font-family: var(--font-primary), sans-serif;
-}
-
 .swiper {
   overflow: hidden;
   width: 100%;
