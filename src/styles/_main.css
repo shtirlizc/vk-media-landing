@@ -1,5 +1,4 @@
-@import url("./vendors.css");
-/*@import "./fonts.css";*/
+@import "./vendors.css";
 @import "./variables.css";
 @import "./scrollbar.css";
 @import "./body.css";
