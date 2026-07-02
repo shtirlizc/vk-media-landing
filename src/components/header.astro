@@ -2,15 +2,19 @@
 import { navigation } from "../data/navigation.ts";
 ---
 
-<ul class="header">
-  {
-    navigation.map(({ label, href }) => (
-      <li>
-        <a href={`#${href}`}>{label}</a>
-      </li>
-    ))
-  }
-</ul>
+<header>
+  <nav aria-label="Основная навигация">
+    <ul class="header">
+      {
+        navigation.map(({ label, href }) => (
+          <li>
+            <a href={`#${href}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
 
 <style>
   .header {

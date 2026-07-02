@@ -2,15 +2,19 @@
 import { navigation } from "../data/navigation.ts";
 ---
 
-<ul class="footer">
-  {
-    navigation.map(({ label, href }) => (
-      <li>
-        <a href={`#${href}`}>{label}</a>
-      </li>
-    ))
-  }
-</ul>
+<footer>
+  <nav aria-label="Навигация в подвале">
+    <ul class="footer">
+      {
+        navigation.map(({ label, href }) => (
+          <li>
+            <a href={`#${href}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</footer>
 
 <style>
   .footer {
