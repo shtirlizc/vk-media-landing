@@ -5,15 +5,15 @@ import Head from "../components/head.astro";
 import Header from "../components/header.astro";
 import Footer from "../components/footer.astro";
 
-import Hero from "../blocks/1-business/hero/index.astro";
-import Products from "../blocks/1-business/products/index.astro";
-import Group from "../blocks/1-business/group/index.astro";
+import Hero from "../blocks/business/hero/index.astro";
+import Products from "../blocks/business/products/index.astro";
+import Group from "../blocks/business/group/index.astro";
 
-import People from "../blocks/2-team/people/index.astro";
-import Culture from "../blocks/2-team/culture/index.astro";
-import MoreThan from "../blocks/2-team/more-than/index.astro";
+import People from "../blocks/team/people/index.astro";
+import Culture from "../blocks/team/culture/index.astro";
+import MoreThan from "../blocks/team/more-than/index.astro";
 
-import Useful from "../blocks/3-useful/index.astro";
+import Useful from "../blocks/useful/index.astro";
 ---
 
 <html lang="ru">
@@ -23,15 +23,21 @@ import Useful from "../blocks/3-useful/index.astro";
     <Header />
 
     <main>
-      <Hero />
-      <Products />
-      <Group />
+      <section id="business-group" aria-labelledby="business-title">
+        <Hero />
+        <Products />
+        <Group />
+      </section>
 
-      <People />
-      <Culture />
-      <MoreThan />
+      <section id="team" aria-labelledby="team-title">
+        <People />
+        <Culture />
+        <MoreThan />
+      </section>
 
-      <Useful />
+      <section id="useful" aria-labelledby="useful-title">
+        <Useful />
+      </section>
     </main>
 
     <Footer />
