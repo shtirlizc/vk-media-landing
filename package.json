@@ -12,6 +12,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.0.5"
+    "astro": "^7.0.5",
+    "swiper": "^14.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.4",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }
