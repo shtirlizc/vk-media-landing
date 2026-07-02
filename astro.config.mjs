@@ -3,6 +3,8 @@ import { defineConfig, fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://shtirlizc.github.io',
+  base: '/vk-media-landing',
   fonts: [
     {
       provider: fontProviders.local(),
