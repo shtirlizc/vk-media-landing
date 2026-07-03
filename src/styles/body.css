@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+*::selection {
+  color: var(--color-text-primary);
+  background-color: var(--color-primary);
+}
+
 :root {
   background-color: var(--color-bg-main);
   color: var(--color-text-primary);
