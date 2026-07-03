@@ -1,0 +1,73 @@
+---
+interface Props {
+  href: string;
+  inline?: boolean;
+}
+
+const { href, inline = false } = Astro.props;
+---
+
+<a href={href} class:list={[`button`, inline && "inline"]}
+  ><span><slot /></span></a
+>
+
+<style>
+  .button {
+    --height: 40px;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    height: var(--height);
+    line-height: var(--height);
+    border-radius: calc(var(--height) / 2);
+    padding: 0 var(--space40);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    transition: all 0.2s;
+
+    /* desktop */
+    @media (width >= 991px) {
+      --height: 48px;
+
+      font-size: 14px;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        &::before {
+          transform: translateY(50%);
+        }
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 200%;
+      width: 100%;
+      background-image: linear-gradient(
+        180deg,
+        #01040b 11.4%,
+        #01040b 78%,
+        #0a2971 92.25%
+      );
+      transition: transform var(--transition-long);
+    }
+
+    span {
+      position: relative;
+    }
+
+    &.inline {
+      display: inline-flex;
+    }
+  }
+</style>

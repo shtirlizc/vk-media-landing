@@ -29,6 +29,11 @@
   --scrollbar-color: var(--color-primary);
   --scrollbar-side: var(--space8);
 
-  --container: 1300px;
-  --header: 64px;
+  --container: 1120px;
+  --header: 80px;
+
+  /* desktop */
+  @media (width >= 991px) {
+    --header: 104px;
+  }
 }
