@@ -1,23 +1,67 @@
 ---
 import { navigation } from "../data/navigation.ts";
+import Logo from "../assets/images/logo.svg";
+import Container from "./container.astro";
 ---
 
-<header>
-  <nav aria-label="Основная навигация">
-    <ul class="header">
-      {
-        navigation.map(({ label, href }) => (
-          <li>
-            <a href={`#${href}`}>{label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+<header class="header">
+  <Container>
+    <div class="header__content">
+      <a href="#top" class="header__logo">
+        <Logo />
+      </a>
+
+      <div>
+        <nav aria-label="Основная навигация" class="header__nav">
+          <ul class="nav">
+            {
+              navigation.map(({ label, href }) => (
+                <li>
+                  <a href={`#${href}`}>{label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </Container>
 </header>
 
 <style>
   .header {
     list-style: none;
+
+    & .header__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: var(--header);
+    }
+
+    & .header__logo {
+      color: var(--color-text-primary);
+      transition: color var(--transition);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    & .header__nav {
+    }
+
+    & .header__burger {
+    }
+  }
+
+  .nav {
+    list-style: none;
+    padding: 0;
+
+    /* desktop */
+    @media (width >= 991px) {
+      display: flex;
+    }
   }
 </style>
