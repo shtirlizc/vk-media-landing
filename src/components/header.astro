@@ -1,6 +1,8 @@
 ---
 import { navigation } from "../data/navigation.ts";
 import Logo from "../assets/images/logo.svg";
+import MenuIcon from "../assets/images/menu.svg";
+import CloseIcon from "../assets/images/x.svg";
 import Container from "./container.astro";
 ---
 
@@ -11,8 +13,32 @@ import Container from "./container.astro";
         <Logo />
       </a>
 
-      <div>
-        <nav aria-label="Основная навигация" class="header__nav">
+      <div class="header__actions">
+        <button
+          type="button"
+          class="header__burger"
+          aria-label="Открыть меню"
+          aria-controls="header-nav"
+          aria-expanded="false"
+          data-header-burger
+        >
+          <MenuIcon
+            class="header__burger-icon"
+            aria-hidden="true"
+            data-burger-icon
+          />
+          <CloseIcon
+            class="header__burger-source"
+            aria-hidden="true"
+            data-burger-close-source
+          />
+        </button>
+
+        <nav
+          id="header-nav"
+          aria-label="Основная навигация"
+          class="header__nav"
+        >
           <ul class="nav">
             {
               navigation.map(({ label, href }) => (
@@ -30,7 +56,36 @@ import Container from "./container.astro";
 
 <style>
   .header {
-    list-style: none;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: var(--color-bg-main);
+    box-shadow: 0 3px 58.6px 0 var(--color-primary);
+    border-radius: 0 0 var(--border-radius20) var(--border-radius20);
+    transition: border-radius var(--transition);
+
+    /* desktop */
+    @media (width >= 991px) {
+      border-radius: 0 0 calc(2 * var(--border-radius16))
+        calc(2 * var(--border-radius16));
+    }
+
+    @supports ((animation-timeline: scroll()) and (animation-range: 0 100px)) {
+      box-shadow: 0 3px 58.6px 0 transparent;
+      animation: header 1s linear;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100px;
+      animation-fill-mode: both;
+    }
+
+    &.is-open {
+      border-radius: 0;
+
+      /* tablet */
+      @media (width >= 768px) {
+        border-radius: 0 0 var(--border-radius20) var(--border-radius20);
+      }
+    }
 
     & .header__content {
       display: flex;
@@ -48,20 +103,210 @@ import Container from "./container.astro";
       }
     }
 
+    & .header__actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
     & .header__nav {
+      position: fixed;
+      top: calc(var(--header) - 1px);
+      left: 0;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--color-bg-main);
+      transform: translate(110%);
+      transition: transform var(--transition-long);
+    }
+
+    & .header__nav.is-open {
+      transform: translate(0);
     }
 
     & .header__burger {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      color: var(--color-text-primary);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      transition: color var(--transition);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    & .header__burger-icon {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+
+    & .header__burger-source {
+      display: none;
+    }
+
+    /* tablet */
+    @media (width >= 768px) {
+      & .header__actions {
+        gap: var(--space32);
+      }
+
+      & .header__nav {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background-color: transparent;
+        transform: none;
+      }
+
+      & .header__burger {
+        display: none;
+      }
+    }
+  }
+
+  @keyframes header {
+    from {
+      box-shadow: 0 3px 58.6px 0 transparent;
+    }
+
+    to {
+      box-shadow: 0 3px 58.6px 0 var(--color-primary);
     }
   }
 
   .nav {
     list-style: none;
-    padding: 0;
+    padding: 0 0 25vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space20);
+    height: 100%;
 
-    /* desktop */
-    @media (width >= 991px) {
+    /* tablet */
+    @media (width >= 768px) {
+      height: auto;
+      flex-direction: row;
+    }
+
+    & a {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 83%;
+      color: var(--color-text-primary);
+      transition: color var(--transition);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    /* tablet */
+    @media (width >= 768px) {
       display: flex;
+      gap: var(--space32);
+      padding: 0;
     }
   }
 </style>
+
+<script>
+  import gsap from "gsap";
+  import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-header-burger]",
+  );
+
+  buttons.forEach((button) => {
+    const iconPath = button.querySelector<SVGPathElement>(
+      "[data-burger-icon] path",
+    );
+    const closePath = button.querySelector<SVGPathElement>(
+      "[data-burger-close-source] path",
+    );
+    const navId = button.getAttribute("aria-controls");
+    const nav = navId ? document.getElementById(navId) : null;
+    const header = button.closest<HTMLElement>(".header");
+
+    if (!iconPath || !closePath || !nav || !header) {
+      return;
+    }
+
+    const menuPath = iconPath.getAttribute("d");
+    const xPath = closePath.getAttribute("d");
+
+    if (!menuPath || !xPath) {
+      return;
+    }
+
+    let isOpen = false;
+
+    const setButtonState = () => {
+      button.setAttribute("aria-expanded", String(isOpen));
+      button.setAttribute(
+        "aria-label",
+        isOpen ? "Закрыть меню" : "Открыть меню",
+      );
+    };
+
+    const animateIcon = () => {
+      gsap.to(iconPath, {
+        duration: 0.28,
+        ease: "power2.inOut",
+        morphSVG: isOpen ? xPath : menuPath,
+      });
+    };
+
+    const animateNav = () => {
+      header.classList.toggle("is-open", isOpen);
+      nav.classList.toggle("is-open", isOpen);
+    };
+
+    const closeMenu = () => {
+      if (!isOpen) {
+        return;
+      }
+
+      isOpen = false;
+      setButtonState();
+      animateIcon();
+      animateNav();
+    };
+
+    const resetDesktopState = () => {
+      isOpen = false;
+      setButtonState();
+      header.classList.remove("is-open");
+      nav.classList.remove("is-open");
+      gsap.set(nav, { clearProps: "all" });
+      gsap.set(iconPath, { attr: { d: menuPath } });
+    };
+
+    button.addEventListener("click", () => {
+      isOpen = !isOpen;
+      setButtonState();
+      animateIcon();
+      animateNav();
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    resetDesktopState();
+  });
+</script>

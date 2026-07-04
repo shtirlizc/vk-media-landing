@@ -1,6 +1,6 @@
 :root {
   --color-text-primary: #ffffff;
-  --color-bg-main: #000000;
+  --color-bg-main: #01040b;
   --color-primary: #0062ff;
 
   --space: 4px;
@@ -20,6 +20,7 @@
   --border-radius8: calc(var(--border-radius) * 2);
   --border-radius12: calc(var(--border-radius) * 3);
   --border-radius16: calc(var(--border-radius) * 4);
+  --border-radius20: calc(var(--border-radius) * 5);
 
   --transition-short: 0.1s;
   --transition: 0.2s;
