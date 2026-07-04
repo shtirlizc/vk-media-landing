@@ -1,10 +1,11 @@
 ---
 import { navigation } from "../data/navigation.ts";
+import Container from "./container.astro";
 ---
 
-<footer>
-  <nav aria-label="Навигация в подвале">
-    <ul class="footer">
+<footer class="footer">
+  <nav class="footer__nav" aria-label="Навигация в подвале">
+    <ul>
       {
         navigation.map(({ label, href }) => (
           <li>
@@ -18,6 +19,38 @@ import { navigation } from "../data/navigation.ts";
 
 <style>
   .footer {
-    list-style: none;
+    padding: var(--space40) var(--space16);
+    max-width: 430px;
+    width: 100%;
+    margin-inline: auto;
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      max-width: 550px;
+    }
+
+    & .footer__nav {
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+          opacity: 0.5;
+          font-family: var(--font-secondary), sans-serif;
+          font-size: 12px;
+          line-height: 83%;
+          text-transform: lowercase;
+          color: var(--color-text-primary);
+          transition: opacity var(--transition);
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
   }
 </style>
