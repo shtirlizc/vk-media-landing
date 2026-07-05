@@ -1,0 +1,90 @@
+---
+import Link from "../../components/link.astro";
+export interface ICard {
+  title: string;
+  description: string;
+  style: string;
+  links: { href: string; label: string }[];
+}
+
+interface Props {
+  card: ICard;
+}
+
+const { card } = Astro.props;
+const { title, description, style, links } = card;
+---
+
+<article class="card">
+  <div class="card__bg" style={style}></div>
+  <h4>{title}</h4>
+  <p>{description}</p>
+  <ul class="card__links">
+    {
+      links.map(({ href, label }) => (
+        <li>
+          <Link href={href} target="_blank">
+            {label}
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    aspect-ratio: 328 / 208;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius20);
+    padding: var(--space16) 18px var(--space20);
+    background-color: #1e1e1e;
+    background-image: linear-gradient(180deg, #000000 0%, #0062ff 100%);
+    overflow: hidden;
+
+    & .card__bg {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    h4 {
+      position: relative;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 100%;
+    }
+
+    p {
+      position: relative;
+      margin-top: var(--space8);
+      margin-bottom: 34px;
+      font-family: var(--font-secondary), sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 110%;
+      text-transform: lowercase;
+    }
+
+    & .card__links {
+      position: relative;
+      list-style: none;
+      padding: 0;
+      margin-top: auto;
+      margin-bottom: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space8) 10px;
+      direction: rtl;
+
+      li {
+        direction: ltr;
+      }
+    }
+  }
+</style>

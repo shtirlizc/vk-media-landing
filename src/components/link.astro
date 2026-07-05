@@ -2,14 +2,15 @@
 interface Props {
   href: string;
   inline?: boolean;
+  target?: string;
 }
 
-const { href, inline = false } = Astro.props;
+const { href, inline = false, target } = Astro.props;
 ---
 
-<a href={href} class:list={[`button`, inline && "inline"]}
-  ><span><slot /></span></a
->
+<a href={href} target={target} class:list={[`button`, inline && "inline"]}>
+  <span><slot /></span>
+</a>
 
 <style>
   .button {
@@ -23,13 +24,12 @@ const { href, inline = false } = Astro.props;
     font-family: var(--font-secondary), sans-serif;
     font-weight: 500;
     font-size: 12px;
+    line-height: 100%;
     height: var(--height);
-    line-height: var(--height);
     border-radius: calc(var(--height) / 2);
     padding: 0 var(--space40);
     color: var(--color-text-primary);
     overflow: hidden;
-    transition: all 0.2s;
 
     /* desktop */
     @media (width >= 991px) {

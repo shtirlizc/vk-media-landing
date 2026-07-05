@@ -2,16 +2,80 @@
 import { Image } from "astro:assets";
 import Title from "../../components/title.astro";
 import decorImg from "../../assets/images/decor/useful.webp";
+import Card, { type ICard } from "./card.astro";
+import Container from "../../components/container.astro";
+import img1 from "./assets/1.webp";
+import img2 from "./assets/2.webp";
+import img3 from "./assets/3.webp";
+import img4 from "./assets/4.webp";
+
+const cards: ICard[] = [
+  {
+    title: "обзор событий",
+    description: "Здесь можно следить за новостями и важными анонсами",
+    style: `background-image: url('${img1.src}'); background-repeat: no-repeat; background-position: top right; background-size: 116px auto;`,
+    links: [
+      { href: "#", label: "Канал «Согласовано»" },
+      { href: "#", label: "Канал «Все по делу»" },
+      { href: "#", label: "Календарь мероприятий" },
+      { href: "#", label: "Чат «Обучение для команды»" },
+    ],
+  },
+  {
+    title: "умный помощник Василиса",
+    description:
+      "Даст ответ по самым разным вопросам — от оформления отпуска до замены мышки",
+    style: `background-image: url('${img2.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 254px auto;`,
+    links: [{ href: "#", label: "Перейти" }],
+  },
+  {
+    title: "онбординг",
+    description: "Мастхэв для новичков, чтобы адаптироваться в команде",
+    style: `background-image: url('${img3.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 253px auto;`,
+    links: [{ href: "#", label: "Перейти" }],
+  },
+  {
+    title: "дроп стор",
+    description: "магазин мерча для сотрудников нашей бизнес-группы",
+    style: `background-image: url('${img4.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 242px auto;`,
+    links: [{ href: "#", label: "Перейти" }],
+  },
+];
 ---
 
 <div class="useful">
-  <Title id="useful-title">
-    Больше полезного о нас
-    <Image slot="image" src={decorImg} width="145" height="145" alt="" />
-  </Title>
+  <Container>
+    <div class="useful__head">
+      <Title id="useful-title">
+        Больше полезного о нас
+        <Image
+          slot="image"
+          src={decorImg}
+          width="145"
+          height="145"
+          alt=""
+          loading="lazy"
+        />
+      </Title>
+    </div>
+
+    <div class="useful__body">
+      {cards.map((card) => <Card card={card} />)}
+    </div>
+  </Container>
 </div>
 
 <style>
   .useful {
+    & .useful__body {
+      display: grid;
+      gap: var(--space16);
+
+      /* tablet */
+      @media (width >= 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space20);
+      }
+    }
   }
 </style>
