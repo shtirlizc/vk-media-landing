@@ -184,11 +184,23 @@ const slides: ISlide[] = [
                 background-color: var(--bg-active);
                 transition: transform var(--transition);
               }
+
+              &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--color-primary);
+                opacity: 0;
+                transition: opacity var(--transition);
+              }
             }
 
             &:hover {
-              span {
-                background-color: var(--bg-active);
+              span::after {
+                opacity: 1;
               }
             }
           }

@@ -21,27 +21,33 @@ export function moreThan() {
     },
     on: {
       autoplayTimeLeft(_, __, progress) {
-        pagination?.style.setProperty("--progress", `${(1 - progress) * 100}%`);
+        pagination?.style.setProperty("--progress", String(1 - progress));
       },
     },
   });
 
+  bullets.forEach((bullet) => {
+    const index = Number(bullet.dataset.index);
+
+    bullet.addEventListener("click", () => {
+      swiper.slideToLoop(index);
+    });
+  });
+
   swiper.on("slideChange", (event) => {
+    setActiveBullet(event.realIndex);
+  });
+
+  function setActiveBullet(index: number) {
     const currentBullet = bullets.find(
-      (bullet) => bullet.dataset.index === String(event.activeIndex),
+      (bullet) => bullet.dataset.index === String(index),
     );
 
     if (currentBullet) {
-      const currentBullet = bullets.find(
-        (bullet) => bullet.dataset.index === String(event.activeIndex),
-      );
-
-      if (currentBullet) {
-        bullets.forEach((bullet) => {
-          bullet.classList.remove("active");
-        });
-        currentBullet.classList.add("active");
-      }
+      bullets.forEach((bullet) => {
+        bullet.classList.remove("active");
+      });
+      currentBullet.classList.add("active");
     }
-  });
+  }
 }
