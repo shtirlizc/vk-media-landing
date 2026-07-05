@@ -13,7 +13,7 @@ export function moreThan() {
   const swiper = new Swiper(".js-more-than-swiper", {
     modules: [Autoplay],
     loop: true,
-    speed: 500,
+    speed: 300,
     autoplay: {
       delay: 4000,
       disableOnInteraction: false,

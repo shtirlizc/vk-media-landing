@@ -99,8 +99,10 @@ import Container from "./container.astro";
       color: var(--color-text-primary);
       transition: color var(--transition);
 
-      &:hover {
-        color: var(--color-primary);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--color-primary);
+        }
       }
     }
 

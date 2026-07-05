@@ -198,9 +198,11 @@ const slides: ISlide[] = [
               }
             }
 
-            &:hover {
-              span::after {
-                opacity: 1;
+            @media (hover: hover) {
+              &:hover {
+                span::after {
+                  opacity: 1;
+                }
               }
             }
           }
