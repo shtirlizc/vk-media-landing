@@ -1,7 +1,17 @@
 ---
+import { Image } from "astro:assets";
 import Title from "../../components/title.astro";
+import decorImg from "../../assets/images/decor/useful.webp";
 ---
 
-<div>
-  <Title id="useful-title">Больше полезного о нас</Title>
+<div class="useful">
+  <Title id="useful-title">
+    Больше полезного о нас
+    <Image slot="image" src={decorImg} width="145" height="145" alt="" />
+  </Title>
 </div>
+
+<style>
+  .useful {
+  }
+</style>

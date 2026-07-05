@@ -8,7 +8,12 @@ const { title = "h2", id } = Astro.props;
 const TagName = title;
 ---
 
-<TagName id={id} class="title"><slot /></TagName>
+<TagName id={id} class="title">
+  <slot />
+  <div class="title__decor">
+    <slot name="image" />
+  </div>
+</TagName>
 
 <style>
   .title {
@@ -16,10 +21,27 @@ const TagName = title;
     font-size: 24px;
     line-height: 93%;
     text-transform: lowercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space24);
 
     /* desktop */
     @media (width >= 991px) {
       font-size: 44px;
+    }
+
+    & .title__decor {
+      display: none;
+
+      /* desktop */
+      @media (width >= 991px) {
+        display: revert;
+      }
+
+      &:empty {
+        display: none;
+      }
     }
   }
 </style>
