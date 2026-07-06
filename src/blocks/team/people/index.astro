@@ -1,15 +1,16 @@
 ---
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
-import decorImg from "../../../assets/images/decor/culture.webp";
+import decorImg from "../../../assets/images/decor/people.webp";
 import defaultPhoto from "./photos/default.png";
+import Container from "../../../components/container.astro";
 
 const rows = [8, 7, 6];
 const copies = [0, 1, 2, 3];
 ---
 
 <div class="people">
-  <Title id="team-title">
+  <Title id="people-title">
     Главное — люди
     <Image
       slot="image"
@@ -53,60 +54,89 @@ const copies = [0, 1, 2, 3];
 <style>
   .people {
     overflow: hidden;
-  }
+    margin-bottom: 80px;
 
-  .people__marquee {
-    display: grid;
-    margin-top: 32px;
-  }
+    & .people__marquee {
+      display: grid;
+      margin-top: 42px;
+    }
 
-  .people__row {
-    width: 100%;
-    overflow: hidden;
-  }
+    & .people__row {
+      width: 100%;
+      overflow: hidden;
 
-  .people__track {
-    display: flex;
-    width: max-content;
-    will-change: transform;
-    animation: people-marquee 45s linear infinite;
-  }
+      &:nth-child(even) .people__track {
+        animation-direction: reverse;
+      }
 
-  .people__row:nth-child(even) .people__track {
-    animation-direction: reverse;
-  }
+      &:hover .people__track,
+      &:focus-within .people__track {
+        animation-play-state: paused;
+      }
+    }
 
-  .people__row:hover .people__track,
-  .people__row:focus-within .people__track {
-    animation-play-state: paused;
-  }
+    & .people__track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: people-marquee 45s linear infinite;
+    }
 
-  .people__group {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 20px;
-    padding-right: 20px;
-  }
+    & .people__group {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 20px;
+      padding-right: 20px;
+    }
 
-  .people__photo {
-    width: 250px;
-    height: 250px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    object-fit: cover;
+    & .people__photo {
+      width: 77px;
+      height: 77px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      & .people__track {
+        animation-play-state: paused;
+        will-change: auto;
+      }
+    }
+
+    /* desktop */
+    @media (width >= 960px) {
+      margin-bottom: 155px;
+
+      & .people__photo {
+        width: 200px;
+        height: 200px;
+      }
+
+      & .people__marquee {
+        margin-top: 67px;
+      }
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      margin-bottom: 160px;
+
+      & .people__photo {
+        width: 250px;
+        height: 250px;
+      }
+
+      & .people__marquee {
+        margin-top: 67px;
+      }
+    }
   }
 
   @keyframes people-marquee {
     to {
       transform: translateX(-25%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .people__track {
-      animation-play-state: paused;
-      will-change: auto;
     }
   }
 </style>
