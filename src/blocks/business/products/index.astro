@@ -1,7 +1,281 @@
 ---
 import Title from "../../../components/title.astro";
+import Container from "../../../components/container.astro";
+
+import dzenLogo from "./assets/logos/dzen.svg";
+import maxLogo from "./assets/logos/max.svg";
+import okLogo from "./assets/logos/ok.svg";
+import clipsLogo from "./assets/logos/vk-clips.svg";
+import musicLogo from "./assets/logos/vk-music.svg";
+import videoLogo from "./assets/logos/vk-video.svg";
+import vkLogo from "./assets/logos/vk.svg";
+
+import stars1 from "./assets/decor/stars_1.webp";
+import stars2 from "./assets/decor/stars_2.webp";
+import stars3 from "./assets/decor/stars_3.webp";
+import stars4 from "./assets/decor/stars_4.webp";
+import stars5 from "./assets/decor/stars_5.webp";
+import stars6 from "./assets/decor/stars_6.webp";
+import stars7 from "./assets/decor/stars_7.webp";
+import stars8 from "./assets/decor/stars_8.webp";
+
+type Product = {
+  logo: ImageMetadata | string;
+  text: string;
+  width: number;
+  href: string;
+};
+
+type RowItem =
+  | { type: "product"; product: Product }
+  | { type: "decor"; image: ImageMetadata };
+
+const products = {
+  video: {
+    logo: videoLogo,
+    text: "фильмы, трансляции, эксклюзивные проекты",
+    width: 183,
+    href: "https://vkvideo.ru",
+  },
+  music: {
+    logo: musicLogo,
+    text: "музыка, аудиокниги, подкасты",
+    width: 159,
+    href: "https://music.vk.com",
+  },
+  max: {
+    logo: maxLogo,
+    text: "мессенджер нового поколения",
+    width: 183,
+    href: "https://max.ru",
+  },
+  clips: {
+    logo: clipsLogo,
+    text: "миллионы коротких вертикальных видео",
+    width: 190,
+    href: "https://vkclips.app/",
+  },
+  vk: {
+    logo: vkLogo,
+    text: "крупнейшая социальная сеть в России и СНГ",
+    width: 190,
+    href: "https://vk.com",
+  },
+  ok: {
+    logo: okLogo,
+    text: "территория общения и увлечений",
+    width: 170,
+    href: "https://ok.ru",
+  },
+  dzen: {
+    logo: dzenLogo,
+    text: "крупнейшая новостная платформа",
+    width: 179,
+    href: "https://dzen.ru",
+  },
+} satisfies Record<string, Product>;
+
+const product = (item: Product): RowItem => ({
+  type: "product",
+  product: item,
+});
+const decor = (image: ImageMetadata): RowItem => ({ type: "decor", image });
+
+const rows: RowItem[][] = [
+  [
+    decor(stars1),
+    product(products.video),
+    decor(stars2),
+    product(products.music),
+    decor(stars3),
+    product(products.max),
+  ],
+  [
+    decor(stars4),
+    product(products.clips),
+    decor(stars5),
+    product(products.vk),
+    decor(stars6),
+    product(products.ok),
+  ],
+  [
+    decor(stars5),
+    product(products.vk),
+    decor(stars6),
+    product(products.ok),
+    decor(stars7),
+    product(products.dzen),
+    decor(stars2),
+    product(products.music),
+  ],
+  [
+    decor(stars7),
+    product(products.dzen),
+    decor(stars1),
+    product(products.video),
+    decor(stars3),
+    product(products.max),
+    decor(stars8),
+    product(products.clips),
+  ],
+];
 ---
 
-<section aria-labelledby="products-title">
-  <Title title="h3" id="products-title">То, что мы создаём</Title>
+<section class="products" aria-labelledby="products-title">
+  <Container>
+    <Title title="h3" id="products-title">То, что мы создаём</Title>
+  </Container>
+
+  <div class="products__marquee">
+    {
+      rows.map((row) => (
+        <div class="products__row">
+          <div class="products__track">
+            {[false, true, true, true].map((isDuplicate) => (
+              <div
+                class="products__group"
+                aria-hidden={isDuplicate ? "true" : undefined}
+              >
+                {row.map((item) =>
+                  item.type === "decor" ? (
+                    <img
+                      class="products__decor"
+                      src={item.image.src}
+                      alt=""
+                      width="72"
+                      height="72"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <a
+                      class="products__card"
+                      href={item.product.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      tabindex={isDuplicate ? "-1" : undefined}
+                    >
+                      <img
+                        class="products__logo"
+                        src={
+                          typeof item.product.logo === "string"
+                            ? item.product.logo
+                            : item.product.logo.src
+                        }
+                        alt=""
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                      />
+                      <span style={`--product-width: ${item.product.width}px`}>
+                        {item.product.text}
+                      </span>
+                    </a>
+                  ),
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </section>
+
+<style>
+  .products {
+    overflow: hidden;
+    padding-bottom: 60px;
+  }
+
+  .products__marquee {
+    display: grid;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .products__row {
+    width: 100%;
+  }
+
+  .products__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: products-marquee 45s linear infinite;
+  }
+
+  .products__row:nth-child(even) .products__track {
+    animation-direction: reverse;
+  }
+
+  .products__row:hover .products__track,
+  .products__row:focus-within .products__track {
+    animation-play-state: paused;
+  }
+
+  .products__group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+  }
+
+  .products__card {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 20px;
+    min-height: 72px;
+    padding: 16px;
+    border-radius: 20px;
+    background: #101010;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-transform: lowercase;
+    color: var(--color-text-primary);
+    box-shadow: 0 3px 58.6px 0 transparent;
+    transition: box-shadow var(--transition-long) ease;
+
+    &:hover {
+      box-shadow: 0 3px 58.6px 0 #0062ff;
+    }
+  }
+
+  .products__card:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -4px;
+  }
+
+  .products__card span {
+    width: var(--product-width);
+  }
+
+  .products__logo {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .products__decor {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  @keyframes products-marquee {
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .products__track {
+      animation-play-state: paused;
+      will-change: auto;
+    }
+  }
+</style>

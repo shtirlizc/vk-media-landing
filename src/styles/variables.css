@@ -34,7 +34,7 @@
   --header: 80px;
 
   /* desktop */
-  @media (width >= 991px) {
+  @media (width >= 960px) {
     --header: 104px;
   }
 }
