@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import Container from "../../../components/container.astro";
 import decorImg from "./assets/decor.png";
 ---
 
@@ -40,21 +39,25 @@ import decorImg from "./assets/decor.png";
     position: relative;
     overflow: hidden;
     padding-block: var(--space48) var(--space32);
-    background:
-      radial-gradient(
-        ellipse 120% 170px at 50% 28px,
-        rgb(0 98 255 / 78%) 0,
-        rgb(0 98 255 / 34%) 42%,
-        transparent 76%
-      ),
-      radial-gradient(
-        ellipse 105% 220px at 50% 112px,
-        rgb(0 98 255 / 92%) 0,
-        rgb(0 98 255 / 48%) 31%,
-        rgb(0 98 255 / 12%) 61%,
-        transparent 78%
-      ),
-      var(--color-bg-main);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 140px;
+      left: 50%;
+      transform: translate(-50%);
+      width: 19627px;
+      height: 19761px;
+      background: radial-gradient(
+        93.7% 32.19% at 50.49% 25.96%,
+        rgba(1, 56, 146, 0) 78.75%,
+        #f3f8ff 79.93%,
+        #f3f7ff 80.61%,
+        #d7e6ff 95.9%
+      );
+      border: 46px solid #0162ff;
+      filter: blur(60px);
+    }
 
     & .hero__copy {
       position: relative;
@@ -111,32 +114,12 @@ import decorImg from "./assets/decor.png";
       margin-inline: auto;
       overflow: hidden;
       border-radius: var(--border-radius12);
-      background:
-        radial-gradient(
-          circle at 50% 49%,
-          rgb(53 72 103 / 80%),
-          transparent 26%
-        ),
-        linear-gradient(135deg, #020711 6%, #071b49 52%, #003687 100%);
     }
 
     & .hero__video::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          110deg,
-          transparent 48%,
-          rgb(45 118 255 / 28%) 49% 50%,
-          transparent 51%
-        ),
-        linear-gradient(
-          70deg,
-          transparent 55%,
-          rgb(45 118 255 / 22%) 56% 57%,
-          transparent 58%
-        );
     }
 
     & .hero__play {
@@ -160,22 +143,6 @@ import decorImg from "./assets/decor.png";
   /* desktop */
   @media (width >= 991px) {
     .hero {
-      background:
-        radial-gradient(
-          ellipse 88% 180px at 50% 32px,
-          rgb(0 98 255 / 76%) 0,
-          rgb(0 98 255 / 30%) 43%,
-          transparent 78%
-        ),
-        radial-gradient(
-          ellipse 82% 220px at 50% 132px,
-          rgb(0 98 255 / 92%) 0,
-          rgb(0 98 255 / 48%) 32%,
-          rgb(0 98 255 / 11%) 62%,
-          transparent 80%
-        ),
-        var(--color-bg-main);
-
       & .hero__eyebrow {
         margin-bottom: var(--space40);
         font-size: 16px;
