@@ -23,7 +23,11 @@ import Useful from "../blocks/useful/index.astro";
     <Header />
 
     <main>
-      <section id="business-group" aria-labelledby="business-title">
+      <section
+        id="business-group"
+        class="business-group"
+        aria-labelledby="business-title"
+      >
         <Hero />
         <Products />
         <Group />
@@ -45,3 +49,11 @@ import Useful from "../blocks/useful/index.astro";
     <script src="../scripts/_app.ts"></script>
   </body>
 </html>
+
+<style>
+  .business-group {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+</style>
