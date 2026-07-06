@@ -17,7 +17,15 @@ import Container from "../../../components/container.astro";
     </p>
   </div>
 
-  <Image class="hero__decor" src={decorImg} width="500" height="279" alt="" />
+  <Image
+    class="hero__decor"
+    src={decorImg}
+    width={822}
+    height={459}
+    widths={[288, 576, 822, 1644]}
+    sizes="(min-width: 960px) 822px, 288px"
+    alt=""
+  />
 
   <div class="hero__media">
     <video
@@ -236,30 +244,9 @@ import Container from "../../../components/container.astro";
         line-height: 93%;
       }
       & .hero__media {
-        width: calc(100% - 90px);
+        min-width: 1121px;
         margin-top: -220px;
       }
     }
   }
 </style>
-
-<script>
-  const media = document.querySelector<HTMLElement>(".hero__media");
-  const video = media?.querySelector<HTMLVideoElement>(".hero__video");
-  const playButton = media?.querySelector<HTMLButtonElement>(".hero__play");
-
-  playButton?.addEventListener("click", async () => {
-    if (!video) return;
-
-    try {
-      await video.play();
-      video.controls = true;
-    } catch {
-      media?.classList.remove("is-playing");
-    }
-  });
-
-  video?.addEventListener("play", () => media?.classList.add("is-playing"));
-  video?.addEventListener("pause", () => media?.classList.remove("is-playing"));
-  video?.addEventListener("ended", () => media?.classList.remove("is-playing"));
-</script>
