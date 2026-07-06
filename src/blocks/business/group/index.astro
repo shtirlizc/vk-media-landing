@@ -64,12 +64,17 @@ const cards = [
 
   .group__viewport {
     --card-width: min(231px, calc(100vw - 96px));
-    --card-radius: 10px;
+    --card-radius: 20px;
     --deck-height: calc(var(--card-width) * 328 / 231);
 
     position: relative;
     min-height: var(--deck-height);
     margin-top: var(--space32);
+
+    /* desktop */
+    @media (width >= 960px) {
+      --card-radius: 32px;
+    }
   }
 
   .group__deck {
@@ -83,20 +88,19 @@ const cards = [
     left: 0;
     isolation: isolate;
     overflow: hidden;
+    box-shadow: 0 48px 166px 0 #00000040;
+    background-color: #202020;
     width: var(--card-width);
+    display: flex;
+    align-items: flex-end;
     aspect-ratio: 231 / 328;
     padding: var(--space16);
     border-radius: var(--card-radius);
-    background:
-      radial-gradient(circle at 28% 22%, #8b79ff 0 12%, transparent 34%),
-      radial-gradient(circle at 58% 18%, #7bc3ff 0 9%, transparent 32%),
-      linear-gradient(135deg, #11131c 0%, #070912 45%, #101010 100%);
     color: var(--color-text-primary);
     transform-origin: left center;
     will-change: transform, filter, opacity;
   }
 
-  .group__card::before,
   .group__card::after {
     content: "";
     position: absolute;
@@ -104,43 +108,12 @@ const cards = [
     pointer-events: none;
   }
 
-  .group__card::before {
-    z-index: -2;
-    background:
-      radial-gradient(
-        ellipse at 31% 17%,
-        rgba(255, 255, 255, 0.72) 0 8%,
-        transparent 24%
-      ),
-      radial-gradient(
-        ellipse at 48% 25%,
-        rgba(49, 155, 255, 0.6) 0 12%,
-        transparent 31%
-      );
-    opacity: 0.72;
-  }
-
-  .group__card::after {
-    z-index: -1;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 26%,
-      rgba(0, 0, 0, 0.82) 100%
-    );
-    opacity: 0;
-    transition: opacity var(--transition-long) ease;
-  }
-
   .group__card.is-active::after {
     opacity: 1;
   }
 
   .group__card p {
-    position: absolute;
-    right: var(--space16);
-    bottom: var(--space20);
-    left: var(--space16);
-    max-width: 20ch;
+    max-width: 100%;
     font-family: var(--font-secondary), sans-serif;
     font-size: 13px;
     font-weight: 500;
@@ -170,7 +143,18 @@ const cards = [
       right: var(--space24);
       bottom: var(--space24);
       left: var(--space24);
-      font-size: 16px;
+      font-size: 12px;
+      line-height: 100%;
+
+      /* desktop */
+      @media (width >= 960px) {
+        font-size: 18px;
+      }
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        font-size: 20px;
+      }
     }
   }
 

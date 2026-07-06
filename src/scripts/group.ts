@@ -106,7 +106,7 @@ function getSlots(cardWidth: number, deckWidth: number, mode: StackMode): Slot[]
   if (mode === "mobile") {
     return [
       { x: 0, scale: 1, opacity: 1, blur: 0 },
-      { x: cardWidth * 0.82, scale: 0.86, opacity: 0.58, blur: 3 },
+      { x: cardWidth * 0.82, scale: 0.86, opacity: 1, blur: 3 },
     ];
   }
 
@@ -115,9 +115,9 @@ function getSlots(cardWidth: number, deckWidth: number, mode: StackMode): Slot[]
 
   return [
     { x: 0, scale: 1, opacity: 1, blur: 0 },
-    { x: lastX * 0.42, scale: 0.82, opacity: 0.72, blur: 2.5 },
-    { x: lastX * 0.69, scale: 0.7, opacity: 0.48, blur: 5 },
-    { x: lastX, scale: lastScale, opacity: 0.32, blur: 7 },
+    { x: lastX * 0.42, scale: 0.82, opacity: 1, blur: 2.5 },
+    { x: lastX * 0.69, scale: 0.7, opacity: 1, blur: 5 },
+    { x: lastX, scale: lastScale, opacity: 1, blur: 7 },
   ];
 }
 
