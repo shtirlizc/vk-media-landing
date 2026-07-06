@@ -1,24 +1,34 @@
 ---
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
+import card1Img from "./assets/1.webp";
+import card2Img from "./assets/2.webp";
+import card3Img from "./assets/3.webp";
+import card4Img from "./assets/4.webp";
+import card5Img from "./assets/5.webp";
 
 const cards = [
   {
+    image: card1Img,
     title:
       "Видеосообщения в мессенджере MAX работают на базе платформы VK Видео",
   },
   {
+    image: card2Img,
     title:
       "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
   },
   {
+    image: card3Img,
     title:
       "Единая панель VK Games для публикации и управления играми для ВКонтакте и ОК",
   },
   {
+    image: card4Img,
     title: "Интеграция новостей Дзена в ОК",
   },
   {
+    image: card5Img,
     title:
       "VK ID — единый сервис авторизации в OK, ВКонтакте и на других платформах",
   },
@@ -35,12 +45,16 @@ const cards = [
       <div class="group__viewport">
         <div class="group__deck" data-group-deck>
           {
-            cards.map(({ title }, index) => (
+            cards.map(({ image, title }, index) => (
               <article
                 class:list={["group__card", index === 0 && "is-active"]}
                 data-group-card
               >
                 <p>{title}</p>
+                <div
+                  class="group__bg"
+                  style={`background-image: url("${image.src}")`}
+                />
               </article>
             ))
           }
@@ -101,18 +115,44 @@ const cards = [
     will-change: transform, filter, opacity;
   }
 
-  .group__card::after {
+  .group__card::before {
     content: "";
     position: absolute;
+    z-index: 0;
     inset: 0;
     pointer-events: none;
+    width: 90%;
+    height: 90%;
+    top: -40%;
+    left: -40%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #0062ff 0%, #50337f 100%);
+    filter: blur(80px);
+    opacity: 0;
+    transition: opacity var(--transition-long);
   }
 
-  .group__card.is-active::after {
+  .group__bg {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 304px auto;
+  }
+
+  .group__card.is-active::before {
     opacity: 1;
   }
 
   .group__card p {
+    z-index: 2;
     max-width: 100%;
     font-family: var(--font-secondary), sans-serif;
     font-size: 13px;
