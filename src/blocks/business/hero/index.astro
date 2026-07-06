@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import decorImg from "./assets/decor.png";
-import videoPoster from "./assets/buisness-video-preview.jpg";
-import Container from "../../../components/container.astro";
+import decorImg from "./assets/decor.webp";
+import videoPoster from "./assets/buisness-video-preview.webp";
+import PlayButton from "./assets/play-button.svg";
 ---
 
 <section class="hero" aria-labelledby="hero">
@@ -39,12 +39,7 @@ import Container from "../../../components/container.astro";
     </video>
 
     <button class="hero__play" type="button" aria-label="Запустить видео">
-      <img
-        src={`${import.meta.env.BASE_URL}play-button.svg`}
-        width="22"
-        height="26"
-        alt="play_button"
-      />
+      <PlayButton />
     </button>
   </div>
 </section>
@@ -148,11 +143,12 @@ import Container from "../../../components/container.astro";
       border: 0;
       background: transparent;
       cursor: pointer;
-      transition: transform var(--transition);
+      color: var(--color-text-primary);
+      transition: color var(--transition);
     }
 
     & .hero__play:hover {
-      transform: scale(1.06);
+      color: var(--color-primary);
     }
 
     & .hero__play:focus-visible {

@@ -184,6 +184,7 @@ const rows: RowItem[][] = [
 <style>
   .products {
     overflow: hidden;
+    padding-bottom: 60px;
   }
 
   .products__marquee {
@@ -194,7 +195,6 @@ const rows: RowItem[][] = [
 
   .products__row {
     width: 100%;
-    overflow: hidden;
   }
 
   .products__track {
@@ -230,17 +230,17 @@ const rows: RowItem[][] = [
     padding: 16px;
     border-radius: 20px;
     background: #101010;
-    color: #fff;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.1;
     text-transform: lowercase;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
+    color: var(--color-text-primary);
+    box-shadow: 0 3px 58.6px 0 transparent;
+    transition: box-shadow var(--transition-long) ease;
 
-  .products__card:hover {
-    opacity: 0.8;
+    &:hover {
+      box-shadow: 0 3px 58.6px 0 #0062ff;
+    }
   }
 
   .products__card:focus-visible {
