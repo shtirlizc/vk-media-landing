@@ -17,7 +17,7 @@
   font-size: 20px;
   font-family: var(--font-primary), sans-serif;
   font-synthesis: none;
-  color-scheme: dark light;
+  color-scheme: dark;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
