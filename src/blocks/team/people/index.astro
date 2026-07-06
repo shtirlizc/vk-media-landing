@@ -2,9 +2,13 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/culture.webp";
+import defaultPhoto from "./photos/default.png";
+
+const rows = [8, 7, 6];
+const copies = [0, 1, 2, 3];
 ---
 
-<div>
+<div class="people">
   <Title id="team-title">
     Главное — люди
     <Image
@@ -16,4 +20,93 @@ import decorImg from "../../../assets/images/decor/culture.webp";
       loading="lazy"
     />
   </Title>
+
+  <div class="people__marquee">
+    {
+      rows.map((itemsCount) => (
+        <div class="people__row">
+          <div class="people__track">
+            {copies.map((copyIndex) => (
+              <div
+                class="people__group"
+                aria-hidden={copyIndex > 0 ? "true" : undefined}
+              >
+                {Array.from({ length: itemsCount }).map(() => (
+                  <Image
+                    class="people__photo"
+                    src={defaultPhoto}
+                    width="250"
+                    height="250"
+                    alt=""
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </div>
+
+<style>
+  .people {
+    overflow: hidden;
+  }
+
+  .people__marquee {
+    display: grid;
+    margin-top: 32px;
+  }
+
+  .people__row {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .people__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: people-marquee 45s linear infinite;
+  }
+
+  .people__row:nth-child(even) .people__track {
+    animation-direction: reverse;
+  }
+
+  .people__row:hover .people__track,
+  .people__row:focus-within .people__track {
+    animation-play-state: paused;
+  }
+
+  .people__group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 20px;
+    padding-right: 20px;
+  }
+
+  .people__photo {
+    width: 250px;
+    height: 250px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @keyframes people-marquee {
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .people__track {
+      animation-play-state: paused;
+      will-change: auto;
+    }
+  }
+</style>
