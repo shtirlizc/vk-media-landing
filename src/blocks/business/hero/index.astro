@@ -6,41 +6,39 @@ import Container from "../../../components/container.astro";
 ---
 
 <section class="hero" aria-labelledby="hero">
-  <Container>
-    <div class="hero__copy">
-      <p class="hero__eyebrow">Бизнес-группа</p>
+  <div class="hero__copy">
+    <p class="hero__eyebrow">Бизнес-группа</p>
 
-      <h1 class="hero__title">«Социальные платформы и медиаконтент»</h1>
+    <h1 class="hero__title">«Социальные платформы и медиаконтент»</h1>
 
-      <p class="hero__description">
-        Мы — большая часть VK. Создаём и развиваем ключевые соцсети,
-        медиасервисы и развлекательные проекты.
-      </p>
-    </div>
+    <p class="hero__description">
+      Мы — большая часть VK. Создаём и развиваем ключевые соцсети, медиасервисы
+      и развлекательные проекты.
+    </p>
+  </div>
 
-    <Image class="hero__decor" src={decorImg} width="500" height="279" alt="" />
+  <Image class="hero__decor" src={decorImg} width="500" height="279" alt="" />
 
-    <div class="hero__media">
-      <video
-        class="hero__video"
-        src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
-        title="Видео о бизнес-группе"
-        preload="metadata"
-        poster={videoPoster.src}
-        playsinline
-      >
-      </video>
+  <div class="hero__media">
+    <video
+      class="hero__video"
+      src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
+      title="Видео о бизнес-группе"
+      preload="metadata"
+      poster={videoPoster.src}
+      playsinline
+    >
+    </video>
 
-      <button class="hero__play" type="button" aria-label="Запустить видео">
-        <img
-          src={`${import.meta.env.BASE_URL}play-button.svg`}
-          width="22"
-          height="26"
-          alt="play_button"
-        />
-      </button>
-    </div>
-  </Container>
+    <button class="hero__play" type="button" aria-label="Запустить видео">
+      <img
+        src={`${import.meta.env.BASE_URL}play-button.svg`}
+        width="22"
+        height="26"
+        alt="play_button"
+      />
+    </button>
+  </div>
 </section>
 
 <style>
@@ -52,33 +50,12 @@ import Container from "../../../components/container.astro";
     align-items: center;
     overflow: hidden;
     width: 100%;
-    background: var(--color-bg-main);
     padding-block: var(--space48) var(--space32);
 
     &::before {
       content: "";
       position: absolute;
-      top: 140px;
-      left: 50%;
-      transform: translate(-50%);
-      width: 19627px;
-      height: 19761px;
-      background: radial-gradient(
-        93.7% 32.19% at 50.49% 25.96%,
-        rgba(1, 56, 146, 0) 78.75%,
-        #f3f8ff 79.93%,
-        #f3f7ff 80.61%,
-        #d7e6ff 95.9%
-      );
-      border: 46px solid #0162ff;
-      filter: blur(60px);
-    }
-
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 140px;
+      top: 160px;
       left: 50%;
       transform: translate(-50%);
       width: 19627px;
@@ -128,23 +105,24 @@ import Container from "../../../components/container.astro";
     }
 
     & .hero__decor {
-      z-index: 1;
       align-self: flex-end;
-      width: 280px;
+      width: 288px;
       max-width: none;
       height: auto;
       margin: 0;
-      transform: translateX(133px) rotate(-5deg);
+      transform: translateX(40px) rotate(-5deg);
     }
 
     & .hero__media {
       position: relative;
       z-index: 3;
-      width: 100%;
-      margin-top: -80px;
+      width: calc(100% - 30px);
+      margin-inline: 20px;
+      margin-top: -72px;
       aspect-ratio: 328 / 211;
       overflow: hidden;
-      border-radius: var(--border-radius12);
+      border-radius: 20px;
+      clip-path: inset(0 round 20px);
       background-color: #071b49;
     }
 
@@ -153,27 +131,31 @@ import Container from "../../../components/container.astro";
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 20px;
+      clip-path: inset(0 round 20px);
+    }
 
     & .hero__play {
       position: absolute;
-      inset: 50% auto auto 50%;
+      inset: 0;
       display: grid;
       place-items: center;
       width: 48px;
       height: 48px;
+      margin: auto;
       padding: 0;
       border: 0;
       background: transparent;
       color: var(--color-text-primary);
       cursor: pointer;
-      transform: translate(-50%, -50%);
+      transform: scale(1);
       transition:
         transform var(--transition),
         opacity var(--transition);
     }
 
     & .hero__play:hover {
-      transform: translate(-50%, -50%) scale(1.06);
+      transform: scale(1.06);
     }
 
     & .hero__play:focus-visible {
@@ -183,8 +165,8 @@ import Container from "../../../components/container.astro";
 
     & .hero__play img {
       display: block;
-      width: 26px;
-      height: 31px;
+      width: 22px;
+      height: 26px;
     }
 
     & .hero__media.is-playing .hero__play {
@@ -195,36 +177,43 @@ import Container from "../../../components/container.astro";
   }
 
   /* desktop */
-  @media (width >= 991px) {
+  @media (width >= 960px) {
     .hero {
       &::before {
-        top: -96px;
-        width: max(100%, 1600px);
-        height: 650px;
-        filter: blur(42px);
+        top: 200px;
       }
 
       & .hero__eyebrow {
         margin-bottom: var(--space40);
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 24px;
       }
 
       & .hero__title {
-        font-size: 36px;
-        line-height: 83%;
+        font-size: 44px;
+        line-height: 93%;
       }
 
       & .hero__description {
         max-width: none;
         margin-top: var(--space44);
-        font-size: 20px;
-        line-height: 82%;
+        font-size: 24px;
+        line-height: 100%;
+      }
+
+      & .hero__play img {
+        width: 59px;
+        height: 70px;
+      }
+
+      & .hero__decor {
+        width: 822px;
+        transform: translateX(60px) rotate(-5deg);
       }
 
       & .hero__media {
-        aspect-ratio: 880 / 450;
-        margin-top: -110px;
-        border-radius: var(--border-radius16);
+        margin-top: -220px;
+        width: calc(100% - 100px);
       }
     }
   }
@@ -232,21 +221,23 @@ import Container from "../../../components/container.astro";
   /* widescreen */
   @media (width >= 1200px) {
     .hero {
-      & .hero__copy,
-      & .hero__media {
-        max-width: var(--container);
-      }
-
-      & .hero__title {
-        font-size: 44px;
+      & .hero__eyebrow {
+        font-size: 26px;
+        line-height: 100%;
       }
 
       & .hero__description {
-        font-size: 24px;
+        font-size: 26px;
+        line-height: 100%;
       }
 
+      & .hero__title {
+        font-size: 60px;
+        line-height: 93%;
+      }
       & .hero__media {
-        aspect-ratio: 1120 / 640;
+        width: calc(100% - 90px);
+        margin-top: -220px;
       }
     }
   }
