@@ -27,9 +27,10 @@ import PlayButton from "./assets/play-button.svg";
     alt=""
   />
 
-  <div class="hero__media">
+  <div class="hero__media" data-video-player>
     <video
       class="hero__video"
+      data-video-player-video
       src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
       title="Видео о бизнес-группе"
       preload="metadata"
@@ -38,7 +39,12 @@ import PlayButton from "./assets/play-button.svg";
     >
     </video>
 
-    <button class="hero__play" type="button" aria-label="Запустить видео">
+    <button
+      class="hero__play"
+      type="button"
+      aria-label="Запустить видео"
+      data-video-player-play
+    >
       <PlayButton />
     </button>
   </div>
@@ -156,7 +162,7 @@ import PlayButton from "./assets/play-button.svg";
       outline-offset: 4px;
     }
 
-    & .hero__media.is-playing .hero__play {
+    & .hero__media[data-playing] .hero__play {
       visibility: hidden;
     }
   }
