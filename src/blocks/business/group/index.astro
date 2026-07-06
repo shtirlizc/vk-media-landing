@@ -1,9 +1,183 @@
 ---
 import Title from "../../../components/title.astro";
+import Container from "../../../components/container.astro";
+
+const cards = [
+  {
+    title:
+      "Видеосообщения в мессенджере MAX работают на базе платформы VK Видео",
+  },
+  {
+    title:
+      "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
+  },
+  {
+    title:
+      "Единая панель VK Games для публикации и управления играми для ВКонтакте и ОК",
+  },
+  {
+    title: "Интеграция новостей Дзена в ОК",
+  },
+  {
+    title:
+      "VK ID — единый сервис авторизации в OK, ВКонтакте и на других платформах",
+  },
+];
 ---
 
-<section aria-labelledby="group-title">
-  <Title title="h3" id="group-title">
-    Как мы усиливаем друг друга внутри бизнес-группы
-  </Title>
+<section class="group" aria-labelledby="group-title">
+  <Container>
+    <div class="group__pin">
+      <Title title="h3" id="group-title">
+        Как мы усиливаем друг друга внутри бизнес-группы
+      </Title>
+
+      <div class="group__viewport">
+        <div class="group__deck" data-group-deck>
+          {
+            cards.map(({ title }, index) => (
+              <article
+                class:list={["group__card", index === 0 && "is-active"]}
+                data-group-card
+              >
+                <p>{title}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
 </section>
+
+<style>
+  .group {
+    overflow: clip;
+  }
+
+  .group__pin {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    padding-block: var(--space40);
+  }
+
+  .group__viewport {
+    --card-width: min(231px, calc(100vw - 96px));
+    --card-radius: 10px;
+    --deck-height: calc(var(--card-width) * 328 / 231);
+
+    position: relative;
+    min-height: var(--deck-height);
+    margin-top: var(--space32);
+  }
+
+  .group__deck {
+    position: relative;
+    min-height: var(--deck-height);
+  }
+
+  .group__card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    isolation: isolate;
+    overflow: hidden;
+    width: var(--card-width);
+    aspect-ratio: 231 / 328;
+    padding: var(--space16);
+    border-radius: var(--card-radius);
+    background:
+      radial-gradient(circle at 28% 22%, #8b79ff 0 12%, transparent 34%),
+      radial-gradient(circle at 58% 18%, #7bc3ff 0 9%, transparent 32%),
+      linear-gradient(135deg, #11131c 0%, #070912 45%, #101010 100%);
+    color: var(--color-text-primary);
+    transform-origin: left center;
+    will-change: transform, filter, opacity;
+  }
+
+  .group__card::before,
+  .group__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .group__card::before {
+    z-index: -2;
+    background:
+      radial-gradient(
+        ellipse at 31% 17%,
+        rgba(255, 255, 255, 0.72) 0 8%,
+        transparent 24%
+      ),
+      radial-gradient(
+        ellipse at 48% 25%,
+        rgba(49, 155, 255, 0.6) 0 12%,
+        transparent 31%
+      );
+    opacity: 0.72;
+  }
+
+  .group__card::after {
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 26%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-long) ease;
+  }
+
+  .group__card.is-active::after {
+    opacity: 1;
+  }
+
+  .group__card p {
+    position: absolute;
+    right: var(--space16);
+    bottom: var(--space20);
+    left: var(--space16);
+    max-width: 20ch;
+    font-family: var(--font-secondary), sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 0.95;
+  }
+
+  @media (width >= 960px) {
+    .group__pin {
+      padding-block: 64px;
+    }
+
+    .group__viewport {
+      --card-width: 423px;
+      --card-height: 392px;
+      --deck-height: var(--card-height);
+
+      margin-top: 48px;
+    }
+
+    .group__card {
+      aspect-ratio: 423 / 392;
+      padding: var(--space24);
+      border-radius: var(--border-radius20);
+    }
+
+    .group__card p {
+      right: var(--space24);
+      bottom: var(--space24);
+      left: var(--space24);
+      font-size: 16px;
+    }
+  }
+
+  @media (width >= 1200px) {
+    .group__viewport {
+      --card-width: 462px;
+      --card-height: 428px;
+    }
+  }
+</style>

@@ -19,17 +19,17 @@
 }
 
 /* tablet-only */
-@media (width >= 768px) and (width < 991px) {
+@media (width >= 768px) and (width < 960px) {
   /* media query rules */
 }
 
 /* desktop */
-@media (width >= 991px) {
+@media (width >= 960px) {
   /* media query rules */
 }
 
 /* desktop-only */
-@media (width >= 991px) and (width < 1200px) {
+@media (width >= 960px) and (width < 1200px) {
   /* media query rules */
 }
 
