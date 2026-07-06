@@ -23,6 +23,7 @@ type Product = {
   logo: ImageMetadata | string;
   text: string;
   width: number;
+  href: string;
 };
 
 type RowItem =
@@ -34,21 +35,44 @@ const products = {
     logo: videoLogo,
     text: "фильмы, трансляции, эксклюзивные проекты",
     width: 183,
+    href: "https://vkvideo.ru",
   },
-  music: { logo: musicLogo, text: "музыка, аудиокниги, подкасты", width: 159 },
-  max: { logo: maxLogo, text: "мессенджер нового поколения", width: 183 },
+  music: {
+    logo: musicLogo,
+    text: "музыка, аудиокниги, подкасты",
+    width: 159,
+    href: "https://music.vk.com",
+  },
+  max: {
+    logo: maxLogo,
+    text: "мессенджер нового поколения",
+    width: 183,
+    href: "https://max.ru",
+  },
   clips: {
     logo: clipsLogo,
     text: "миллионы коротких вертикальных видео",
     width: 190,
+    href: "https://vkclips.app/",
   },
   vk: {
     logo: vkLogo,
     text: "крупнейшая социальная сеть в России и СНГ",
     width: 190,
+    href: "https://vk.com",
   },
-  ok: { logo: okLogo, text: "территория общения и увлечений", width: 170 },
-  dzen: { logo: dzenLogo, text: "крупнейшая новостная платформа", width: 179 },
+  ok: {
+    logo: okLogo,
+    text: "территория общения и увлечений",
+    width: 170,
+    href: "https://ok.ru",
+  },
+  dzen: {
+    logo: dzenLogo,
+    text: "крупнейшая новостная платформа",
+    width: 179,
+    href: "https://dzen.ru",
+  },
 } satisfies Record<string, Product>;
 
 const product = (item: Product): RowItem => ({
@@ -107,10 +131,9 @@ const rows: RowItem[][] = [
       rows.map((row) => (
         <div class="products__row">
           <div class="products__track">
-            {[false, true].map((isDuplicate) => (
+            {[false, true, true, true].map((isDuplicate) => (
               <div
                 class="products__group"
-                role={isDuplicate ? undefined : "list"}
                 aria-hidden={isDuplicate ? "true" : undefined}
               >
                 {row.map((item) =>
@@ -124,9 +147,12 @@ const rows: RowItem[][] = [
                       loading="lazy"
                     />
                   ) : (
-                    <div
+                    <a
                       class="products__card"
-                      role={isDuplicate ? undefined : "listitem"}
+                      href={item.product.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      tabindex={isDuplicate ? "-1" : undefined}
                     >
                       <img
                         class="products__logo"
@@ -143,7 +169,7 @@ const rows: RowItem[][] = [
                       <span style={`--product-width: ${item.product.width}px`}>
                         {item.product.text}
                       </span>
-                    </div>
+                    </a>
                   ),
                 )}
               </div>
@@ -175,20 +201,16 @@ const rows: RowItem[][] = [
     display: flex;
     width: max-content;
     will-change: transform;
-    animation: products-marquee 34s linear infinite;
+    animation: products-marquee 45s linear infinite;
   }
 
   .products__row:nth-child(even) .products__track {
     animation-direction: reverse;
-    animation-duration: 38s;
   }
 
-  .products__row:nth-child(3) .products__track {
-    animation-duration: 42s;
-  }
-
-  .products__row:nth-child(4) .products__track {
-    animation-duration: 36s;
+  .products__row:hover .products__track,
+  .products__row:focus-within .products__track {
+    animation-play-state: paused;
   }
 
   .products__group {
@@ -213,6 +235,17 @@ const rows: RowItem[][] = [
     font-weight: 500;
     line-height: 1.1;
     text-transform: lowercase;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .products__card:hover {
+    opacity: 0.8;
+  }
+
+  .products__card:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -4px;
   }
 
   .products__card span {
@@ -235,7 +268,7 @@ const rows: RowItem[][] = [
 
   @keyframes products-marquee {
     to {
-      transform: translateX(-50%);
+      transform: translateX(-25%);
     }
   }
 
