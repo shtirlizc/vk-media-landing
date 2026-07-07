@@ -2,8 +2,10 @@ import { initHeader } from "./header.ts";
 import { initVideos } from "./video.ts";
 import { initGroup } from "./group.ts";
 import { moreThan } from "./more-than.ts";
+import { initUseful } from "./useful.ts";
 
 initHeader();
 initVideos();
 initGroup();
 moreThan();
+initUseful();

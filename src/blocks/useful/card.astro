@@ -15,7 +15,7 @@ const { card } = Astro.props;
 const { title, description, style, links } = card;
 ---
 
-<article class="card">
+<article class="card" data-useful-card>
   <div class="card__bg" style={style}></div>
   <h4>{title}</h4>
   <p>{description}</p>

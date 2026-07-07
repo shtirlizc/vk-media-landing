@@ -43,9 +43,9 @@ const cards: ICard[] = [
 ];
 ---
 
-<div class="useful">
+<div class="useful" data-useful>
   <Container>
-    <div class="useful__head">
+    <div class="useful__head" data-useful-head>
       <Title id="useful-title">
         Больше полезного о нас
         <Image
@@ -59,7 +59,7 @@ const cards: ICard[] = [
       </Title>
     </div>
 
-    <div class="useful__body">
+    <div class="useful__body" data-useful-body>
       {cards.map((card) => <Card card={card} />)}
     </div>
   </Container>
@@ -67,6 +67,11 @@ const cards: ICard[] = [
 
 <style>
   .useful {
+    --useful-head-top: calc(var(--header) + var(--space12));
+    --useful-stack-top: calc(
+      var(--header) + var(--space12) + 58px + var(--space16)
+    );
+
     & .useful__body {
       display: grid;
       gap: var(--space16);
@@ -75,6 +80,25 @@ const cards: ICard[] = [
       @media (width >= 768px) {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space20);
+      }
+    }
+
+    @media (width < 768px) {
+      & .useful__head {
+        position: sticky;
+        top: var(--useful-head-top);
+        z-index: 10;
+        padding-block: var(--space16);
+        background-color: var(--color-bg-main);
+      }
+
+      & .useful__body {
+        align-items: start;
+      }
+
+      & :global(.card) {
+        position: sticky;
+        top: var(--useful-stack-top);
       }
     }
   }
