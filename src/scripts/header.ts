@@ -4,6 +4,8 @@ import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 gsap.registerPlugin(MorphSVGPlugin);
 
 export function initHeader() {
+  initHeaderActiveNav();
+
   const buttons = document.querySelectorAll<HTMLButtonElement>(
     "[data-header-burger]",
   );
@@ -86,4 +88,84 @@ export function initHeader() {
 
     resetDesktopState();
   });
+}
+
+function initHeaderActiveNav() {
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"),
+  );
+  const sections = links
+    .map((link) => {
+      const id = link.hash.slice(1);
+      const section = id ? document.getElementById(id) : null;
+
+      return section ? { id, link, section } : null;
+    })
+    .filter(
+      (
+        item,
+      ): item is {
+        id: string;
+        link: HTMLAnchorElement;
+        section: HTMLElement;
+      } => item !== null,
+    );
+
+  if (!sections.length) {
+    return;
+  }
+
+  const header = document.querySelector<HTMLElement>(".header");
+
+  const setActiveLink = (activeId: string) => {
+    sections.forEach(({ id, link }) => {
+      const isActive = id === activeId;
+
+      link.classList.toggle("active", isActive);
+
+      if (isActive) {
+        link.setAttribute("aria-current", "location");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  const updateActiveLink = () => {
+    const headerHeight = header?.getBoundingClientRect().height ?? 0;
+    const activationLine = headerHeight + 1;
+    let activeId = sections[0].id;
+
+    sections.forEach(({ id, section }) => {
+      const rect = section.getBoundingClientRect();
+
+      if (rect.top <= activationLine && rect.bottom > activationLine) {
+        activeId = id;
+      }
+    });
+
+    setActiveLink(activeId);
+  };
+
+  let observer: IntersectionObserver | null = null;
+
+  const observeSections = () => {
+    const headerHeight = header?.getBoundingClientRect().height ?? 0;
+    const bottomMargin = Math.max(0, window.innerHeight - headerHeight - 1);
+
+    observer?.disconnect();
+    observer = new IntersectionObserver(updateActiveLink, {
+      rootMargin: `-${headerHeight}px 0px -${bottomMargin}px 0px`,
+      threshold: 0,
+    });
+
+    sections.forEach(({ section }) => {
+      observer?.observe(section);
+    });
+
+    updateActiveLink();
+  };
+
+  window.addEventListener("resize", observeSections, { passive: true });
+  observeSections();
 }

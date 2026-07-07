@@ -43,7 +43,9 @@ import Container from "./container.astro";
             {
               navigation.map(({ label, href }) => (
                 <li>
-                  <a href={`#${href}`}>{label}</a>
+                  <a href={`#${href}`} data-nav-link>
+                    {label}
+                  </a>
                 </li>
               ))
             }
@@ -192,7 +194,8 @@ import Container from "./container.astro";
       color: var(--color-text-primary);
       transition: color var(--transition);
 
-      &:hover {
+      &:hover,
+      &.active {
         color: var(--color-primary);
       }
     }
