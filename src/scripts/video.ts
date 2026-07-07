@@ -1,3 +1,5 @@
+import { pauseVideoOutsideViewport } from "./video-visibility.ts";
+
 export function initVideos() {
   const players = document.querySelectorAll<HTMLElement>("[data-video-player]");
 
@@ -10,6 +12,8 @@ export function initVideos() {
     );
 
     if (!video || !playbackButton) return;
+
+    pauseVideoOutsideViewport(video);
 
     playbackButton.addEventListener("click", async () => {
       if (!video.paused) {

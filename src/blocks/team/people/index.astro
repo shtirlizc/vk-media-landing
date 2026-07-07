@@ -278,18 +278,20 @@ const peopleRows = rows.map((itemsCount) => {
       display: none;
     }
 
-    ._modal[data-playing] ._modal__playback {
-      opacity: 0;
-    }
-
-    ._modal[data-playing]:hover ._modal__playback,
-    ._modal[data-playing] ._modal__playback:focus-visible {
-      opacity: 1;
+    @media (hover: none) {
+      ._modal[data-playing][data-playback-hidden]
+        ._modal__playback:not(:focus-visible) {
+        opacity: 0;
+      }
     }
 
     @media (hover: hover) {
-      ._modal[data-playing]:not(:hover) ._modal__playback {
+      ._modal[data-playing] ._modal__playback:not(:focus-visible) {
         opacity: 0;
+      }
+
+      ._modal[data-playing]:hover ._modal__playback {
+        opacity: 1;
       }
     }
 
