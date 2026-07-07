@@ -39,21 +39,44 @@ import Useful from "../blocks/useful/index.astro";
         <MoreThan />
       </section>
 
-      <section id="useful" aria-labelledby="useful-title">
-        <Useful />
-      </section>
-    </main>
+      <div class="bottom">
+        <section id="useful" aria-labelledby="useful-title">
+          <Useful />
+        </section>
 
-    <Footer />
+        <Footer />
+      </div>
+    </main>
 
     <script src="../scripts/_app.ts"></script>
   </body>
 </html>
 
 <style>
+  body {
+    background: linear-gradient(180deg, #01040b 55.44%, #0a2971 85.25%);
+  }
+
   .business-group {
     display: flex;
     flex-direction: column;
     gap: 80px;
+  }
+
+  .bottom {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 900px;
+      bottom: -20%;
+      left: 50%;
+      transform: translate(-50%);
+      background-color: #000000;
+      filter: blur(90px);
+    }
   }
 </style>
