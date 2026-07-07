@@ -1,5 +1,4 @@
 import { Swiper } from "swiper";
-import { Autoplay } from "swiper/modules";
 
 export function moreThan() {
   const pagination: HTMLElement | null = document.querySelector(
@@ -11,19 +10,8 @@ export function moreThan() {
   }
 
   const swiper = new Swiper(".js-more-than-swiper", {
-    modules: [Autoplay],
     loop: true,
     speed: 300,
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: false,
-    },
-    on: {
-      autoplayTimeLeft(_, __, progress) {
-        pagination?.style.setProperty("--progress", String(1 - progress));
-      },
-    },
   });
 
   bullets.forEach((bullet) => {
@@ -35,7 +23,15 @@ export function moreThan() {
   });
 
   swiper.on("slideChange", (event) => {
+    const prevSlide = event.slides[event.previousIndex] as
+      HTMLElement | undefined;
+    const activeSlide = event.slides[event.activeIndex] as
+      HTMLElement | undefined;
+
     setActiveBullet(event.realIndex);
+
+    stopVideo(prevSlide);
+    playVideo(activeSlide);
   });
 
   function setActiveBullet(index: number) {
@@ -48,6 +44,41 @@ export function moreThan() {
         bullet.classList.remove("active");
       });
       currentBullet.classList.add("active");
+    }
+  }
+
+  function getSlideVideo(slide: HTMLElement | undefined) {
+    if (slide?.dataset.media !== "video") {
+      return null;
+    }
+
+    return slide.querySelector("video");
+  }
+
+  function stopVideo(slide: HTMLElement | undefined) {
+    const video = getSlideVideo(slide);
+
+    if (!video) {
+      return;
+    }
+
+    video.pause();
+    video.currentTime = 0;
+  }
+
+  function playVideo(slide: HTMLElement | undefined) {
+    const video = getSlideVideo(slide);
+
+    if (!video) {
+      return;
+    }
+
+    const playPromise = video.play();
+
+    if (playPromise) {
+      playPromise.catch(() => {
+        // Browsers can block autoplay for videos with sound.
+      });
     }
   }
 }
