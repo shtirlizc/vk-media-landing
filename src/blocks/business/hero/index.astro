@@ -23,10 +23,10 @@ import Container from "../../../components/container.astro";
   <Image
     class="hero__decor"
     src={decorImg}
-    width={822}
-    height={614}
-    widths={[288, 576, 822, 1644]}
-    sizes="(min-width: 960px) 822px, 288px"
+    width={1494}
+    height={1465}
+    widths={[291, 582, 619, 747, 1238, 1494]}
+    sizes="(min-width: 1200px) 747px, (min-width: 960px) 619px, 291px"
     alt=""
   />
 
@@ -117,9 +117,8 @@ import Container from "../../../components/container.astro";
 
     & .hero__decor {
       align-self: flex-end;
-      width: 288px;
+      width: 291px;
       height: auto;
-      transform: translate(65px);
     }
 
     & .hero__media {
@@ -198,8 +197,7 @@ import Container from "../../../components/container.astro";
       }
 
       & .hero__decor {
-        width: 822px;
-        transform: translateX(140px);
+        width: 619px;
       }
 
       & .hero__media {
@@ -213,8 +211,8 @@ import Container from "../../../components/container.astro";
   @media (width >= 1200px) {
     .hero {
       & .hero__decor {
-        width: 822px;
-        transform: translate(250px, -50px);
+        width: 747px;
+        transform: translateY(-50px);
       }
 
       & .hero__eyebrow {
