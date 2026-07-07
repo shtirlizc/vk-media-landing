@@ -22,10 +22,10 @@ import Useful from "../blocks/useful/index.astro";
   <body id="top">
     <Header />
 
-    <main>
+    <main class="feed">
       <section
         id="business-group"
-        class="business-group"
+        class="feed"
         aria-labelledby="business-title"
       >
         <Hero />
@@ -33,7 +33,7 @@ import Useful from "../blocks/useful/index.astro";
         <Group />
       </section>
 
-      <section id="team" aria-labelledby="team-title">
+      <section id="team" class="feed" aria-labelledby="team-title">
         <People />
         <Culture />
         <MoreThan />
@@ -58,15 +58,23 @@ import Useful from "../blocks/useful/index.astro";
     background: linear-gradient(180deg, #01040b 55.44%, #0a2971 85.25%);
   }
 
-  .business-group {
-    display: flex;
-    flex-direction: column;
+  .feed {
+    display: grid;
     gap: 80px;
+
+    /* desktop */
+    @media (width >= 960px) {
+      gap: 130px;
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      gap: 160px;
+    }
   }
 
   .bottom {
     position: relative;
-
     isolation: isolate;
     padding-top: 50vh;
 
