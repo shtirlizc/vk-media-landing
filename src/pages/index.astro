@@ -40,6 +40,7 @@ import Useful from "../blocks/useful/index.astro";
       </section>
 
       <div class="bottom">
+        <div class="bottom__bg"></div>
         <section id="useful" aria-labelledby="useful-title">
           <Useful />
         </section>
@@ -65,21 +66,31 @@ import Useful from "../blocks/useful/index.astro";
 
   .bottom {
     position: relative;
-    overflow: hidden;
-    isolation: isolate;
 
-    &::before {
-      content: "";
+    isolation: isolate;
+    padding-top: 50vh;
+
+    & .bottom__bg {
       position: absolute;
-      z-index: -1;
-      width: 200%;
-      height: 900px;
-      bottom: -20%;
-      left: 50%;
-      transform: translate(-50%);
-      background-color: #000000;
-      filter: blur(90px);
-      pointer-events: none;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 200%;
+        height: 900px;
+        bottom: -20%;
+        left: 50%;
+        transform: translate(-50%);
+        background-color: #000000;
+        filter: blur(90px);
+        pointer-events: none;
+      }
     }
 
     & > section {
