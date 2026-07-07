@@ -4,9 +4,58 @@ import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/people.webp";
 import defaultPhoto from "./photos/default.png";
 import Container from "../../../components/container.astro";
+import video1 from "./videos/video1.mp4";
+import PlayButton from "../../../assets/images/play-button.svg";
+import PauseButton from "../../../assets/images/pause-button.svg";
+import CloseIcon from "../../../assets/images/x.svg";
 
 const rows = [8, 7, 6];
 const copies = [0, 1, 2, 3];
+
+const people = [
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+  {
+    photo: defaultPhoto,
+    alt: "defaultPhoto",
+    video: video1,
+  },
+];
+
+let peopleOffset = 0;
+const peopleRows = rows.map((itemsCount) => {
+  const row = Array.from(
+    { length: itemsCount },
+    (_, index) => people[(peopleOffset + index) % people.length],
+  );
+
+  peopleOffset += itemsCount;
+
+  return row;
+});
 ---
 
 <div class="people">
@@ -26,7 +75,7 @@ const copies = [0, 1, 2, 3];
 
   <div class="people__marquee">
     {
-      rows.map((itemsCount) => (
+      peopleRows.map((row) => (
         <div class="people__row">
           <div class="people__track">
             {copies.map((copyIndex) => (
@@ -34,13 +83,18 @@ const copies = [0, 1, 2, 3];
                 class="people__group"
                 aria-hidden={copyIndex > 0 ? "true" : undefined}
               >
-                {Array.from({ length: itemsCount }).map(() => (
-                  <button type="button" class="people__photo">
+                {row.map((person) => (
+                  <button
+                    type="button"
+                    data-video={person.video}
+                    class="people__photo"
+                    tabindex={copyIndex > 0 ? "-1" : undefined}
+                  >
                     <Image
-                      src={defaultPhoto}
+                      src={person.photo}
                       width="250"
                       height="250"
-                      alt=""
+                      alt={person.alt}
                       loading="lazy"
                     />
                   </button>
@@ -51,6 +105,27 @@ const copies = [0, 1, 2, 3];
         </div>
       ))
     }
+    <div popover class="_modal" id="popover-people">
+      <video playsinline></video>
+      <button
+        class="_modal__playback"
+        type="button"
+        aria-label="Поставить видео на паузу"
+        data-people-playback
+      >
+        <span class="_modal__play-icon"><PlayButton /></span>
+        <span class="_modal__pause-icon"><PauseButton /></span>
+      </button>
+      <button
+        class="_modal__close"
+        type="button"
+        aria-label="Закрыть видео"
+        popovertarget="popover-people"
+        popovertargetaction="hide"
+      >
+        <CloseIcon />
+      </button>
+    </div>
   </div>
 </div>
 
@@ -130,9 +205,159 @@ const copies = [0, 1, 2, 3];
       }
     }
 
+    ._modal {
+      --modal-width: 309px;
+      --modal-height: 485px;
+
+      position: fixed;
+      inset: 0;
+      box-sizing: border-box;
+      width: var(--modal-width);
+      min-width: var(--modal-width);
+      max-width: var(--modal-width);
+      height: var(--modal-height);
+      min-height: var(--modal-height);
+      max-height: var(--modal-height);
+      margin: auto;
+      padding: 0;
+      border: 0;
+      overflow: visible;
+      background-color: transparent;
+      opacity: 0;
+      transform: scale(0.75);
+      transition:
+        opacity calc(2 * var(--delay)) var(--timing-func),
+        transform calc(2 * var(--delay)) var(--timing-func),
+        overlay calc(2 * var(--delay)) var(--timing-func) allow-discrete,
+        display calc(2 * var(--delay)) var(--timing-func) allow-discrete;
+    }
+
+    ._modal video {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--border-radius20);
+    }
+
+    ._modal__playback,
+    ._modal__close {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--color-text-primary);
+      cursor: pointer;
+    }
+
+    ._modal__playback {
+      inset: 0;
+      width: 48px;
+      height: 48px;
+      margin: auto;
+      color: var(--color-text-primary);
+      transition:
+        color var(--transition),
+        opacity var(--transition);
+    }
+
+    ._modal__playback:hover {
+      color: var(--color-text-primary);
+    }
+
+    ._modal__pause-icon {
+      display: none;
+    }
+
+    ._modal[data-playing] ._modal__playback {
+      opacity: 0;
+    }
+
+    ._modal[data-playing]:hover ._modal__playback,
+    ._modal[data-playing] ._modal__playback:focus-visible {
+      opacity: 1;
+    }
+
+    @media (hover: hover) {
+      ._modal[data-playing]:not(:hover) ._modal__playback {
+        opacity: 0;
+      }
+    }
+
+    ._modal[data-playing] ._modal__play-icon {
+      display: none;
+    }
+
+    ._modal[data-playing] ._modal__pause-icon {
+      display: block;
+    }
+
+    ._modal__close {
+      top: var(--space24);
+      right: var(--space24);
+      width: 19px;
+      height: 19px;
+    }
+
+    ._modal__close svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    ._modal__playback:focus-visible,
+    ._modal__close:focus-visible {
+      outline: 2px solid var(--color-text-primary);
+      outline-offset: 4px;
+    }
+
+    ._modal:popover-open {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @starting-style {
+      ._modal:popover-open {
+        opacity: 0;
+        transform: scale(0.75);
+      }
+    }
+
+    ._modal::backdrop {
+      background-color: rgb(1 4 10 / 70%);
+      opacity: 0;
+      transition:
+        opacity calc(2 * var(--delay)) var(--timing-func),
+        overlay calc(2 * var(--delay)) var(--timing-func) allow-discrete,
+        display calc(2 * var(--delay)) var(--timing-func) allow-discrete;
+    }
+
+    ._modal:popover-open::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      ._modal:popover-open::backdrop {
+        opacity: 0;
+      }
+    }
+
     /* desktop */
     @media (width >= 960px) {
       margin-bottom: 155px;
+
+      & ._modal {
+        --modal-width: 881px;
+        --modal-height: 485px;
+      }
+
+      & ._modal__close {
+        width: 14px;
+        height: 14px;
+      }
 
       & .people__photo {
         width: 200px;
@@ -148,6 +373,11 @@ const copies = [0, 1, 2, 3];
     @media (width >= 1200px) {
       margin-bottom: 160px;
 
+      & ._modal {
+        --modal-width: 1120px;
+        --modal-height: 657px;
+      }
+
       & .people__photo {
         width: 250px;
         height: 250px;
@@ -155,6 +385,11 @@ const copies = [0, 1, 2, 3];
 
       & .people__marquee {
         margin-top: 67px;
+      }
+
+      & ._modal__close {
+        width: 14px;
+        height: 14px;
       }
     }
   }
