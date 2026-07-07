@@ -1,7 +1,7 @@
 import { pauseVideoOutsideViewport } from "./video-visibility.ts";
 
 export function initPeople() {
-  const playbackHideDelay = 3000;
+  const playbackHideDelay = 1000;
   const popover = document.getElementById("popover-people");
   const video = popover?.querySelector("video");
   const playbackButton = popover?.querySelector<HTMLButtonElement>(

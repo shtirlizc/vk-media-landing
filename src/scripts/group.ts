@@ -133,7 +133,7 @@ function getCardState(
       x: -cardWidth * 1.18 * progress,
       scale: mix(1, 0.92, progress),
       opacity: mix(1, 0, progress),
-      blur: mix(0, 3, progress),
+      blur: 0,
       zIndex: 120,
     };
   }
