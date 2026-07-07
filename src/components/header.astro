@@ -125,8 +125,8 @@ import Container from "./container.astro";
     & .header__burger {
       display: inline-grid;
       place-items: center;
-      width: 44px;
-      height: 44px;
+      width: 32px;
+      height: 32px;
       padding: 0;
       color: var(--color-text-primary);
       background: transparent;
@@ -172,14 +172,15 @@ import Container from "./container.astro";
 
   .nav {
     list-style: none;
-    padding: 0 0 25vh;
+    padding: 0 0 44vh;
     margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--space20);
+    gap: var(--space24);
     height: 100%;
+    background-color: var(--color-bg-main);
 
     /* tablet */
     @media (width >= 768px) {

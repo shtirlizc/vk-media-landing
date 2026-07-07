@@ -209,15 +209,22 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     }
 
     & .more-than__body {
+      --width: 320px;
+
       position: relative;
       margin-top: var(--space40);
       overflow: hidden;
       transform: scale(0.6);
       transition: transform var(--transition-long);
 
+      /* tablet */
+      @media (width >= 768px) {
+        --width: 360px;
+      }
+
       .swiper {
         position: relative;
-        max-width: 360px;
+        max-width: var(--width);
         aspect-ratio: 360 / 640;
         border-radius: 28px;
 
@@ -336,7 +343,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         transform: translate(-50%);
         width: 100%;
         height: 100%;
-        max-width: 360px;
+        max-width: var(--width);
         aspect-ratio: 360 / 640;
         z-index: 1;
 
