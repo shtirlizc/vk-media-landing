@@ -212,6 +212,8 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       position: relative;
       margin-top: var(--space40);
       overflow: hidden;
+      transform: scale(0.6);
+      transition: transform var(--transition-long);
 
       .swiper {
         position: relative;
@@ -356,6 +358,8 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       }
 
       &.active {
+        transform: scale(1);
+
         .swiper {
           &::before {
             opacity: 1;
@@ -389,6 +393,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         position: relative;
         overflow: hidden;
         cursor: grab;
+        background-color: var(--color-bg-main);
 
         &:active {
           cursor: grabbing;
