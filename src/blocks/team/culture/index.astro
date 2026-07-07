@@ -2,9 +2,11 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/culture.webp";
+import videoPoster from "../../business/hero/assets/buisness-video-preview.webp";
+import PlayButton from "../../business/hero/assets/play-button.svg";
 ---
 
-<section aria-labelledby="culture-title">
+<section class="culture" aria-labelledby="culture-title">
   <Title title="h3" id="culture-title">
     Топ-менеджеры — о культуре в команде
     <Image
@@ -16,4 +18,97 @@ import decorImg from "../../../assets/images/decor/culture.webp";
       loading="lazy"
     />
   </Title>
+
+  <div class="culture__media" data-video-player>
+    <video
+      class="culture__video"
+      data-video-player-video
+      src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
+      title="Видео о культуре в команде"
+      preload="metadata"
+      poster={videoPoster.src}
+      playsinline
+    >
+    </video>
+
+    <button
+      class="culture__play"
+      type="button"
+      aria-label="Запустить видео"
+      data-video-player-play
+    >
+      <PlayButton />
+    </button>
+  </div>
 </section>
+
+<style>
+  .culture {
+    margin-bottom: 80px;
+    padding-inline: var(--space16);
+
+    & .culture__media {
+      position: relative;
+      width: 100%;
+      margin-top: var(--space32);
+      aspect-ratio: 328 / 211;
+      overflow: hidden;
+      border-radius: 20px;
+      clip-path: inset(0 round 20px);
+      background-color: #071b49;
+    }
+
+    & .culture__video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    & .culture__play {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin: auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+
+    & .culture__play:hover {
+      color: var(--color-primary);
+    }
+
+    & .culture__play:focus-visible {
+      outline: 2px solid var(--color-text-primary);
+      outline-offset: 4px;
+    }
+
+    & .culture__media[data-playing] .culture__play {
+      visibility: hidden;
+    }
+
+    @media (width >= 960px) {
+      margin-bottom: 155px;
+
+      & .culture__media {
+        margin-top: var(--space44);
+      }
+
+      & .culture__play {
+        width: 59px;
+        height: 70px;
+      }
+    }
+
+    @media (width >= 1200px) {
+      margin-bottom: 160px;
+    }
+  }
+</style>
