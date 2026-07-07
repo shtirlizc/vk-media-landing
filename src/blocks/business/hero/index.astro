@@ -24,7 +24,7 @@ import Container from "../../../components/container.astro";
     class="hero__decor"
     src={decorImg}
     width={822}
-    height={459}
+    height={614}
     widths={[288, 576, 822, 1644]}
     sizes="(min-width: 960px) 822px, 288px"
     alt=""
@@ -109,7 +109,7 @@ import Container from "../../../components/container.astro";
 
     & .hero__description {
       max-width: 328px;
-      margin: var(--space20) auto;
+      margin: var(--space20) auto 0;
       font-size: 17px;
       line-height: 94%;
       letter-spacing: -0.025em;
@@ -119,19 +119,16 @@ import Container from "../../../components/container.astro";
       align-self: flex-end;
       width: 288px;
       height: auto;
-      transform: translateX(40px) rotate(-5deg);
+      transform: translate(65px);
     }
 
     & .hero__media {
       position: relative;
       z-index: 3;
-      width: calc(100% - 30px);
-      margin-top: -72px;
+      margin-top: -120px;
+      margin-inline: auto;
       aspect-ratio: 328 / 211;
-      overflow: hidden;
-      border-radius: 20px;
       clip-path: inset(0 round 20px);
-      background-color: #071b49;
     }
 
     & .hero__video {
@@ -202,12 +199,12 @@ import Container from "../../../components/container.astro";
 
       & .hero__decor {
         width: 822px;
-        transform: translateX(60px) rotate(-5deg);
+        transform: translateX(140px);
       }
 
       & .hero__media {
-        margin-top: -220px;
-        width: 100%;
+        margin-top: -350px;
+        width: calc(100% - 30px);
       }
     }
   }
@@ -215,6 +212,11 @@ import Container from "../../../components/container.astro";
   /* widescreen */
   @media (width >= 1200px) {
     .hero {
+      & .hero__decor {
+        width: 822px;
+        transform: translate(250px, -50px);
+      }
+
       & .hero__eyebrow {
         font-size: 26px;
       }
@@ -227,6 +229,7 @@ import Container from "../../../components/container.astro";
         font-size: 60px;
       }
       & .hero__media {
+        margin-top: -420px;
         min-width: 1121px;
       }
     }
