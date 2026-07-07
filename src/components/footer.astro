@@ -20,6 +20,8 @@ import { navigation } from "../data/navigation.ts";
 
 <style>
   .footer {
+    position: relative;
+    z-index: 1;
     padding: 120px var(--space16) var(--space40);
 
     & .footer__content {
@@ -42,16 +44,15 @@ import { navigation } from "../data/navigation.ts";
         align-items: center;
 
         a {
-          opacity: 0.5;
           font-family: var(--font-secondary), sans-serif;
           font-size: 12px;
           line-height: 83%;
           text-transform: lowercase;
-          color: var(--color-text-primary);
-          transition: opacity var(--transition);
+          color: rgb(255 255 255 / 50%);
+          transition: color var(--transition);
 
           &:hover {
-            opacity: 1;
+            color: var(--color-text-primary);
           }
         }
       }

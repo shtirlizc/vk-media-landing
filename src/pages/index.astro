@@ -66,10 +66,12 @@ import Useful from "../blocks/useful/index.astro";
   .bottom {
     position: relative;
     overflow: hidden;
+    isolation: isolate;
 
     &::before {
       content: "";
       position: absolute;
+      z-index: -1;
       width: 200%;
       height: 900px;
       bottom: -20%;
@@ -77,6 +79,12 @@ import Useful from "../blocks/useful/index.astro";
       transform: translate(-50%);
       background-color: #000000;
       filter: blur(90px);
+      pointer-events: none;
+    }
+
+    & > section {
+      position: relative;
+      z-index: 1;
     }
   }
 </style>
