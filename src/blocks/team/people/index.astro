@@ -66,6 +66,7 @@ const copies = [0, 1, 2, 3];
     & .people__marquee {
       display: grid;
       margin-top: 42px;
+      padding-bottom: 60px;
     }
 
     & .people__row {
@@ -98,6 +99,9 @@ const copies = [0, 1, 2, 3];
 
     & .people__photo {
       flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: none;
       width: 77px;
       height: 77px;
@@ -105,15 +109,17 @@ const copies = [0, 1, 2, 3];
       border: none;
       overflow: hidden;
       cursor: pointer;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+      box-shadow: 0 3px 58px 0 transparent;
+      transition: box-shadow var(--transition-long);
 
       &:hover {
         box-shadow: 0 3px 58px 0 #0062ff;
+      }
+
+      img {
+        width: 102%;
+        height: 102%;
+        object-fit: cover;
       }
     }
 
