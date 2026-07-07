@@ -33,6 +33,9 @@
   --container: 1120px;
   --header: 80px;
 
+  --delay: 0.2s;
+  --timing-func: cubic-bezier(0.21, 0, 0.29, 1);
+
   /* desktop */
   @media (width >= 960px) {
     --header: 104px;
