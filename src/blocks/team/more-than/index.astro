@@ -7,6 +7,10 @@ import star1 from "./assets/star-1.webp";
 import star2 from "./assets/star-2.webp";
 import slide2Img from "./assets/story-2.webp";
 import slide5Img from "./assets/story-5.webp";
+import slide6Img from "./assets/story-6.webp";
+import slide8Img from "./assets/story-8.webp";
+import slide9Img from "./assets/story-9.webp";
+import slide11Img from "./assets/story-11.webp";
 
 interface ISlide {
   title?: string;
@@ -43,6 +47,58 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   {
     title: "Афтепати ВК Фест 2025",
     src: slide5Img,
+  },
+  {
+    title: "Гаражная распродажа Дзен",
+    src: slide6Img,
+  },
+  {
+    title: "День рождение Музыки",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-7.mp4",
+  },
+  {
+    title: "День рождение Одноклассников",
+    src: slide8Img,
+  },
+  {
+    title: "Новый год 2026",
+    src: slide9Img,
+  },
+  {
+    title: "Новый год Дзен",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-10.mp4",
+  },
+  {
+    title: "Привет, босс",
+    src: slide11Img,
+  },
+  {
+    title: "Привет, команда",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-12.mp4",
+  },
+  {
+    title: "ИТ неделя",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-13.mp4",
+  },
+  {
+    title: "Фандом фест",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-14.mp4",
+  },
+  {
+    title: "Благотворительная ярмарка",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-15.mp4",
+  },
+  {
+    title: "День рождения ВКонтакте",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-16.mp4",
+  },
+  {
+    title: "Книжный клуб",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-17.mp4",
+  },
+  {
+    title: "Пятничная встреча",
+    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-18.mp4",
   },
 ];
 ---
@@ -326,6 +382,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     & .more-than__slide {
       display: flex;
       justify-content: center;
+      height: 100%;
 
       & .more-than__slide-content {
         position: relative;
