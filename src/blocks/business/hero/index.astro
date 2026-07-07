@@ -3,19 +3,22 @@ import { Image } from "astro:assets";
 import decorImg from "./assets/decor.webp";
 import videoPoster from "./assets/buisness-video-preview.webp";
 import PlayButton from "./assets/play-button.svg";
+import Container from "../../../components/container.astro";
 ---
 
 <section class="hero" aria-labelledby="hero">
-  <div class="hero__copy">
-    <p class="hero__eyebrow">Бизнес-группа</p>
+  <Container>
+    <div class="hero__copy">
+      <p class="hero__eyebrow">Бизнес-группа</p>
 
-    <h1 class="hero__title">«Социальные платформы и медиаконтент»</h1>
+      <h1 class="hero__title">«Социальные платформы и медиаконтент»</h1>
 
-    <p class="hero__description">
-      Мы — большая часть VK. Создаём и развиваем ключевые соцсети, медиасервисы
-      и развлекательные проекты.
-    </p>
-  </div>
+      <p class="hero__description">
+        Мы — большая часть VK. Создаём и развиваем ключевые соцсети,
+        медиасервисы и развлекательные проекты.
+      </p>
+    </div>
+  </Container>
 
   <Image
     class="hero__decor"
@@ -27,27 +30,29 @@ import PlayButton from "./assets/play-button.svg";
     alt=""
   />
 
-  <div class="hero__media" data-video-player>
-    <video
-      class="hero__video"
-      data-video-player-video
-      src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
-      title="Видео о бизнес-группе"
-      preload="metadata"
-      poster={videoPoster.src}
-      playsinline
-    >
-    </video>
+  <Container>
+    <div class="hero__media" data-video-player>
+      <video
+        class="hero__video"
+        data-video-player-video
+        src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
+        title="Видео о бизнес-группе"
+        preload="metadata"
+        poster={videoPoster.src}
+        playsinline
+      >
+      </video>
 
-    <button
-      class="hero__play"
-      type="button"
-      aria-label="Запустить видео"
-      data-video-player-play
-    >
-      <PlayButton />
-    </button>
-  </div>
+      <button
+        class="hero__play"
+        type="button"
+        aria-label="Запустить видео"
+        data-video-player-play
+      >
+        <PlayButton />
+      </button>
+    </div>
+  </Container>
 </section>
 
 <style>
@@ -121,7 +126,6 @@ import PlayButton from "./assets/play-button.svg";
       position: relative;
       z-index: 3;
       width: calc(100% - 30px);
-      margin-inline: 20px;
       margin-top: -72px;
       aspect-ratio: 328 / 211;
       overflow: hidden;
@@ -203,7 +207,7 @@ import PlayButton from "./assets/play-button.svg";
 
       & .hero__media {
         margin-top: -220px;
-        width: calc(100% - 100px);
+        width: 100%;
       }
     }
   }

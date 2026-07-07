@@ -70,14 +70,6 @@ import Container from "./container.astro";
         calc(2 * var(--border-radius16));
     }
 
-    @supports ((animation-timeline: scroll()) and (animation-range: 0 100px)) {
-      box-shadow: 0 3px 58.6px 0 transparent;
-      animation: header 1s linear;
-      animation-timeline: scroll(root block);
-      animation-range: 0 100px;
-      animation-fill-mode: both;
-    }
-
     &.is-open {
       border-radius: 0;
 
@@ -173,16 +165,6 @@ import Container from "./container.astro";
       & .header__burger {
         display: none;
       }
-    }
-  }
-
-  @keyframes header {
-    from {
-      box-shadow: 0 3px 58.6px 0 transparent;
-    }
-
-    to {
-      box-shadow: 0 3px 58.6px 0 var(--color-primary);
     }
   }
 
