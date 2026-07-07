@@ -20,6 +20,8 @@ export function moreThan() {
   let autoplayTimer: number | undefined;
   let autoplayVideo: HTMLVideoElement | null = null;
   let autoplayVideoEndedHandler: (() => void) | null = null;
+  let autoplayVideoMetadataHandler: (() => void) | null = null;
+  let progressAnimationFrame: number | undefined;
 
   if (body) {
     let isBodyInCenter = false;
@@ -108,6 +110,10 @@ export function moreThan() {
     }
   }
 
+  function setProgress(progress: number) {
+    pagination?.style.setProperty("--progress", String(progress));
+  }
+
   function getSlideVideo(slide: HTMLElement | undefined) {
     if (slide?.dataset.media !== "video") {
       return null;
@@ -128,13 +134,28 @@ export function moreThan() {
 
     if (autoplayVideo && autoplayVideoEndedHandler) {
       autoplayVideo.removeEventListener("ended", autoplayVideoEndedHandler);
-      autoplayVideo = null;
       autoplayVideoEndedHandler = null;
+    }
+
+    if (autoplayVideo && autoplayVideoMetadataHandler) {
+      autoplayVideo.removeEventListener(
+        "loadedmetadata",
+        autoplayVideoMetadataHandler,
+      );
+      autoplayVideoMetadataHandler = null;
+    }
+
+    autoplayVideo = null;
+
+    if (progressAnimationFrame !== undefined) {
+      window.cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = undefined;
     }
   }
 
   function activateSlide(slide: HTMLElement | undefined) {
     clearAutoplay();
+    setProgress(0);
 
     if (!isBodyActive) {
       return;
@@ -144,9 +165,11 @@ export function moreThan() {
 
     if (video) {
       playVideo(slide);
+      startVideoProgress(video);
       autoplayVideo = video;
       autoplayVideoEndedHandler = () => {
         clearAutoplay();
+        setProgress(1);
         swiper.slideNext();
       };
       autoplayVideo.addEventListener("ended", autoplayVideoEndedHandler, {
@@ -156,10 +179,52 @@ export function moreThan() {
       return;
     }
 
+    startTimerProgress(AUTOPLAY_TIME);
     autoplayTimer = window.setTimeout(() => {
       autoplayTimer = undefined;
+      setProgress(1);
       swiper.slideNext();
     }, AUTOPLAY_TIME);
+  }
+
+  function startTimerProgress(duration: number) {
+    const startTime = performance.now();
+
+    const updateProgress = (currentTime: number) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+
+      setProgress(progress);
+
+      if (progress < 1) {
+        progressAnimationFrame = window.requestAnimationFrame(updateProgress);
+      }
+    };
+
+    progressAnimationFrame = window.requestAnimationFrame(updateProgress);
+  }
+
+  function startVideoProgress(video: HTMLVideoElement) {
+    const updateProgress = () => {
+      if (Number.isFinite(video.duration) && video.duration > 0) {
+        setProgress(Math.min(video.currentTime / video.duration, 1));
+      }
+
+      if (!video.ended) {
+        progressAnimationFrame = window.requestAnimationFrame(updateProgress);
+      }
+    };
+
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      updateProgress();
+      return;
+    }
+
+    autoplayVideoMetadataHandler = () => {
+      updateProgress();
+    };
+    video.addEventListener("loadedmetadata", autoplayVideoMetadataHandler, {
+      once: true,
+    });
   }
 
   function stopVideo(slide: HTMLElement | undefined) {
