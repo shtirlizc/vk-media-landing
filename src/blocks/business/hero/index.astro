@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import decorImg from "./assets/decor.webp";
 import videoPoster from "./assets/buisness-video-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
+import PauseButton from "../../../assets/images/pause-button.svg";
 import Container from "../../../components/container.astro";
 ---
 
@@ -44,12 +45,13 @@ import Container from "../../../components/container.astro";
       </video>
 
       <button
-        class="hero__play"
+        class="hero__playback"
         type="button"
         aria-label="Запустить видео"
-        data-video-player-play
+        data-video-player-playback
       >
-        <PlayButton />
+        <span class="hero__play-icon"><PlayButton /></span>
+        <span class="hero__pause-icon"><PauseButton /></span>
       </button>
     </div>
   </Container>
@@ -137,7 +139,7 @@ import Container from "../../../components/container.astro";
       object-fit: cover;
     }
 
-    & .hero__play {
+    & .hero__playback {
       position: absolute;
       inset: 0;
       display: grid;
@@ -150,20 +152,38 @@ import Container from "../../../components/container.astro";
       background: transparent;
       cursor: pointer;
       color: var(--color-text-primary);
-      transition: color var(--transition);
+      transition:
+        color var(--transition),
+        opacity var(--transition);
     }
 
-    & .hero__play:hover {
+    & .hero__playback:hover {
       color: var(--color-primary);
     }
 
-    & .hero__play:focus-visible {
+    & .hero__playback:focus-visible {
       outline: 2px solid var(--color-text-primary);
       outline-offset: 4px;
     }
 
-    & .hero__media[data-playing] .hero__play {
-      visibility: hidden;
+    & .hero__pause-icon {
+      display: none;
+    }
+
+    & .hero__media[data-playing] .hero__play-icon {
+      display: none;
+    }
+
+    & .hero__media[data-playing] .hero__pause-icon {
+      display: block;
+    }
+
+    @media (hover: hover) {
+      &
+        .hero__media[data-playing]:not(:hover)
+        .hero__playback:not(:focus-visible) {
+        opacity: 0;
+      }
     }
   }
 
@@ -191,7 +211,7 @@ import Container from "../../../components/container.astro";
         line-height: 100%;
       }
 
-      & .hero__play img {
+      & .hero__playback svg {
         width: 59px;
         height: 70px;
       }

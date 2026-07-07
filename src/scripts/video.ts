@@ -5,29 +5,38 @@ export function initVideos() {
     const video = player.querySelector<HTMLVideoElement>(
       "[data-video-player-video]",
     );
-    const playButton = player.querySelector<HTMLButtonElement>(
-      "[data-video-player-play]",
+    const playbackButton = player.querySelector<HTMLButtonElement>(
+      "[data-video-player-playback]",
     );
 
-    playButton?.addEventListener("click", async () => {
-      if (!video) return;
+    if (!video || !playbackButton) return;
+
+    playbackButton.addEventListener("click", async () => {
+      if (!video.paused) {
+        video.pause();
+        return;
+      }
 
       try {
         await video.play();
-        video.controls = true;
       } catch {
         delete player.dataset.playing;
       }
     });
 
-    video?.addEventListener("play", () => {
+    video.addEventListener("play", () => {
       player.dataset.playing = "";
+      playbackButton.setAttribute("aria-label", "Поставить видео на паузу");
     });
-    video?.addEventListener("pause", () => {
+
+    const setPausedState = (ariaLabel: string) => {
       delete player.dataset.playing;
-    });
-    video?.addEventListener("ended", () => {
-      delete player.dataset.playing;
-    });
+      playbackButton.setAttribute("aria-label", ariaLabel);
+    };
+
+    video.addEventListener("pause", () =>
+      setPausedState("Продолжить воспроизведение"),
+    );
+    video.addEventListener("ended", () => setPausedState("Запустить видео"));
   });
 }

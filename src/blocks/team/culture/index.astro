@@ -4,6 +4,7 @@ import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/culture.webp";
 import videoPoster from "../../business/hero/assets/buisness-video-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
+import PauseButton from "../../../assets/images/pause-button.svg";
 import Container from "../../../components/container.astro";
 ---
 
@@ -34,12 +35,13 @@ import Container from "../../../components/container.astro";
       </video>
 
       <button
-        class="culture__play"
+        class="culture__playback"
         type="button"
         aria-label="Запустить видео"
-        data-video-player-play
+        data-video-player-playback
       >
-        <PlayButton />
+        <span class="culture__play-icon"><PlayButton /></span>
+        <span class="culture__pause-icon"><PauseButton /></span>
       </button>
     </div>
   </Container>
@@ -67,7 +69,7 @@ import Container from "../../../components/container.astro";
         object-fit: cover;
       }
 
-      & .culture__play {
+      & .culture__playback {
         position: absolute;
         inset: 0;
         display: grid;
@@ -80,20 +82,38 @@ import Container from "../../../components/container.astro";
         background: transparent;
         color: var(--color-text-primary);
         cursor: pointer;
-        transition: color var(--transition);
+        transition:
+          color var(--transition),
+          opacity var(--transition);
       }
 
-      & .culture__play:hover {
+      & .culture__playback:hover {
         color: var(--color-primary);
       }
 
-      & .culture__play:focus-visible {
+      & .culture__playback:focus-visible {
         outline: 2px solid var(--color-text-primary);
         outline-offset: 4px;
       }
 
-      & .culture__media[data-playing] .culture__play {
-        visibility: hidden;
+      & .culture__pause-icon {
+        display: none;
+      }
+
+      & .culture__media[data-playing] .culture__play-icon {
+        display: none;
+      }
+
+      & .culture__media[data-playing] .culture__pause-icon {
+        display: block;
+      }
+
+      @media (hover: hover) {
+        &
+          .culture__media[data-playing]:not(:hover)
+          .culture__playback:not(:focus-visible) {
+          opacity: 0;
+        }
       }
 
       @media (width >= 960px) {
@@ -103,7 +123,12 @@ import Container from "../../../components/container.astro";
           margin-top: var(--space44);
         }
 
-        & .culture__play {
+        & .culture__playback {
+          width: 59px;
+          height: 70px;
+        }
+
+        & .culture__playback svg {
           width: 59px;
           height: 70px;
         }
