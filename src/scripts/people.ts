@@ -46,6 +46,7 @@ export function initPeople() {
 
   popover.addEventListener("toggle", (event) => {
     if (event.newState === "closed") {
+      video.pause();
       video.removeAttribute("src");
     }
   });
