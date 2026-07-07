@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
 import PlayButton from "../../../assets/images/play-button.svg";
+import star1 from "./assets/star-1.webp";
+import star2 from "./assets/star-2.webp";
 import slide2Img from "./assets/story-2.webp";
 import slide5Img from "./assets/story-5.webp";
 
@@ -114,6 +116,15 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           }
         </div>
       </div>
+
+      <div class="decor">
+        <div class="decor__first">
+          <Image src={star1} width={120} height={122} alt="" />
+        </div>
+        <div class="decor__second">
+          <Image src={star2} width={123} height={125} alt="" />
+        </div>
+      </div>
     </div>
   </Container>
 </section>
@@ -141,6 +152,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     }
 
     & .more-than__body {
+      position: relative;
       margin-top: var(--space40);
 
       .swiper {
@@ -149,7 +161,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         aspect-ratio: 360 / 640;
         border-radius: 28px;
 
-        &::after {
+        &::before {
           content: "";
           position: absolute;
           bottom: var(--space8);
@@ -160,7 +172,23 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           border-radius: 4px;
           background-color: var(--color-text-primary);
           pointer-events: none;
+          z-index: 2;
+          opacity: 0;
+          transition: opacity var(--transition-long);
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: -250%;
+          width: 500%;
+          height: 200px;
+          background-image: linear-gradient(180deg, #071c4f 0%, #1040b5 91.47%);
+          filter: blur(20px);
           z-index: 1;
+          opacity: 1;
+          transition: opacity var(--transition-long);
         }
 
         .more-than__pagination {
@@ -237,6 +265,58 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                 }
               }
             }
+          }
+        }
+      }
+
+      .decor {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+        width: 100%;
+        height: 100%;
+        max-width: 360px;
+        aspect-ratio: 360 / 640;
+        z-index: 1;
+
+        & .decor__first {
+          position: absolute;
+          top: 60px;
+          left: -60px;
+          z-index: 10;
+          transition: transform var(--transition-long);
+        }
+
+        & .decor__second {
+          position: absolute;
+          top: 180px;
+          right: -60px;
+          z-index: 10;
+          transition: transform var(--transition-long);
+        }
+      }
+
+      &.active {
+        .swiper {
+          &::before {
+            opacity: 1;
+          }
+
+          &::after {
+            opacity: 0;
+          }
+        }
+
+        .decor {
+          pointer-events: none;
+
+          & .decor__first {
+            transform: scale(0);
+          }
+
+          & .decor__second {
+            transform: scale(0);
           }
         }
       }
