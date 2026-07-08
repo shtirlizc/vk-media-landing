@@ -3,7 +3,12 @@ import Link from "../../components/link.astro";
 export interface ICard {
   title: string;
   description: string;
-  style: string;
+  bg: {
+    image: ImageMetadata;
+    position: string;
+    size: string;
+    sizeDesktop?: string;
+  };
   links: { href: string; label: string }[];
 }
 
@@ -12,11 +17,17 @@ interface Props {
 }
 
 const { card } = Astro.props;
-const { title, description, style, links } = card;
+const { title, description, bg, links } = card;
+const bgStyle = {
+  "--card-bg-image": `url("${bg.image.src}")`,
+  "--card-bg-position": bg.position,
+  "--card-bg-size": bg.size,
+  "--card-bg-size-desktop": bg.sizeDesktop ?? bg.size,
+};
 ---
 
 <article class="card" data-useful-card>
-  <div class="card__bg" style={style}></div>
+  <div class="card__bg" style={bgStyle}></div>
   <h4>{title}</h4>
   <p>{description}</p>
   <ul class="card__links">
@@ -58,6 +69,15 @@ const { title, description, style, links } = card;
       left: 0;
       width: 100%;
       height: 100%;
+      background-image: var(--card-bg-image);
+      background-repeat: no-repeat;
+      background-position: var(--card-bg-position);
+      background-size: var(--card-bg-size);
+
+      /* desktop */
+      @media (width >= 960px) {
+        background-size: var(--card-bg-size-desktop);
+      }
     }
 
     h4 {

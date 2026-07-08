@@ -186,8 +186,9 @@ import Container from "../../../components/container.astro";
     }
 
     @media (hover: hover) {
-      & .hero__media[data-playing]:not(:hover),
-      .hero__playback:not(:focus-visible) {
+      &
+        .hero__media[data-playing]:not(:hover)
+        .hero__playback:not(:focus-visible) {
         opacity: 0;
       }
     }

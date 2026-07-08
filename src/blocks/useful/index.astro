@@ -13,7 +13,12 @@ const cards: ICard[] = [
   {
     title: "обзор событий",
     description: "Здесь можно следить за новостями и важными анонсами",
-    style: `background-image: url('${img1.src}'); background-repeat: no-repeat; background-position: top right; background-size: 110px auto;`,
+    bg: {
+      image: img1,
+      position: "top right",
+      size: "110px auto",
+      sizeDesktop: "120px auto",
+    },
     links: [
       {
         href: "https://u.internal.myteam.mail.ru/profile/AoK9p0bLa2d-DTgofQ",
@@ -29,7 +34,11 @@ const cards: ICard[] = [
     title: "умный помощник Василиса",
     description:
       "Даст ответ по самым разным вопросам — от оформления отпуска до замены мышки",
-    style: `background-image: url('${img2.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 254px auto;`,
+    bg: {
+      image: img2,
+      position: "bottom left",
+      size: "254px auto",
+    },
     links: [
       {
         href: "https://u.internal.myteam.mail.ru/profile/support_bot",
@@ -40,13 +49,23 @@ const cards: ICard[] = [
   {
     title: "онбординг",
     description: "Мастхэв для новичков, чтобы адаптироваться в команде",
-    style: `background-image: url('${img3.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 172px auto;`,
+    bg: {
+      image: img3,
+      position: "bottom left",
+      size: "172px auto",
+      sizeDesktop: "255px auto",
+    },
     links: [{ href: "#", label: "Перейти" }],
   },
   {
     title: "drop store",
     description: "магазин мерча для сотрудников нашей бизнес-группы",
-    style: `background-image: url('${img4.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 172px auto;`,
+    bg: {
+      image: img4,
+      position: "bottom left",
+      size: "172px auto",
+      sizeDesktop: "250px auto",
+    },
     links: [{ href: "https://dropstore.home.vk.team/", label: "Перейти" }],
   },
 ];

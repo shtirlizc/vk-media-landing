@@ -261,6 +261,12 @@ const peopleRows = rows.map((itemsCount) => {
       height: 100%;
       object-fit: cover;
       border-radius: var(--border-radius20);
+      overflow: hidden;
+
+      /* desktop */
+      @media (width >= 960px) {
+        border-radius: 32px;
+      }
     }
 
     ._modal__playback,
