@@ -186,7 +186,11 @@ const rows: RowItem[][] = [
 <style>
   .products {
     overflow: hidden;
-    padding-bottom: 60px;
+
+    /* desktop */
+    @media (width >= 960px) {
+      padding-bottom: 60px;
+    }
   }
 
   & .products__title {
@@ -196,7 +200,7 @@ const rows: RowItem[][] = [
   .products__marquee {
     display: grid;
     gap: 16px;
-    margin-top: 32px;
+    margin-top: 38px;
   }
 
   .products__row {
@@ -228,6 +232,7 @@ const rows: RowItem[][] = [
   }
 
   .products__card {
+    font-family: var(--font-secondary), sans-serif;
     display: flex;
     flex-shrink: 0;
     align-items: center;

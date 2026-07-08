@@ -61,8 +61,9 @@ const peopleRows = rows.map((itemsCount) => {
 <div class="people">
   <Container>
     <Title id="people-title">
-      Главное — люди
+      <span class="people__title">Главное — люди</span>
       <Image
+        class="title-img"
         slot="image"
         src={decorImg}
         width="135"
@@ -133,20 +134,24 @@ const peopleRows = rows.map((itemsCount) => {
 <style>
   .people {
     overflow: hidden;
-    margin-bottom: 80px;
 
-    & #people-title {
-      padding-inline: var(--space16);
+    & .people__title {
+      letter-spacing: -1px;
+    }
 
-      img {
-        transform: rotate(-15deg);
-      }
+    .title-img {
+      transform: rotate(-15deg);
     }
 
     & .people__marquee {
       display: grid;
       margin-top: 42px;
-      padding-bottom: 60px;
+      padding-bottom: 6px;
+
+      /* desktop */
+      @media (width >= 960px) {
+        padding-bottom: 60px;
+      }
     }
 
     & .people__row {

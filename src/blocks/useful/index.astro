@@ -13,11 +13,11 @@ const cards: ICard[] = [
   {
     title: "обзор событий",
     description: "Здесь можно следить за новостями и важными анонсами",
-    style: `background-image: url('${img1.src}'); background-repeat: no-repeat; background-position: top right; background-size: 116px auto;`,
+    style: `background-image: url('${img1.src}'); background-repeat: no-repeat; background-position: top right; background-size: 110px auto;`,
     links: [
       {
         href: "https://u.internal.myteam.mail.ru/profile/AoK9p0bLa2d-DTgofQ",
-        label: "Канал «Все по делу»",
+        label: "Канал «Все по делу»",
       },
       {
         href: "https://docs.google.com/document/d/14AoT_7-WXG6C68YohZNaIGjI4upcdhAHIUIVFhCIiRg/edit?usp=sharing",
@@ -40,13 +40,13 @@ const cards: ICard[] = [
   {
     title: "онбординг",
     description: "Мастхэв для новичков, чтобы адаптироваться в команде",
-    style: `background-image: url('${img3.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 253px auto;`,
+    style: `background-image: url('${img3.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 172px auto;`,
     links: [{ href: "#", label: "Перейти" }],
   },
   {
     title: "drop store",
     description: "магазин мерча для сотрудников нашей бизнес-группы",
-    style: `background-image: url('${img4.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 242px auto;`,
+    style: `background-image: url('${img4.src}'); background-repeat: no-repeat; background-position: bottom left; background-size: 172px auto;`,
     links: [{ href: "https://dropstore.home.vk.team/", label: "Перейти" }],
   },
 ];
@@ -56,7 +56,7 @@ const cards: ICard[] = [
   <Container>
     <div class="useful__head" data-useful-head>
       <Title id="useful-title">
-        Больше полезного о нас
+        <span class="useful__title">Больше полезного&nbsp;о&nbsp;нас</span>
         <Image
           slot="image"
           src={decorImg}
@@ -82,9 +82,16 @@ const cards: ICard[] = [
       var(--header) + var(--space12) + 58px + var(--space16)
     );
 
+    margin-top: calc(-1 * var(--section-gap));
+
+    & .useful__title {
+      letter-spacing: -1px;
+    }
+
     & .useful__body {
       display: grid;
       gap: var(--space16);
+      margin-top: var(--space20);
 
       /* tablet */
       @media (width >= 768px) {

@@ -59,24 +59,26 @@ import Useful from "../blocks/useful/index.astro";
   }
 
   .feed {
+    --section-gap: 80px;
+
     display: grid;
-    gap: 80px;
+    gap: var(--section-gap);
 
     /* desktop */
     @media (width >= 960px) {
-      gap: 130px;
+      --section-gap: 130px;
     }
 
     /* widescreen */
     @media (width >= 1200px) {
-      gap: 160px;
+      --section-gap: 160px;
     }
   }
 
   .bottom {
     position: relative;
     isolation: isolate;
-    padding-top: 50vh;
+    padding-top: 0;
 
     & .bottom__bg {
       position: absolute;

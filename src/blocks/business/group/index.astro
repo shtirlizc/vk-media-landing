@@ -39,8 +39,16 @@ const cards = [
   <Container>
     <div class="group__pin">
       <Title title="h3" id="group-title">
-        Как мы усиливаем друг друга внутри бизнес-группы
+        <span class="group__title">
+          Как мы усиливаем друг друга внутри бизнес-группы
+        </span>
       </Title>
+
+      <p class="group__description">
+        Все команды работают над своими продуктами в рамках одной
+        медиастратегии. Вместе развиваем кросс-платформенные сценарии и делимся
+        инфраструктурой для ускорения роста каждого продукта.
+      </p>
 
       <div class="group__viewport">
         <div class="group__deck" data-group-deck>
@@ -67,6 +75,8 @@ const cards = [
 <style>
   .group {
     overflow: clip;
+    margin-top: calc(-1 * var(--section-gap));
+    margin-bottom: calc(-1 * var(--section-gap));
   }
 
   .group__pin {
@@ -76,6 +86,18 @@ const cards = [
     padding-block: var(--space40);
   }
 
+  .group__title {
+    letter-spacing: -1px;
+  }
+
+  .group__description {
+    margin-top: var(--space20);
+    font-family: var(--font-secondary), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 110%;
+  }
+
   .group__viewport {
     --card-width: min(231px, calc(100vw - 96px));
     --card-radius: 20px;
@@ -83,7 +105,7 @@ const cards = [
 
     position: relative;
     min-height: var(--deck-height);
-    margin-top: var(--space32);
+    margin-top: var(--space40);
 
     /* desktop */
     @media (width >= 960px) {
@@ -108,7 +130,8 @@ const cards = [
     display: flex;
     align-items: flex-end;
     aspect-ratio: 231 / 328;
-    padding: var(--space16);
+    padding: 23px 14px 23px 18px;
+    letter-spacing: -0.3px;
     border-radius: var(--card-radius);
     color: var(--color-text-primary);
     transform-origin: left center;
@@ -154,10 +177,8 @@ const cards = [
   .group__card p {
     z-index: 2;
     max-width: 100%;
-    font-family: var(--font-secondary), sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 0.95;
+    font-size: 12px;
+    line-height: 100%;
   }
 
   @media (width >= 960px) {

@@ -107,7 +107,9 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   <Container>
     <div class="more-than__head">
       <Title title="h3" id="more-than-title">
-        Команда — это больше, чем про работу
+        <span class="more-than__title">
+          Команда&nbsp;— это&nbsp;больше, чем&nbsp;про работу
+        </span>
       </Title>
       <p class="more-than__description">
         Праздники, тимбилдинги, события и даже хобби — нас объединяют не только
@@ -188,6 +190,12 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
 <style>
   .more-than {
+    margin-top: var(--space24);
+
+    & .more-than__title {
+      letter-spacing: -0.5px;
+    }
+
     & .more-than__description {
       margin-top: var(--space20);
       font-family: var(--font-secondary), sans-serif;
@@ -213,7 +221,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       position: relative;
       margin-top: var(--space40);
-      overflow: hidden;
+      transform-origin: top center;
       transform: scale(0.6);
       transition: transform var(--transition-long);
 
@@ -349,16 +357,16 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
         & .decor__first {
           position: absolute;
-          top: 60px;
-          left: -60px;
+          top: 110px;
+          right: -74px;
           z-index: 10;
           transition: transform var(--transition-long);
         }
 
         & .decor__second {
           position: absolute;
-          top: 180px;
-          right: -60px;
+          top: 220px;
+          left: -88px;
           z-index: 10;
           transition: transform var(--transition-long);
         }
