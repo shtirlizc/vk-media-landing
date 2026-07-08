@@ -66,7 +66,7 @@ import Container from "../../../components/container.astro";
     align-items: center;
     overflow: hidden;
     width: 100%;
-    padding-block: var(--space48) var(--space32);
+    padding: 50px 0 5px;
 
     &::before {
       content: "";
@@ -95,26 +95,26 @@ import Container from "../../../components/container.astro";
     }
 
     & .hero__eyebrow {
-      margin-top: var(--space48);
       margin-bottom: var(--space20);
-      font-size: 14px;
-      line-height: 1;
+      font-size: 16px;
+      line-height: 1em;
+      text-align: center;
     }
 
     & .hero__title {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 700;
-      line-height: 86%;
-      letter-spacing: -0.02em;
+      line-height: 93%;
+      text-align: center;
       text-transform: lowercase;
     }
 
     & .hero__description {
-      max-width: 328px;
       margin: var(--space20) auto 0;
-      font-size: 17px;
-      line-height: 94%;
-      letter-spacing: -0.025em;
+      font-size: 16px;
+      line-height: 100%;
+      text-align: center;
+      letter-spacing: -0.3px;
     }
 
     & .hero__decor {
@@ -122,12 +122,13 @@ import Container from "../../../components/container.astro";
       width: 291px;
       height: auto;
       z-index: 1;
+      margin-top: -20px;
     }
 
     & .hero__media {
       position: relative;
       z-index: 3;
-      margin-top: -120px;
+      margin-top: -170px;
       margin-inline: auto;
       aspect-ratio: 328 / 211;
       clip-path: inset(0 round 20px);

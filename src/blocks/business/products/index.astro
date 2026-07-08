@@ -123,7 +123,9 @@ const rows: RowItem[][] = [
 
 <section class="products" aria-labelledby="products-title">
   <Container>
-    <Title title="h3" id="products-title">То, что мы создаём</Title>
+    <Title title="h3" id="products-title">
+      <span class="products__title">То, что мы создаём</span>
+    </Title>
   </Container>
 
   <div class="products__marquee">
@@ -185,6 +187,10 @@ const rows: RowItem[][] = [
   .products {
     overflow: hidden;
     padding-bottom: 60px;
+  }
+
+  & .products__title {
+    letter-spacing: -1px;
   }
 
   .products__marquee {
@@ -266,11 +272,11 @@ const rows: RowItem[][] = [
     object-fit: contain;
   }
 
-  @keyframes products-marquee {
+  /*@keyframes products-marquee {
     to {
       transform: translateX(-25%);
     }
-  }
+  }*/
 
   @media (prefers-reduced-motion: reduce) {
     .products__track {
