@@ -195,12 +195,22 @@ const rows: RowItem[][] = [
 
   & .products__title {
     letter-spacing: -1px;
+
+    /* desktop */
+    @media (width >= 960px) {
+      letter-spacing: -1.5px;
+    }
   }
 
   .products__marquee {
     display: grid;
-    gap: 16px;
+    gap: var(--space16);
     margin-top: 38px;
+
+    /* desktop */
+    @media (width >= 960px) {
+      gap: var(--space24);
+    }
   }
 
   .products__row {
@@ -227,8 +237,14 @@ const rows: RowItem[][] = [
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 8px;
-    padding-right: 8px;
+    gap: var(--space8);
+    padding-right: var(--space8);
+
+    /* desktop */
+    @media (width >= 960px) {
+      gap: var(--space24);
+      padding-right: var(--space24);
+    }
   }
 
   .products__card {
@@ -238,7 +254,7 @@ const rows: RowItem[][] = [
     align-items: center;
     gap: 20px;
     min-height: 72px;
-    padding: 16px;
+    padding: var(--space16);
     border-radius: 20px;
     background: #101010;
     font-size: 16px;
@@ -248,6 +264,13 @@ const rows: RowItem[][] = [
     color: var(--color-text-primary);
     box-shadow: 0 3px 58.6px 0 transparent;
     transition: box-shadow var(--transition-long) ease;
+
+    /* desktop */
+    @media (width >= 960px) {
+      font-weight: 500;
+      font-size: 24px;
+      padding: var(--space24);
+    }
 
     &:hover {
       box-shadow: 0 3px 58.6px 0 #0062ff;
@@ -268,6 +291,12 @@ const rows: RowItem[][] = [
     height: 40px;
     flex-shrink: 0;
     object-fit: contain;
+
+    /* desktop */
+    @media (width >= 960px) {
+      width: 70px;
+      height: 70px;
+    }
   }
 
   .products__decor {
@@ -275,6 +304,12 @@ const rows: RowItem[][] = [
     height: 72px;
     flex-shrink: 0;
     object-fit: contain;
+
+    /* desktop */
+    @media (width >= 960px) {
+      width: 116px;
+      height: 116px;
+    }
   }
 
   @keyframes products-marquee {

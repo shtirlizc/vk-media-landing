@@ -40,7 +40,7 @@ const cards = [
     <div class="group__pin">
       <Title title="h3" id="group-title">
         <span class="group__title">
-          Как мы усиливаем друг друга внутри бизнес-группы
+          Как мы усиливаем друг друга внутри <span>бизнес-группы</span>
         </span>
       </Title>
 
@@ -88,6 +88,15 @@ const cards = [
 
   .group__title {
     letter-spacing: -1px;
+
+    /* desktop */
+    @media (width >= 960px) {
+      letter-spacing: -1.5px;
+    }
+
+    span {
+      white-space: nowrap;
+    }
   }
 
   .group__description {
@@ -96,6 +105,12 @@ const cards = [
     font-weight: 500;
     font-size: 16px;
     line-height: 110%;
+
+    /* desktop */
+    @media (width >= 960px) {
+      margin-top: var(--space32);
+      font-size: 24px;
+    }
   }
 
   .group__viewport {
@@ -110,6 +125,8 @@ const cards = [
     /* desktop */
     @media (width >= 960px) {
       --card-radius: 32px;
+
+      margin-top: 58px;
     }
   }
 
@@ -168,6 +185,11 @@ const cards = [
     background-position: top left;
     background-repeat: no-repeat;
     background-size: 304px auto;
+
+    /* desktop */
+    @media (width >= 960px) {
+      background-size: 404px auto;
+    }
   }
 
   .group__card.is-active::before {
@@ -196,8 +218,9 @@ const cards = [
 
     .group__card {
       aspect-ratio: 423 / 392;
-      padding: var(--space24);
-      border-radius: var(--border-radius20);
+      padding: 30px 20px 30px 24px;
+      letter-spacing: -0.5px;
+      border-radius: 32px;
     }
 
     .group__card p {

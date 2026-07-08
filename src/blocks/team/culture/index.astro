@@ -17,6 +17,7 @@ import Container from "../../../components/container.astro";
       <Image
         slot="image"
         src={decorImg}
+        class="title-img"
         width="145"
         height="145"
         layout="fixed"
@@ -51,8 +52,28 @@ import Container from "../../../components/container.astro";
 
   <style>
     .culture {
+      /* desktop */
+      @media (width >= 960px) {
+        margin-top: -50px;
+      }
+
       & .culture__title {
         letter-spacing: -0.5px;
+
+        /* desktop */
+        @media (width >= 960px) {
+          letter-spacing: -1px;
+        }
+      }
+
+      & .title-img {
+        transform-origin: right top;
+        transform: rotate(-25deg) scale(0.75);
+
+        /* widescreen */
+        @media (width >= 1200px) {
+          transform: rotate(-25deg);
+        }
       }
 
       & .culture__media {
@@ -121,25 +142,19 @@ import Container from "../../../components/container.astro";
       }
 
       @media (width >= 960px) {
-        margin-bottom: 155px;
-
         & .culture__media {
           margin-top: var(--space44);
         }
 
         & .culture__playback {
-          width: 59px;
-          height: 70px;
+          width: 72px;
+          height: 82px;
         }
 
         & .culture__playback svg {
-          width: 59px;
-          height: 70px;
+          width: 72px;
+          height: 82px;
         }
-      }
-
-      @media (width >= 1200px) {
-        margin-bottom: 160px;
       }
     }
   </style>

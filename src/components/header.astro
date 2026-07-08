@@ -184,8 +184,16 @@ import Container from "./container.astro";
 
     /* tablet */
     @media (width >= 768px) {
+      display: flex;
+      gap: var(--space40);
+      padding: 0;
       height: auto;
       flex-direction: row;
+    }
+
+    /* desktop */
+    @media (width >= 960px) {
+      gap: 90px;
     }
 
     & a {
@@ -199,13 +207,6 @@ import Container from "./container.astro";
       &.active {
         color: var(--color-primary);
       }
-    }
-
-    /* tablet */
-    @media (width >= 768px) {
-      display: flex;
-      gap: var(--space32);
-      padding: 0;
     }
   }
 </style>

@@ -137,10 +137,21 @@ const peopleRows = rows.map((itemsCount) => {
 
     & .people__title {
       letter-spacing: -1px;
+
+      /* desktop */
+      @media (width >= 960px) {
+        letter-spacing: -1.5px;
+      }
     }
 
     .title-img {
-      transform: rotate(-15deg);
+      transform-origin: right top;
+      transform: rotate(-15deg) scale(0.75);
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        transform: rotate(-15deg);
+      }
     }
 
     & .people__marquee {
@@ -359,8 +370,6 @@ const peopleRows = rows.map((itemsCount) => {
 
     /* desktop */
     @media (width >= 960px) {
-      margin-bottom: 155px;
-
       & ._modal {
         --modal-width: 881px;
         --modal-height: 485px;
@@ -377,7 +386,7 @@ const peopleRows = rows.map((itemsCount) => {
       }
 
       & .people__marquee {
-        margin-top: 67px;
+        margin-top: 12px;
       }
     }
 

@@ -192,8 +192,16 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   .more-than {
     margin-top: var(--space24);
 
+    @media (width >= 960px) {
+      margin-top: calc(-1 * var(--space32));
+    }
+
     & .more-than__title {
       letter-spacing: -0.5px;
+
+      @media (width >= 960px) {
+        letter-spacing: -1.5px;
+      }
     }
 
     & .more-than__description {
@@ -205,8 +213,9 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       /* desktop */
       @media (width >= 960px) {
-        margin-top: 30px;
+        margin-top: 26px;
         font-size: 24px;
+        max-width: 80%;
       }
 
       /* widescreen */
@@ -228,6 +237,12 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       /* tablet */
       @media (width >= 768px) {
         --width: 360px;
+      }
+
+      /* desktop */
+      @media (width >= 960px) {
+        transform: scale(0.9);
+        margin-top: 60px;
       }
 
       .swiper {

@@ -68,6 +68,11 @@ import Container from "../../../components/container.astro";
     width: 100%;
     padding: 50px 0 5px;
 
+    /* desktop */
+    @media (width >= 960px) {
+      padding: 65px 0 15px;
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -196,7 +201,7 @@ import Container from "../../../components/container.astro";
       }
 
       & .hero__eyebrow {
-        margin-bottom: var(--space40);
+        margin-bottom: var(--space32);
         font-size: 24px;
       }
 
@@ -206,19 +211,21 @@ import Container from "../../../components/container.astro";
       }
 
       & .hero__description {
-        max-width: none;
-        margin-top: var(--space44);
+        margin-top: var(--space28);
         font-size: 24px;
         line-height: 100%;
+        max-width: 800px;
+        letter-spacing: -1px;
       }
 
       & .hero__playback svg {
-        width: 59px;
-        height: 70px;
+        width: 72px;
+        height: 82px;
       }
 
       & .hero__decor {
         width: 619px;
+        margin-top: -92px;
       }
 
       & .hero__media {
