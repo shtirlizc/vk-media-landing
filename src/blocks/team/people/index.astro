@@ -4,44 +4,45 @@ import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/people.webp";
 import defaultPhoto from "./photos/default.png";
 import Container from "../../../components/container.astro";
-import video1 from "./videos/video1.mp4";
 import PlayButton from "../../../assets/images/play-button.svg";
 import PauseButton from "../../../assets/images/pause-button.svg";
 import CloseIcon from "../../../assets/images/x.svg";
+import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
 const rows = [8, 7, 6];
 const copies = [0, 1, 2, 3];
+const peopleVideoSrc = getVideoSrc("people-1");
 
 const people = [
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
   {
     photo: defaultPhoto,
     alt: "defaultPhoto",
-    video: video1,
+    video: peopleVideoSrc,
   },
 ];
 
