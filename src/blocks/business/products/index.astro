@@ -187,9 +187,9 @@ const rows: RowItem[][] = [
   .products {
     overflow: hidden;
 
-    /* desktop */
-    @media (width >= 960px) {
-      padding-bottom: 60px;
+    /* widescreen */
+    @media (width >= 1200px) {
+      margin-top: -36px;
     }
   }
 
@@ -199,6 +199,11 @@ const rows: RowItem[][] = [
     /* desktop */
     @media (width >= 960px) {
       letter-spacing: -1.5px;
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      letter-spacing: -2px;
     }
   }
 
@@ -210,6 +215,11 @@ const rows: RowItem[][] = [
     /* desktop */
     @media (width >= 960px) {
       gap: var(--space24);
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      margin-top: 64px;
     }
   }
 

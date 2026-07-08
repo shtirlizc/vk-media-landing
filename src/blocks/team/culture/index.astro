@@ -57,12 +57,22 @@ import Container from "../../../components/container.astro";
         margin-top: -50px;
       }
 
+      /* widescreen */
+      @media (width >= 1200px) {
+        margin-top: -70px;
+      }
+
       & .culture__title {
         letter-spacing: -0.5px;
 
         /* desktop */
         @media (width >= 960px) {
           letter-spacing: -1px;
+        }
+
+        /* widescreen */
+        @media (width >= 1200px) {
+          letter-spacing: 0;
         }
       }
 
@@ -72,6 +82,13 @@ import Container from "../../../components/container.astro";
 
         /* widescreen */
         @media (width >= 1200px) {
+          transform: rotate(-25deg) scale(1);
+          width: 120px;
+          height: 120px;
+        }
+
+        /* widescreen */
+        @media (width >= 1300px) {
           transform: rotate(-25deg) scale(1);
         }
       }

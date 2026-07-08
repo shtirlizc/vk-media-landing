@@ -73,6 +73,11 @@ import Container from "../../../components/container.astro";
       padding: 65px 0 15px;
     }
 
+    /* widescreen */
+    @media (width >= 1200px) {
+      padding: 125px 0 15px;
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -241,7 +246,7 @@ import Container from "../../../components/container.astro";
     .hero {
       & .hero__decor {
         width: 747px;
-        transform: translateY(-50px);
+        margin-top: -38px;
       }
 
       & .hero__eyebrow {
@@ -255,8 +260,9 @@ import Container from "../../../components/container.astro";
       & .hero__title {
         font-size: 60px;
       }
+
       & .hero__media {
-        margin-top: -420px;
+        margin-top: -442px;
         min-width: 1121px;
       }
     }

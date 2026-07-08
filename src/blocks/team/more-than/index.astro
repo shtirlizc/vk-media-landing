@@ -196,11 +196,21 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       margin-top: calc(-1 * var(--space32));
     }
 
+    /* widescreen */
+    @media (width >= 1200px) {
+      margin-top: 0;
+    }
+
     & .more-than__title {
       letter-spacing: -0.5px;
 
       @media (width >= 960px) {
         letter-spacing: -1.5px;
+      }
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        letter-spacing: 0;
       }
     }
 
@@ -243,6 +253,11 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       @media (width >= 960px) {
         transform: scale(0.8);
         margin-top: 60px;
+      }
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        margin-top: 78px;
       }
 
       .swiper {

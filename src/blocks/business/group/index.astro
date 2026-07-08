@@ -95,6 +95,11 @@ const cards = [
       letter-spacing: -1.5px;
     }
 
+    /* widescreen */
+    @media (width >= 1200px) {
+      letter-spacing: -2px;
+    }
+
     span {
       white-space: nowrap;
     }
@@ -111,6 +116,12 @@ const cards = [
     @media (width >= 960px) {
       margin-top: var(--space32);
       font-size: 24px;
+      max-width: 85%;
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      font-size: 28px;
     }
   }
 
@@ -215,6 +226,11 @@ const cards = [
       --deck-height: var(--card-height);
 
       margin-top: 48px;
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        margin-top: 80px;
+      }
     }
 
     .group__card {
