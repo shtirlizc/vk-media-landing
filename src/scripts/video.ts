@@ -30,7 +30,7 @@ export function initVideos() {
 
     video.addEventListener("play", () => {
       player.dataset.playing = "";
-      playbackButton.setAttribute("aria-label", "Поставить видео на паузу");
+      playbackButton.setAttribute("aria-label", "Поставить видео на паузу");
     });
 
     const setPausedState = (ariaLabel: string) => {

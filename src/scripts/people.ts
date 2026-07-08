@@ -57,7 +57,7 @@ export function initPeople() {
 
   video.addEventListener("play", () => {
     popover.dataset.playing = "";
-    playbackButton?.setAttribute("aria-label", "Поставить видео на паузу");
+    playbackButton?.setAttribute("aria-label", "Поставить видео на паузу");
     schedulePlaybackButtonHide();
   });
 
