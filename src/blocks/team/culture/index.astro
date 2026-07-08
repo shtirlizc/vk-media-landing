@@ -6,6 +6,7 @@ import videoPoster from "../../business/hero/assets/buisness-video-preview.webp"
 import PlayButton from "../../../assets/images/play-button.svg";
 import PauseButton from "../../../assets/images/pause-button.svg";
 import Container from "../../../components/container.astro";
+import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 ---
 
 <section class="culture" aria-labelledby="culture-title">
@@ -30,7 +31,7 @@ import Container from "../../../components/container.astro";
       <video
         class="culture__video"
         data-video-player-video
-        src="https://storage.yandexcloud.net/team-hh-email/vk-media-landing/hero.mp4"
+        src={getVideoSrc("hero")}
         title="Видео о культуре в команде"
         preload="metadata"
         poster={videoPoster.src}

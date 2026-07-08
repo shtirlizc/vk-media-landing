@@ -11,6 +11,7 @@ import slide6Img from "./assets/story-6.webp";
 import slide8Img from "./assets/story-8.webp";
 import slide9Img from "./assets/story-9.webp";
 import slide11Img from "./assets/story-11.webp";
+import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
 interface ISlide {
   title?: string;
@@ -30,7 +31,7 @@ const checkIsVideo = (item: ISlideImage | ISlideVideo): item is ISlideVideo => {
 const slides: (ISlideImage | ISlideVideo)[] = [
   {
     title: "8 марта",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-1.mp4",
+    src: getVideoSrc("story-1"),
   },
   {
     title: "14 февраля",
@@ -38,11 +39,11 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   },
   {
     title: "Drop Store Запуск магазина мерча бизнес-группы",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-3.mp4",
+    src: getVideoSrc("story-3"),
   },
   {
     title: "ВК Фест 2025",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-4.mp4",
+    src: getVideoSrc("story-4"),
   },
   {
     title: "Афтепати ВК Фест 2025",
@@ -54,7 +55,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   },
   {
     title: "День рождение Музыки",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-7.mp4",
+    src: getVideoSrc("story-7"),
   },
   {
     title: "День рождение Одноклассников",
@@ -66,7 +67,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   },
   {
     title: "Новый год Дзен",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-10.mp4",
+    src: getVideoSrc("story-10"),
   },
   {
     title: "Привет, босс",
@@ -74,31 +75,31 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   },
   {
     title: "Привет, команда",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-12.mp4",
+    src: getVideoSrc("story-12"),
   },
   {
     title: "ИТ неделя",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-13.mp4",
+    src: getVideoSrc("story-13"),
   },
   {
     title: "Фандом фест",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-14.mp4",
+    src: getVideoSrc("story-14"),
   },
   {
     title: "Благотворительная ярмарка",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-15.mp4",
+    src: getVideoSrc("story-15"),
   },
   {
     title: "День рождения ВКонтакте",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-16.mp4",
+    src: getVideoSrc("story-16"),
   },
   {
     title: "Книжный клуб",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-17.mp4",
+    src: getVideoSrc("story-17"),
   },
   {
     title: "Пятничная встреча",
-    src: "https://storage.yandexcloud.net/team-hh-email/vk-media-landing/story-18.mp4",
+    src: getVideoSrc("story-18"),
   },
 ];
 ---
