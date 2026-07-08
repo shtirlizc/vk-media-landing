@@ -60,6 +60,7 @@ const cards: ICard[] = [
         <Image
           slot="image"
           src={decorImg}
+          class="title-img"
           width="145"
           height="145"
           layout="fixed"
@@ -86,6 +87,21 @@ const cards: ICard[] = [
 
     & .useful__title {
       letter-spacing: -1px;
+
+      /* desktop */
+      @media (width >= 960px) {
+        letter-spacing: -1.2px;
+      }
+    }
+
+    .title-img {
+      transform-origin: right top;
+      transform: scale(0.75);
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        transform: scale(1);
+      }
     }
 
     & .useful__body {

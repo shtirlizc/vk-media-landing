@@ -80,6 +80,12 @@ import Useful from "../blocks/useful/index.astro";
     isolation: isolate;
     padding-top: 0;
 
+    /* tablet */
+    @media (width >= 768px) {
+      padding-top: 360px;
+      margin-top: -360px;
+    }
+
     & .bottom__bg {
       position: absolute;
       overflow: hidden;

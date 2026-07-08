@@ -44,6 +44,13 @@ const { title, description, style, links } = card;
     background-image: linear-gradient(180deg, #000000 0%, #0062ff 100%);
     overflow: hidden;
 
+    /* desktop */
+    @media (width >= 960px) {
+      padding: 30px 24px 24px;
+      border-radius: 32px;
+      aspect-ratio: 328 / 221;
+    }
+
     & .card__bg {
       content: "";
       position: absolute;
@@ -59,6 +66,11 @@ const { title, description, style, links } = card;
       font-size: 16px;
       line-height: 100%;
       letter-spacing: -0.4px;
+
+      /* desktop */
+      @media (width >= 960px) {
+        font-size: 24px;
+      }
     }
 
     p {
@@ -71,6 +83,12 @@ const { title, description, style, links } = card;
       line-height: 110%;
       text-transform: lowercase;
       max-width: 85%;
+
+      /* desktop */
+      @media (width >= 960px) {
+        font-size: 16px;
+        margin-top: var(--space12);
+      }
     }
 
     & .card__links {
