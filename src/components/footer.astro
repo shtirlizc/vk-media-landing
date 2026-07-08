@@ -56,6 +56,11 @@ import { navigation } from "../data/navigation.ts";
           color: rgb(255 255 255 / 50%);
           transition: color var(--transition);
 
+          /* desktop */
+          @media (width >= 960px) {
+            font-size: 14px;
+          }
+
           &:hover {
             color: var(--color-text-primary);
           }
