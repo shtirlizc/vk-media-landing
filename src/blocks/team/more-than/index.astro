@@ -376,6 +376,12 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           right: -74px;
           z-index: 10;
           transition: transform var(--transition-long);
+
+          img {
+            animation: more-than-star-float 3.4s ease-in-out infinite alternate;
+            transform-origin: 50% 50%;
+            will-change: transform;
+          }
         }
 
         & .decor__second {
@@ -384,6 +390,14 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           left: -88px;
           z-index: 10;
           transition: transform var(--transition-long);
+
+          img {
+            animation: more-than-star-float 3.8s ease-in-out infinite
+              alternate-reverse;
+            animation-delay: 1.4s;
+            transform-origin: 50% 50%;
+            will-change: transform;
+          }
         }
       }
 
@@ -504,6 +518,16 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           }
         }
       }
+    }
+  }
+
+  @keyframes more-than-star-float {
+    from {
+      transform: translateY(-8px) rotate(-3deg);
+    }
+
+    to {
+      transform: translateY(8px) rotate(3deg);
     }
   }
 </style>
