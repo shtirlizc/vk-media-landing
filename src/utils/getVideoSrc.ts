@@ -3,8 +3,13 @@ const DEFAULT_REMOTE_VIDEO_SRC =
 
 export function getVideoSrc(name: string) {
   const fileName = `${name}.mp4`;
+  const videoSource = import.meta.env.PUBLIC_VIDEO_SOURCE;
+  const useLocalVideo =
+    import.meta.env.DEV ||
+    videoSource === "local" ||
+    (!videoSource && !process.env.CI);
 
-  if (import.meta.env.DEV) {
+  if (useLocalVideo) {
     const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
     return `${baseUrl}/video/${fileName}`;
   }
