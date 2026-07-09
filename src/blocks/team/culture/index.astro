@@ -101,20 +101,23 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
       & .culture__media {
         position: relative;
+        display: grid;
+        place-items: center;
         width: 100%;
         margin-top: var(--space32);
         aspect-ratio: 328 / 211;
         overflow: hidden;
         border-radius: 20px;
-        clip-path: inset(0 round 20px);
         background-color: #071b49;
       }
 
       & .culture__video {
         display: block;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: auto;
+        aspect-ratio: 2859 / 1608;
+        border-radius: inherit;
+        object-fit: contain;
       }
 
       & .culture__playback {
