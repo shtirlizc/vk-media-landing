@@ -109,17 +109,24 @@ import Useful from "../blocks/useful/index.astro";
         position: absolute;
         z-index: -1;
         width: 200%;
-        height: 360px;
+        height: 85vw;
         bottom: -20%;
         left: 50%;
         transform: translate(-50%);
         background-color: #000000;
-        filter: blur(90px);
+        filter: blur(30px);
         pointer-events: none;
+
+        /* tablet */
+        @media (width >= 768px) {
+          height: 300px;
+          filter: blur(45px);
+        }
 
         /* desktop */
         @media (width >= 960px) {
-          height: 900px;
+          height: 450px;
+          filter: blur(60px);
         }
       }
     }
