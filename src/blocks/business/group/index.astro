@@ -2,7 +2,6 @@
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
 import card1Img from "./assets/1.webp";
-import card2Img from "./assets/2.webp";
 import card3Img from "./assets/3.webp";
 import card4Img from "./assets/4.webp";
 import card5Img from "./assets/5.webp";
@@ -14,18 +13,21 @@ const cards = [
       "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
   },
   {
-    image: card2Img,
+    image: card3Img,
     title:
       "Единая панель VK Games для публикации и управления играми для ВКонтакте и ОК",
-  },
-  {
-    image: card3Img,
-    title: "Интеграция новостей Дзена в ОК",
+    isImageCompact: true,
   },
   {
     image: card4Img,
+    title: "Интеграция новостей Дзена в ОК",
+    isImageCompact: true,
+  },
+  {
+    image: card5Img,
     title:
       "VK ID — единый сервис авторизации в OK, ВКонтакте и на других платформах",
+    isImageCompact: true,
   },
 ];
 ---
@@ -48,15 +50,18 @@ const cards = [
       <div class="group__viewport">
         <div class="group__deck" data-group-deck>
           {
-            cards.map(({ image, title }, index) => (
+            cards.map((card, index) => (
               <article
                 class:list={["group__card", index === 0 && "is-active"]}
                 data-group-card
               >
-                <p>{title}</p>
+                <p>{card.title}</p>
                 <div
-                  class="group__bg"
-                  style={`background-image: url("${image.src}")`}
+                  class:list={[
+                    "group__bg",
+                    card.isImageCompact && "group__bg--compact",
+                  ]}
+                  style={`background-image: url("${card.image.src}")`}
                 />
               </article>
             ))
@@ -199,6 +204,20 @@ const cards = [
     }
   }
 
+  .group__bg--compact {
+    background-size: 256px auto;
+
+    /* desktop */
+    @media (width >= 960px) {
+      background-size: 344px auto;
+    }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      background-size: 368px auto;
+    }
+  }
+
   .group__card.is-active::before {
     opacity: 1;
   }
@@ -207,6 +226,7 @@ const cards = [
     z-index: 2;
     max-width: 100%;
     font-size: 12px;
+    line-height: 1;
   }
 
   @media (width >= 960px) {
