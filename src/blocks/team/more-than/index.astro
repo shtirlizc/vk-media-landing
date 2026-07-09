@@ -211,38 +211,37 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
     &:has(.more-than__body.active) .more-than__bg {
       opacity: 0;
+      transform: translateY(20vw);
     }
 
     & .more-than__bg {
       position: absolute;
+      aspect-ratio: 360 / 255;
       width: 100%;
-      height: 360px;
-      bottom: 0;
+      height: auto;
+      bottom: 17vw;
       left: 0;
       z-index: 1;
-      transition: opacity var(--transition);
+      background-image: url("./assets/mobile.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      pointer-events: none;
+      transform: translateY(0);
+      transition:
+        opacity calc(2 * var(--transition-long)) ease-in-out,
+        transform calc(2 * var(--transition-long)) ease-in-out;
 
-      /* desktop */
       @media (width >= 960px) {
-        display: none;
+        bottom: -10vw;
+        aspect-ratio: 960 / 429;
+        background-image: url("./assets/desktop.svg");
       }
 
-      &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        border: 2px dashed red;
-        background-image: linear-gradient(
-          180deg,
-          #071c4f 0%,
-          #1040b5 91.47%,
-          transparent 91.47%
-        );
-        filter: blur(36px);
+      @media (width >= 1200px) {
+        bottom: -19vw;
+        aspect-ratio: 1200 / 647;
+        background-image: url("./assets/widescreen.svg");
       }
     }
 
@@ -284,9 +283,9 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       position: relative;
       margin-top: var(--space40);
-      transform-origin: top center;
+      transform-origin: 50% 25%;
       transform: scale(0.6);
-      transition: transform var(--transition-long);
+      transition: transform calc(2 * var(--transition-long)) ease-in-out;
 
       /* tablet */
       @media (width >= 768px) {
@@ -324,26 +323,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           z-index: 2;
           opacity: 0;
           transition: opacity var(--transition-long);
-        }
-
-        &::after {
-          display: none;
-          content: "";
-          position: absolute;
-          bottom: -24px;
-          left: -250%;
-          width: 500%;
-          height: 200px;
-          background-image: linear-gradient(#071c4f 0%, #092f80 91.47%);
-          filter: blur(20px);
-          z-index: 1;
-          opacity: 1;
-          transition: opacity var(--transition-long);
-
-          /* tablet */
-          @media (width >= 768px) {
-            display: block;
-          }
         }
 
         .more-than__pagination {
