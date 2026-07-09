@@ -31,7 +31,7 @@ export const initRevealTitles = () => {
       }
     },
     {
-      rootMargin: "0px 0px -15% 0px",
+      rootMargin: "0px 0px -12% 0px",
       threshold: 0,
     },
   );
