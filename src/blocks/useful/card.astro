@@ -60,7 +60,6 @@ const bgStyle = {
     border-radius: var(--border-radius20);
     padding: 16px 18px 18px;
     background-color: #1e1e1e;
-    background-image: linear-gradient(180deg, #000000 0%, #0062ff 100%);
     overflow: hidden;
 
     /* desktop */
@@ -75,6 +74,36 @@ const bgStyle = {
       aspect-ratio: 328 / 173;
     }
 
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(180deg, #000000 0%, #0062ff 100%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(100% - 72px);
+      left: 50%;
+      transform: translate(-50%);
+      width: 16500px;
+      height: 16900px;
+      background: radial-gradient(
+        14.39% 4.94% at 51.32% 7.85%,
+        rgba(1, 56, 146, 0) 72.04%,
+        #f3f8ff 92.3%,
+        #d7e6ff 95.9%
+      );
+      border: 50px solid #0162ff;
+      filter: blur(80px);
+
+
+    }
+
     & .card__bg {
       content: "";
       position: absolute;
@@ -86,6 +115,7 @@ const bgStyle = {
       background-repeat: no-repeat;
       background-position: var(--card-bg-position);
       background-size: var(--card-bg-size);
+      z-index: 1;
 
       /* desktop */
       @media (width >= 960px) {
@@ -105,6 +135,7 @@ const bgStyle = {
       font-weight: 400;
       font-size: 16px;
       letter-spacing: -0.4px;
+      z-index: 1;
 
       /* desktop */
       @media (width >= 960px) {
@@ -126,6 +157,7 @@ const bgStyle = {
       font-size: 12px;
       line-height: 110%;
       text-transform: lowercase;
+      z-index: 1;
 
       &.is-short {
         max-width: 76%;
@@ -158,6 +190,7 @@ const bgStyle = {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space8) 10px;
       direction: rtl;
+      z-index: 1;
 
       li {
         direction: ltr;
