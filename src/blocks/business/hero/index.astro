@@ -67,7 +67,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
     align-items: center;
     overflow: hidden;
     width: 100%;
-    padding: 50px 0 5px;
+    padding: var(--space48) 0 5px;
 
     /* desktop */
     @media (width >= 960px) {
@@ -82,20 +82,26 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
     &::before {
       content: "";
       position: absolute;
-      top: 160px;
+      top: 100px;
       left: 50%;
       transform: translate(-50%);
       width: 29627px;
       height: 29761px;
       background: radial-gradient(
         93.7% 32.19% at 50.49% 25.96%,
-        rgba(1, 56, 146, 0) 78.75%,
+        #01389200 78.75%,
         #f3f8ff 79.93%,
-        #f3f7ff 80.61%,
-        #d7e6ff 95.9%
+        #f3f7ff17 80.61%,
+        #d7e6ff4d 95.9%
       );
-      border: 150px solid #0162ff;
-      filter: blur(50px);
+      border: 80px solid #0162ff;
+      filter: blur(40px);
+
+      /* desktop */
+      @media (width >= 960px) {
+        border: 150px solid #0162ff;
+        filter: blur(50px);
+      }
     }
 
     & .hero__copy {
@@ -106,7 +112,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
     }
 
     & .hero__eyebrow {
-      margin-bottom: var(--space20);
+      margin-bottom: var(--space16);
       font-size: 16px;
       text-align: center;
     }
@@ -120,8 +126,9 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
     }
 
     & .hero__description {
-      margin: var(--space20) auto 0;
+      margin: var(--space16) auto 0;
       font-size: 16px;
+      line-height: 100%;
       text-align: center;
       letter-spacing: -0.3px;
     }
