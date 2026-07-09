@@ -6,8 +6,11 @@ export interface ICard {
   bg: {
     image: ImageMetadata;
     position: string;
+    positionDesktop?: string;
+    positionWidescreen?: string;
     size: string;
     sizeDesktop?: string;
+    sizeWidescreen?: string;
   };
   links: { href: string; label: string }[];
 }
@@ -21,8 +24,12 @@ const { title, description, bg, links } = card;
 const bgStyle = {
   "--card-bg-image": `url("${bg.image.src}")`,
   "--card-bg-position": bg.position,
+  "--card-bg-position-desktop": bg.positionDesktop ?? bg.position,
+  "--card-bg-position-widescreen":
+    bg.positionWidescreen ?? bg.positionDesktop ?? bg.position,
   "--card-bg-size": bg.size,
   "--card-bg-size-desktop": bg.sizeDesktop ?? bg.size,
+  "--card-bg-size-widescreen": bg.sizeWidescreen ?? bg.sizeDesktop ?? bg.size,
 };
 ---
 
@@ -50,7 +57,7 @@ const bgStyle = {
     display: flex;
     flex-direction: column;
     border-radius: var(--border-radius20);
-    padding: var(--space20) 18px 18px;
+    padding: 16px 18px 18px;
     background-color: #1e1e1e;
     background-image: linear-gradient(180deg, #000000 0%, #0062ff 100%);
     overflow: hidden;
@@ -59,7 +66,7 @@ const bgStyle = {
     @media (width >= 960px) {
       padding: 30px 24px 24px;
       border-radius: 32px;
-      aspect-ratio: 328 / 221;
+      aspect-ratio: 328 / 218;
     }
 
     /* widescreen */
@@ -81,7 +88,14 @@ const bgStyle = {
 
       /* desktop */
       @media (width >= 960px) {
+        background-position: var(--card-bg-position-desktop);
         background-size: var(--card-bg-size-desktop);
+      }
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        background-position: var(--card-bg-position-widescreen);
+        background-size: var(--card-bg-size-widescreen);
       }
     }
 
@@ -111,7 +125,7 @@ const bgStyle = {
       font-size: 12px;
       line-height: 110%;
       text-transform: lowercase;
-      max-width: 82%;
+      max-width: 76%;
 
       /* desktop */
       @media (width >= 960px) {

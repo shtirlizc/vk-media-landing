@@ -12,12 +12,16 @@ import img4 from "./assets/4.webp";
 const cards: ICard[] = [
   {
     title: "обзор событий",
-    description: "Здесь можно следить за новостями и важными анонсами",
+    description:
+      "Здесь можно следить за новостями и важными анонсами бизнес-группы",
     bg: {
       image: img1,
-      position: "top right",
-      size: "110px auto",
-      sizeDesktop: "120px auto",
+      position: "224% -27%",
+      positionDesktop: "705% -90%",
+      positionWidescreen: "304% -186%",
+      size: "70% auto",
+      sizeDesktop: "90% auto",
+      sizeWidescreen: "80% auto",
     },
     links: [
       {
@@ -36,8 +40,12 @@ const cards: ICard[] = [
       "Даст ответ по самым разным вопросам — от оформления отпуска до замены мышки",
     bg: {
       image: img2,
-      position: "bottom left",
-      size: "254px auto",
+      position: "213% 35%",
+      positionDesktop: "282% 6%",
+      positionWidescreen: "402% 16%",
+      size: "125% auto",
+      sizeDesktop: "115% auto",
+      sizeWidescreen: "108% auto",
     },
     links: [
       {
@@ -51,9 +59,12 @@ const cards: ICard[] = [
     description: "Мастхэв для новичков, чтобы адаптироваться в команде",
     bg: {
       image: img3,
-      position: "bottom left",
-      size: "172px auto",
-      sizeDesktop: "255px auto",
+      position: "-136% 18%",
+      positionDesktop: "898% 29%",
+      positionWidescreen: "-85% 27%",
+      size: "83% auto",
+      sizeDesktop: "104% auto",
+      sizeWidescreen: "76% auto",
     },
     links: [
       {
@@ -67,9 +78,12 @@ const cards: ICard[] = [
     description: "магазин мерча для сотрудников нашей бизнес-группы",
     bg: {
       image: img4,
-      position: "bottom left",
-      size: "172px auto",
-      sizeDesktop: "250px auto",
+      position: "-136% 22%",
+      positionDesktop: "-111% 19%",
+      positionWidescreen: "-53% 28%",
+      size: "82% auto",
+      sizeDesktop: "82% auto",
+      sizeWidescreen: "70% auto",
     },
     links: [{ href: "https://dropstore.home.vk.team/", label: "Перейти" }],
   },
@@ -106,6 +120,11 @@ const cards: ICard[] = [
     --useful-stack-top: calc(
       var(--header) + var(--space12) + 58px + var(--space16)
     );
+
+    /* desktop */
+    @media (width >= 960px) {
+      margin-top: calc(-0.5 * var(--section-gap));
+    }
 
     & .useful__title {
       letter-spacing: -1px;

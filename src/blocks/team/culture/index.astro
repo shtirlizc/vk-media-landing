@@ -81,15 +81,20 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         transform-origin: right top;
         transform: rotate(-25deg) scale(0.75);
 
-        /* widescreen */
-        @media (width >= 1200px) {
-          transform: rotate(-25deg) scale(1);
+        /* desktop */
+        @media (width >= 960px) {
           width: 120px;
           height: 120px;
         }
 
         /* widescreen */
+        @media (width >= 1200px) {
+          transform: rotate(-25deg) scale(1);
+        }
+
         @media (width >= 1300px) {
+          width: 145px;
+          height: 145px;
           transform: rotate(-25deg) scale(1);
         }
       }
