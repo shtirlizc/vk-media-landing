@@ -107,6 +107,14 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       z-index: 2;
       width: 100%;
       text-align: center;
+
+      /* desktop */
+      @media (width >= 960px) {
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
 
     & .hero__eyebrow {
