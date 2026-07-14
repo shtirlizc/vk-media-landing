@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import decorImg from "./assets/decor.webp";
 import videoPoster from "./assets/buisness-video-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
-import PauseButton from "../../../assets/images/pause-button.svg";
 import Container from "../../../components/container.astro";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 ---
@@ -33,7 +32,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
   />
 
   <Container>
-    <div class="hero__media" data-video-player>
+    <div class="hero__media" data-video-player data-video-player-surface>
       <video
         class="hero__video"
         data-video-player-video
@@ -52,7 +51,6 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         data-video-player-playback
       >
         <span class="hero__play-icon"><PlayButton /></span>
-        <span class="hero__pause-icon"><PauseButton /></span>
       </button>
     </div>
   </Container>
@@ -161,6 +159,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       aspect-ratio: 1920 / 1080;
       border-radius: inherit;
       object-fit: contain;
+      cursor: pointer;
     }
 
     & .hero__playback {
@@ -185,21 +184,21 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       color: var(--color-primary);
     }
 
+    & .hero__play-icon {
+      font-size: 0;
+      transition:
+        opacity var(--transition),
+        transform var(--transition);
+    }
+
     & .hero__playback:focus-visible {
       outline: 2px solid var(--color-text-primary);
       outline-offset: 4px;
     }
 
-    & .hero__pause-icon {
-      display: none;
-    }
-
     & .hero__media[data-playing] .hero__play-icon {
-      display: none;
-    }
-
-    & .hero__media[data-playing] .hero__pause-icon {
-      display: block;
+      opacity: 0;
+      transform: scale(0.25);
     }
 
     @media (hover: hover) {

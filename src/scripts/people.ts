@@ -47,13 +47,16 @@ export function initPeople() {
     });
   });
 
-  playbackButton?.addEventListener("click", () => {
+  const togglePlayback = () => {
     if (video.paused) {
       video.play();
     } else {
       video.pause();
     }
-  });
+  };
+
+  video.addEventListener("click", togglePlayback);
+  playbackButton?.addEventListener("click", togglePlayback);
 
   video.addEventListener("play", () => {
     popover.dataset.playing = "";

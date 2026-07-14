@@ -4,7 +4,6 @@ import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/culture.webp";
 import videoPoster from "../../business/hero/assets/buisness-video-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
-import PauseButton from "../../../assets/images/pause-button.svg";
 import Container from "../../../components/container.astro";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 ---
@@ -27,7 +26,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       />
     </Title>
 
-    <div class="culture__media" data-video-player>
+    <div class="culture__media" data-video-player data-video-player-surface>
       <video
         class="culture__video"
         data-video-player-video
@@ -46,7 +45,6 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         data-video-player-playback
       >
         <span class="culture__play-icon"><PlayButton /></span>
-        <span class="culture__pause-icon"><PauseButton /></span>
       </button>
     </div>
   </Container>
@@ -117,6 +115,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         aspect-ratio: 1920 / 1080;
         border-radius: inherit;
         object-fit: contain;
+        cursor: pointer;
       }
 
       & .culture__playback {
@@ -141,21 +140,21 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         color: var(--color-primary);
       }
 
+      & .culture__play-icon {
+        font-size: 0;
+        transition:
+          opacity var(--transition),
+          transform var(--transition);
+      }
+
       & .culture__playback:focus-visible {
         outline: 2px solid var(--color-text-primary);
         outline-offset: 4px;
       }
 
-      & .culture__pause-icon {
-        display: none;
-      }
-
       & .culture__media[data-playing] .culture__play-icon {
-        display: none;
-      }
-
-      & .culture__media[data-playing] .culture__pause-icon {
-        display: block;
+        opacity: 0;
+        transform: scale(0.25);
       }
 
       @media (hover: hover) {

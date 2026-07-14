@@ -15,7 +15,7 @@ export function initVideos() {
 
     pauseVideoOutsideViewport(video);
 
-    playbackButton.addEventListener("click", async () => {
+    const togglePlayback = async () => {
       if (!video.paused) {
         video.pause();
         return;
@@ -26,7 +26,15 @@ export function initVideos() {
       } catch {
         delete player.dataset.playing;
       }
-    });
+    };
+
+    const playbackClickTarget = player.hasAttribute(
+      "data-video-player-surface",
+    )
+      ? player
+      : playbackButton;
+
+    playbackClickTarget.addEventListener("click", togglePlayback);
 
     video.addEventListener("play", () => {
       player.dataset.playing = "";

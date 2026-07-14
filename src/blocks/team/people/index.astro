@@ -5,7 +5,6 @@ import decorImg from "../../../assets/images/decor/people.webp";
 import defaultPhoto from "./photos/default.png";
 import Container from "../../../components/container.astro";
 import PlayButton from "../../../assets/images/play-button.svg";
-import PauseButton from "../../../assets/images/pause-button.svg";
 import CloseIcon from "../../../assets/images/x.svg";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
@@ -117,7 +116,6 @@ const peopleRows = rows.map((itemsCount) => {
         data-people-playback
       >
         <span class="_modal__play-icon"><PlayButton /></span>
-        <span class="_modal__pause-icon"><PauseButton /></span>
       </button>
       <button
         class="_modal__close"
@@ -268,6 +266,7 @@ const peopleRows = rows.map((itemsCount) => {
       object-fit: cover;
       border-radius: var(--border-radius20);
       overflow: hidden;
+      cursor: pointer;
 
       /* desktop */
       @media (width >= 960px) {
@@ -302,8 +301,11 @@ const peopleRows = rows.map((itemsCount) => {
       color: var(--color-text-primary);
     }
 
-    ._modal__pause-icon {
-      display: none;
+    ._modal__play-icon {
+      font-size: 0;
+      transition:
+        opacity var(--transition),
+        transform var(--transition);
     }
 
     @media (hover: none) {
@@ -324,11 +326,8 @@ const peopleRows = rows.map((itemsCount) => {
     }
 
     ._modal[data-playing] ._modal__play-icon {
-      display: none;
-    }
-
-    ._modal[data-playing] ._modal__pause-icon {
-      display: block;
+      opacity: 0;
+      transform: scale(0.25);
     }
 
     ._modal__close {
