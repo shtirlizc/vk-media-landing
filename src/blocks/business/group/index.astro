@@ -83,12 +83,18 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
     overflow: hidden;
     margin-top: 21px;
 
+    /* desktop */
+    @media (width >= 960px) {
+      margin-top: -80px;
+    }
+
     & .group__title {
       line-height: 110%;
 
       /* desktop */
       @media (width >= 960px) {
         letter-spacing: -1.5px;
+        line-height: 100%;
       }
 
       /* widescreen */
@@ -110,9 +116,9 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 
       /* desktop */
       @media (width >= 960px) {
-        margin-top: var(--space32);
+        margin-top: var(--space28);
         font-size: 24px;
-        max-width: 85%;
+        max-width: 95%;
       }
 
       /* widescreen */
@@ -216,7 +222,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 
       /* desktop */
       @media (width >= 960px) {
-        margin-top: var(--space32);
+        margin-top: 55px;
       }
     }
 
