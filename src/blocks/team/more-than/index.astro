@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
-import PlayButton from "../../../assets/images/play-button.svg";
 import star1 from "./assets/star-1.webp";
 import star2 from "./assets/star-2.webp";
 import slide2Img from "./assets/story-2.webp";
@@ -79,7 +78,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     src: slide12Img,
   },
   {
-    title: "Что Где Когда",
+    title: "Что? Где? Когда?",
     src: getVideoSrc("story-12_5"),
   },
   {
@@ -161,9 +160,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                             preload="metadata"
                             muted
                           />
-                          <button>
-                            <PlayButton />
-                          </button>
                         </div>
                       ) : (
                         <div class="more-than__slide-image">
@@ -528,38 +524,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       & .more-than__slide-video {
         position: relative;
-
-        button {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          border: none;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          transform: translate(-50%, -50%);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #695b61;
-          cursor: pointer;
-          padding-top: 2px;
-          padding-right: 1px;
-          transition:
-            background-color var(--transition),
-            color var(--transition);
-          display: none;
-
-          &:hover {
-            background-color: var(--color-text-primary);
-            color: var(--color-primary);
-          }
-
-          svg {
-            width: 18px;
-            height: auto;
-          }
-        }
       }
     }
   }

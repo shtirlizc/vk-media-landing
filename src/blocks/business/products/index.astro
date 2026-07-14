@@ -17,7 +17,6 @@ import stars4 from "./assets/decor/stars_4.webp";
 import stars5 from "./assets/decor/stars_5.webp";
 import stars6 from "./assets/decor/stars_6.webp";
 import stars7 from "./assets/decor/stars_7.webp";
-import stars8 from "./assets/decor/stars_8.webp";
 
 type Product = {
   logo: ImageMetadata | string;
@@ -63,6 +62,12 @@ const products = {
   },
   ok: {
     logo: okLogo,
+    text: "общения и сообщества",
+    width: 170,
+    href: "https://ok.ru",
+  },
+  ok2: {
+    logo: okLogo,
     text: "территория общения и увлечений",
     width: 170,
     href: "https://ok.ru",
@@ -102,21 +107,11 @@ const rows: RowItem[][] = [
     decor(stars5),
     product(products.vk),
     decor(stars6),
-    product(products.ok),
+    product(products.ok2),
     decor(stars7),
     product(products.dzen),
     decor(stars2),
     product(products.music),
-  ],
-  [
-    decor(stars7),
-    product(products.dzen),
-    decor(stars1),
-    product(products.video),
-    decor(stars3),
-    product(products.max),
-    decor(stars8),
-    product(products.clips),
   ],
 ];
 ---
@@ -186,6 +181,11 @@ const rows: RowItem[][] = [
 <style>
   .products {
     overflow: hidden;
+
+    /* desktop */
+    @media (width >= 960px) {
+      padding-bottom: 80px;
+    }
 
     /* widescreen */
     @media (width >= 1200px) {
@@ -283,8 +283,10 @@ const rows: RowItem[][] = [
       min-width: 450px;
     }
 
-    &:hover {
-      box-shadow: 0 3px 58.6px 0 #0062ff;
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: 0 3px 58px 0 #0062ff;
+      }
     }
   }
 
