@@ -11,7 +11,7 @@ export function initGroup() {
       new Swiper(slider, {
         initialSlide: INITIAL_SLIDE,
         speed: 600,
-        slidesPerView: 1.81,
+        slidesPerView: 1.5,
         breakpoints: {
           960: {
             // The fourth card is brought into view by the stacked treatment.

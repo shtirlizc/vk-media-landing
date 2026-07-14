@@ -10,7 +10,7 @@ const cards = [
   {
     image: card1Img,
     title:
-      "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
+      "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
   },
   {
     image: card3Img,
@@ -129,16 +129,19 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       background-color: #202020;
       display: flex;
       align-items: flex-end;
-      aspect-ratio: 231 / 412;
+      aspect-ratio: 231 / 344;
       padding: 23px 14px 8px 18px;
-      letter-spacing: -0.3px;
       border-radius: 20px;
       color: var(--color-text-primary);
 
+      /* tablet */
+      @media (width >= 768px) {
+        aspect-ratio: 423 / 392;
+        padding: 30px 32px 30px 24px;
+      }
+
       /* desktop */
       @media (width >= 960px) {
-        aspect-ratio: 423 / 392;
-        padding: 30px 20px 30px 24px;
         letter-spacing: -0.5px;
         border-radius: 32px;
       }
@@ -164,13 +167,10 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         z-index: 2;
         max-width: 100%;
         font-size: 12px;
-        line-height: 1;
+        line-height: 1.1;
 
-        /* desktop */
-        @media (width >= 960px) {
-          right: var(--space24);
-          bottom: var(--space24);
-          left: var(--space24);
+        /* tablet */
+        @media (width >= 768px) {
           font-size: 18px;
         }
 
@@ -324,16 +324,16 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       background-repeat: no-repeat;
       background-size: 304px auto;
 
-      /* desktop */
-      @media (width >= 960px) {
+      /* tablet */
+      @media (width >= 768px) {
         background-size: 404px auto;
       }
 
       &.group__bg--compact {
         background-size: 256px auto;
 
-        /* desktop */
-        @media (width >= 960px) {
+        /* tablet */
+        @media (width >= 768px) {
           background-size: 344px auto;
         }
 
