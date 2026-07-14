@@ -31,7 +31,7 @@ const cards = [
   },
 ];
 
-const sliderCards = [...cards, ...cards, ...cards, ...cards];
+const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 ---
 
 <section class="group" aria-labelledby="group-title">
@@ -202,6 +202,10 @@ const sliderCards = [...cards, ...cards, ...cards, ...cards];
           var(--container),
           calc(100vw - var(--container-offset) - var(--container-offset))
         );
+      }
+
+      .swiper.is-group-slider-resetting .group__card {
+        transition: none !important;
       }
 
       /* desktop */

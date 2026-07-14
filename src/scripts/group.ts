@@ -1,8 +1,8 @@
 import { Swiper } from "swiper";
 
 const GROUP_SLIDE_COUNT = 4;
-const INITIAL_SLIDE = GROUP_SLIDE_COUNT * 2;
-const LAST_SLIDE_BEFORE_RESET = GROUP_SLIDE_COUNT * 3;
+const INITIAL_SLIDE = GROUP_SLIDE_COUNT;
+const LAST_SLIDE_BEFORE_RESET = GROUP_SLIDE_COUNT * 2;
 
 export function initGroup() {
   document
@@ -89,6 +89,18 @@ function getStackSize() {
 }
 
 function clearLeavingSlides(swiper: Swiper) {
+  const resetIndex =
+    swiper.activeIndex >= LAST_SLIDE_BEFORE_RESET
+      ? INITIAL_SLIDE
+      : swiper.activeIndex < GROUP_SLIDE_COUNT
+        ? LAST_SLIDE_BEFORE_RESET - 1
+        : null;
+
+  if (resetIndex !== null) {
+    swiper.el.classList.add("is-group-slider-resetting");
+    void swiper.el.offsetWidth;
+  }
+
   swiper.slides.forEach((slide) => {
     slide.classList.remove(
       "is-group-slide-leaving",
@@ -97,11 +109,14 @@ function clearLeavingSlides(swiper: Swiper) {
     );
   });
 
-  if (swiper.activeIndex >= LAST_SLIDE_BEFORE_RESET) {
-    swiper.slideTo(INITIAL_SLIDE, 0, false);
+  if (resetIndex !== null) {
+    swiper.slideTo(resetIndex, 0, false);
     setSlideStack(swiper, true);
-  } else if (swiper.activeIndex < GROUP_SLIDE_COUNT) {
-    swiper.slideTo(LAST_SLIDE_BEFORE_RESET - 1, 0, false);
-    setSlideStack(swiper, true);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        swiper.el.classList.remove("is-group-slider-resetting");
+      });
+    });
   }
 }
