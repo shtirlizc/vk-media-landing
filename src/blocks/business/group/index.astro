@@ -31,7 +31,7 @@ const cards = [
   },
 ];
 
-const sliderCards = [...cards, ...cards];
+const sliderCards = [...cards, ...cards, ...cards, ...cards];
 ---
 
 <section class="group" aria-labelledby="group-title">
@@ -216,19 +216,49 @@ const sliderCards = [...cards, ...cards];
 
       &.is-group-slide-0 {
         z-index: 4;
+        cursor: pointer;
+
+        .group__card {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
 
       &.is-group-slide-1 {
         z-index: 3;
 
         .group__card {
+          opacity: 1;
           transform: translate(-5%, 7%) scale(0.86);
         }
       }
 
       .group__card {
+        opacity: 0;
+        transform: translateX(100vw);
         transform-origin: left top;
-        transition: transform 600ms ease;
+        transition:
+          transform 600ms ease,
+          opacity 150ms ease;
+      }
+
+      &.is-group-slide-leaving {
+        z-index: 5;
+
+        .group__card {
+          opacity: 1;
+          transform: translateX(-100vw) !important;
+        }
+      }
+
+      &.is-group-slide-leaving--right .group__card {
+        transform: translateX(100vw) !important;
+      }
+
+      &.is-group-slide-entering-from-left .group__card {
+        opacity: 0;
+        transform: translateX(-100vw) !important;
+        transition: none;
       }
 
       /* desktop */
@@ -241,6 +271,7 @@ const sliderCards = [...cards, ...cards];
           z-index: 2;
 
           .group__card {
+            opacity: 1;
             transform: translate(-26%, 17%) scale(0.7);
           }
         }
@@ -249,6 +280,7 @@ const sliderCards = [...cards, ...cards];
           z-index: 1;
 
           .group__card {
+            opacity: 1;
             transform: translate(-60%, 26%) scale(0.6);
           }
         }
