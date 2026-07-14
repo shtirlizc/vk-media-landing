@@ -1,0 +1,30 @@
+[data-reveal].is-reveal-pending {
+  opacity: 0;
+  translate: 0 40px;
+  will-change: opacity, translate;
+}
+
+[data-reveal].is-reveal-pending.is-visible {
+  animation: reveal-in 0.6s ease both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal].is-reveal-pending {
+    opacity: 1;
+    translate: 0;
+    animation: none;
+    will-change: auto;
+  }
+}

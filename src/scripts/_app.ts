@@ -4,7 +4,7 @@ import { initGroup } from "./group.ts";
 import { moreThan } from "./more-than.ts";
 import { initPeople } from "./people.ts";
 import { initUseful } from "./useful.ts";
-import { initRevealTitles } from "./reveal-titles.ts";
+import { initReveal } from "./reveal.ts";
 
 initHeader();
 initVideos();
@@ -12,4 +12,4 @@ initGroup();
 moreThan();
 initPeople();
 initUseful();
-initRevealTitles();
+initReveal();
