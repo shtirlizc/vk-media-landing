@@ -81,9 +81,10 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 <style>
   .group {
     overflow: hidden;
+    margin-top: 21px;
 
     & .group__title {
-      letter-spacing: -1px;
+      line-height: 110%;
 
       /* desktop */
       @media (width >= 960px) {
@@ -101,10 +102,11 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
     }
 
     & .group__description {
-      margin-top: var(--space20);
+      margin-top: var(--space24);
       font-family: var(--font-secondary), sans-serif;
       font-weight: 500;
       font-size: 16px;
+      line-height: 110%;
 
       /* desktop */
       @media (width >= 960px) {
@@ -127,10 +129,10 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       background-color: #202020;
       display: flex;
       align-items: flex-end;
-      aspect-ratio: 231 / 328;
-      padding: 23px 14px 23px 18px;
+      aspect-ratio: 231 / 412;
+      padding: 23px 14px 8px 18px;
       letter-spacing: -0.3px;
-      border-radius: 24px;
+      border-radius: 20px;
       color: var(--color-text-primary);
 
       /* desktop */
@@ -182,7 +184,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
     & .group__slider {
       --container-offset: var(--space16);
 
-      margin-top: var(--space20);
+      margin-top: 27px;
       width: 100vw;
 
       /* tablet */
@@ -208,6 +210,10 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         transition: none !important;
       }
 
+      .swiper.is-group-slider-resetting .group__card::before {
+        transition: none !important;
+      }
+
       /* desktop */
       @media (width >= 960px) {
         margin-top: var(--space32);
@@ -222,9 +228,18 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         z-index: 4;
         cursor: pointer;
 
+        &:hover .group__card {
+          background-color: #303030;
+        }
+
         .group__card {
+          filter: blur(0);
           opacity: 1;
           transform: translateX(0);
+
+          &::before {
+            opacity: 1;
+          }
         }
       }
 
@@ -232,6 +247,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         z-index: 3;
 
         .group__card {
+          filter: blur(5px);
           opacity: 1;
           transform: translate(-5%, 7%) scale(0.86);
         }
@@ -242,6 +258,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         transform: translateX(100vw);
         transform-origin: left top;
         transition:
+          background-color var(--transition),
           transform 600ms ease,
           opacity 150ms ease;
       }
@@ -275,6 +292,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
           z-index: 2;
 
           .group__card {
+            filter: blur(5px);
             opacity: 1;
             transform: translate(-26%, 17%) scale(0.7);
           }
@@ -284,6 +302,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
           z-index: 1;
 
           .group__card {
+            filter: blur(5px);
             opacity: 1;
             transform: translate(-60%, 26%) scale(0.6);
           }
