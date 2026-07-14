@@ -15,7 +15,7 @@ export function initGroup() {
         breakpoints: {
           960: {
             // The fourth card is brought into view by the stacked treatment.
-            slidesPerView: 3,
+            slidesPerView: 2.08,
           },
         },
         on: {
