@@ -84,7 +84,8 @@ const cards = [
     min-height: 100svh;
     display: grid;
     align-content: center;
-    padding-block: var(--space40);
+    padding-top: calc(2 * var(--space40));
+    padding-bottom: var(--space40);
   }
 
   .group__title {
@@ -230,7 +231,8 @@ const cards = [
 
   @media (width >= 960px) {
     .group__pin {
-      padding-block: 64px;
+      padding-top: 128px;
+      padding-bottom: 64px;
       margin: 0;
     }
 
