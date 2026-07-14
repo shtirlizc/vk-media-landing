@@ -10,6 +10,7 @@ export function initGroup() {
     .forEach((slider) => {
       new Swiper(slider, {
         initialSlide: INITIAL_SLIDE,
+        preventInteractionOnTransition: true,
         speed: 600,
         slidesPerView: 1.5,
         breakpoints: {
@@ -30,7 +31,10 @@ export function initGroup() {
 }
 
 function handleGroupSlideClick(swiper: Swiper) {
-  if (swiper.clickedSlide?.classList.contains("is-group-slide-0")) {
+  if (
+    !swiper.animating &&
+    swiper.clickedSlide?.classList.contains("is-group-slide-0")
+  ) {
     swiper.slideNext();
   }
 }
