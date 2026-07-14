@@ -143,7 +143,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       /* tablet */
       @media (width >= 768px) {
         aspect-ratio: 423 / 392;
-        padding: 30px 32px 30px 24px;
+        padding: 30px 24px 30px 24px;
       }
 
       /* desktop */
@@ -224,6 +224,11 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       @media (width >= 960px) {
         margin-top: 55px;
       }
+
+      /* widescreen */
+      @media (width >= 1200px) {
+        margin-top: 80px;
+      }
     }
 
     & .swiper-slide {
@@ -279,7 +284,12 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       }
 
       &.is-group-slide-leaving--right .group__card {
+        filter: blur(5px);
         transform: translateX(100vw) !important;
+      }
+
+      &.is-group-slide-leaving--right {
+        z-index: 0;
       }
 
       &.is-group-slide-entering-from-left .group__card {
