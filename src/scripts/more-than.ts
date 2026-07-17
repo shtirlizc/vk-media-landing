@@ -10,6 +10,12 @@ export function moreThan() {
   const pagination: HTMLElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__pagination",
   );
+  const previousButton: HTMLButtonElement | null = document.querySelector(
+    ".js-more-than-swiper .more-than__navigation-button--prev",
+  );
+  const nextButton: HTMLButtonElement | null = document.querySelector(
+    ".js-more-than-swiper .more-than__navigation-button--next",
+  );
   let bullets: HTMLElement[] = [];
   if (pagination) {
     bullets = Array.from(pagination.querySelectorAll("button"));
@@ -21,7 +27,6 @@ export function moreThan() {
     slidesPerView: "auto",
     centeredSlides: true,
     spaceBetween: -142.39,
-    slideToClickedSlide: true,
     breakpoints: {
       960: {
         spaceBetween: -172.5,
@@ -35,6 +40,7 @@ export function moreThan() {
     },
     on: {
       init: setSlideStack,
+      click: handleCentralSlideClick,
       slideChangeTransitionStart: setSlideStack,
     },
   });
@@ -106,6 +112,18 @@ export function moreThan() {
     });
   });
 
+  previousButton?.addEventListener("click", () => {
+    if (!swiper.animating) {
+      swiper.slidePrev();
+    }
+  });
+
+  nextButton?.addEventListener("click", () => {
+    if (!swiper.animating) {
+      swiper.slideNext();
+    }
+  });
+
   swiper.on("slideChange", (event) => {
     const prevSlide = event.slides[event.previousIndex] as
       HTMLElement | undefined;
@@ -118,6 +136,17 @@ export function moreThan() {
 
     activateSlide(activeSlide);
   });
+
+  function handleCentralSlideClick(event: Swiper) {
+    if (
+      event.animating ||
+      !event.clickedSlide?.classList.contains("is-more-than-slide-active")
+    ) {
+      return;
+    }
+
+    event.slideNext();
+  }
 
   function setSlideStack(event: Swiper) {
     const classNames = [

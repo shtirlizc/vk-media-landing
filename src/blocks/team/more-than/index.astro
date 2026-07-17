@@ -9,6 +9,8 @@ import slide8Img from "./assets/story-8.webp";
 import slide9Img from "./assets/story-9.webp";
 import slide11Img from "./assets/story-11.webp";
 import slide12Img from "./assets/story-12.webp";
+import prevIcon from "./assets/prev.svg";
+import nextIcon from "./assets/next.svg";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
 interface ISlide {
@@ -137,6 +139,23 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           }
         </div>
 
+        <nav class="more-than__navigation" aria-label="Навигация по историям">
+          <button
+            type="button"
+            class="more-than__navigation-button more-than__navigation-button--prev"
+            aria-label="Предыдущая история"
+          >
+            <Image src={prevIcon} alt="" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            class="more-than__navigation-button more-than__navigation-button--next"
+            aria-label="Следующая история"
+          >
+            <Image src={nextIcon} alt="" aria-hidden="true" />
+          </button>
+        </nav>
+
         <div class="swiper-wrapper">
           {
             slides.map((item) => {
@@ -247,6 +266,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       --far-next-offset-x: 0px;
       --far-offset-y: 100px;
       --far-scale: 0.42;
+      --navigation-overlap: 0px;
 
       position: relative;
       margin-top: var(--space40);
@@ -263,6 +283,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         --far-next-offset-x: -43px;
         --far-offset-y: 138px;
         --far-scale: 0.568;
+        --navigation-overlap: 0px;
 
         margin-top: 60px;
       }
@@ -368,6 +389,38 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                   opacity: 1;
                 }
               }
+            }
+          }
+        }
+
+        .more-than__navigation {
+          position: absolute;
+          inset: 0;
+          z-index: 6;
+          display: flex;
+          justify-content: space-between;
+          pointer-events: none;
+
+          .more-than__navigation-button {
+            width: calc(
+              (100% - var(--slide-width)) / 2 + var(--navigation-overlap)
+            );
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+
+            img {
+              display: block;
+            }
+
+            &:active img {
+              transform: scale(0.94);
             }
           }
         }
