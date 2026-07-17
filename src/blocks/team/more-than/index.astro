@@ -2,8 +2,6 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
-import star1 from "./assets/star-1.webp";
-import star2 from "./assets/star-2.webp";
 import slide2Img from "./assets/story-2.webp";
 import slide5Img from "./assets/story-5.webp";
 import slide6Img from "./assets/story-6.webp";
@@ -109,7 +107,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 ---
 
 <section class="more-than" aria-labelledby="more-than-title">
-  <div class="more-than__bg"></div>
   <Container>
     <div class="more-than__head">
       <Title title="h3" id="more-than-title">
@@ -132,6 +129,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                 type="button"
                 class:list={[index === 0 && "active"]}
                 data-index={index}
+                aria-label={`Показать историю ${index + 1}`}
               >
                 <span>{index}</span>
               </button>
@@ -177,15 +175,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           }
         </div>
       </div>
-
-      <div class="decor">
-        <div class="decor__first">
-          <Image src={star1} width={120} height={122} alt="" />
-        </div>
-        <div class="decor__second">
-          <Image src={star2} width={123} height={125} alt="" />
-        </div>
-      </div>
     </div>
   </Container>
 </section>
@@ -194,6 +183,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
   .more-than {
     position: relative;
     margin-top: var(--space24);
+    overflow: hidden;
 
     @media (width >= 960px) {
       margin-top: calc(-1 * var(--space32));
@@ -204,39 +194,11 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       margin-top: 0;
     }
 
-    &:has(.more-than__body.active) .more-than__bg {
-      opacity: 0;
-      transform: translateY(20vw);
-    }
-
-    & .more-than__bg {
-      position: absolute;
-      aspect-ratio: 360 / 255;
-      width: 100%;
-      height: auto;
-      bottom: 17vw;
-      left: 0;
-      z-index: 1;
-      background-image: url("./assets/mobile.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      pointer-events: none;
-      transform: translateY(0);
-      transition:
-        opacity calc(2 * var(--transition-long)) ease-in-out,
-        transform calc(2 * var(--transition-long)) ease-in-out;
+    & .more-than__head {
+      max-width: 820px;
 
       @media (width >= 960px) {
-        bottom: -10vw;
-        aspect-ratio: 960 / 429;
-        background-image: url("./assets/desktop.svg");
-      }
-
-      @media (width >= 1200px) {
-        bottom: -19vw;
-        aspect-ratio: 1200 / 647;
-        background-image: url("./assets/widescreen.svg");
+        max-width: 900px;
       }
     }
 
@@ -274,22 +236,18 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     }
 
     & .more-than__body {
-      --width: 320px;
+      --slide-width: min(80vw, 360px);
 
       position: relative;
       margin-top: var(--space40);
-      transform-origin: 50% 25%;
-      transform: scale(0.6);
-      transition: transform calc(2 * var(--transition-long)) ease-in-out;
-
-      /* tablet */
-      @media (width >= 768px) {
-        --width: 360px;
-      }
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      overflow: clip;
 
       /* desktop */
       @media (width >= 960px) {
-        transform: scale(0.8);
+        --slide-width: 427px;
+
         margin-top: 60px;
       }
 
@@ -300,9 +258,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       .swiper {
         position: relative;
-        max-width: var(--width);
-        aspect-ratio: 360 / 640;
-        border-radius: 28px;
+        overflow: visible;
 
         &::before {
           content: "";
@@ -316,8 +272,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           background-color: var(--color-text-primary);
           pointer-events: none;
           z-index: 2;
-          opacity: 0;
-          transition: opacity var(--transition-long);
+          opacity: 1;
         }
 
         .more-than__pagination {
@@ -326,8 +281,9 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
           position: absolute;
           top: 6px;
-          left: 6px;
-          width: calc(100% - 12px);
+          left: 50%;
+          transform: translateX(-50%);
+          width: calc(var(--slide-width) - 12px);
           z-index: 2;
           display: flex;
           gap: 3px;
@@ -397,86 +353,118 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           }
         }
       }
+    }
 
-      .decor {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%);
-        width: 100%;
-        height: 100%;
-        max-width: var(--width);
-        aspect-ratio: 360 / 640;
-        z-index: 1;
+    & .swiper-slide {
+      width: var(--slide-width);
+      z-index: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 350ms ease;
 
-        & .decor__first {
-          position: absolute;
-          top: 110px;
-          right: -74px;
-          z-index: 10;
-          transition: transform var(--transition-long);
+      &.is-more-than-slide-active,
+      &.is-more-than-slide-prev,
+      &.is-more-than-slide-next,
+      &.is-more-than-slide-before,
+      &.is-more-than-slide-after {
+        opacity: 1;
+        pointer-events: auto;
 
-          img {
-            animation: more-than-star-float 3.4s ease-in-out infinite alternate;
-            transform-origin: 50% 50%;
-            will-change: transform;
-          }
-        }
-
-        & .decor__second {
-          position: absolute;
-          top: 220px;
-          left: -88px;
-          z-index: 10;
-          transition: transform var(--transition-long);
-
-          img {
-            animation: more-than-star-float 3.8s ease-in-out infinite
-              alternate-reverse;
-            animation-delay: 1.4s;
-            transform-origin: 50% 50%;
-            will-change: transform;
-          }
+        .more-than__slide {
+          will-change: transform;
         }
       }
 
-      &.active {
-        transform: scale(1);
+      &.is-more-than-slide-active {
+        z-index: 5;
 
-        .swiper {
-          &::before {
-            opacity: 1;
-          }
+        .more-than__slide {
+          --slide-offset-x: 0px;
+          --slide-offset-y: 0px;
+          --slide-scale: 1;
+        }
+      }
 
-          &::after {
-            opacity: 0;
-          }
+      &.is-more-than-slide-prev,
+      &.is-more-than-slide-next {
+        z-index: 4;
+      }
+
+      &.is-more-than-slide-before,
+      &.is-more-than-slide-after {
+        z-index: 3;
+      }
+
+      &.is-more-than-slide-prev .more-than__slide {
+        --slide-offset-x: -62px;
+        --slide-offset-y: 100px;
+        --slide-scale: 0.716;
+      }
+
+      &.is-more-than-slide-next .more-than__slide {
+        --slide-offset-x: 62px;
+        --slide-offset-y: 100px;
+        --slide-scale: 0.716;
+      }
+
+      &.is-more-than-slide-before .more-than__slide {
+        --slide-offset-x: -46px;
+        --slide-offset-y: 156px;
+        --slide-scale: 0.568;
+      }
+
+      &.is-more-than-slide-after .more-than__slide {
+        --slide-offset-x: 46px;
+        --slide-offset-y: 156px;
+        --slide-scale: 0.568;
+      }
+
+      &.is-more-than-slide-prev .more-than__slide-content,
+      &.is-more-than-slide-next .more-than__slide-content,
+      &.is-more-than-slide-before .more-than__slide-content,
+      &.is-more-than-slide-after .more-than__slide-content {
+        border-radius: 35px;
+      }
+
+      @media (width < 960px) {
+        &.is-more-than-slide-prev .more-than__slide,
+        &.is-more-than-slide-next .more-than__slide {
+          --slide-offset-x: 0px;
+          --slide-offset-y: 42px;
+          --slide-scale: 0.78;
         }
 
-        .decor {
-          pointer-events: none;
-
-          & .decor__first {
-            transform: scale(0);
-          }
-
-          & .decor__second {
-            transform: scale(0);
-          }
+        &.is-more-than-slide-before .more-than__slide,
+        &.is-more-than-slide-after .more-than__slide {
+          --slide-offset-y: 72px;
+          --slide-scale: 0.62;
         }
       }
     }
 
     & .more-than__slide {
+      --slide-offset-x: 0px;
+      --slide-offset-y: 180px;
+      --slide-scale: 0.42;
+
       display: flex;
       justify-content: center;
-      height: 100%;
+      width: var(--slide-width);
+      aspect-ratio: 427 / 759;
+      transform: translate(var(--slide-offset-x), var(--slide-offset-y))
+        scale(var(--slide-scale));
+      transform-origin: center top;
+      transition: transform 600ms var(--timing-func);
 
       & .more-than__slide-content {
         position: relative;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
         cursor: grab;
         background-color: var(--color-bg-main);
+        border-radius: 40px;
+        transition: border-radius 600ms var(--timing-func);
 
         &:active {
           cursor: grabbing;
@@ -510,6 +498,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       & .more-than__slide-image,
       & .more-than__slide-video {
+        width: 100%;
         height: 100%;
 
         img,
@@ -525,15 +514,13 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         position: relative;
       }
     }
-  }
 
-  @keyframes more-than-star-float {
-    from {
-      transform: translateY(-8px) rotate(-3deg);
-    }
-
-    to {
-      transform: translateY(8px) rotate(3deg);
+    @media (prefers-reduced-motion: reduce) {
+      & .swiper-slide,
+      & .more-than__slide,
+      & .more-than__slide-content {
+        transition-duration: 1ms;
+      }
     }
   }
 </style>

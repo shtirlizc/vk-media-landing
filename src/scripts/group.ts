@@ -11,11 +11,11 @@ export function initGroup() {
       new Swiper(slider, {
         initialSlide: INITIAL_SLIDE,
         preventInteractionOnTransition: true,
-        speed: 600,
+        speed: 400,
         slidesPerView: 1.5,
         breakpoints: {
           960: {
-            // The fourth card is brought into view by the stacked treatment.
+            speed: 600,
             slidesPerView: 2.08,
           },
         },

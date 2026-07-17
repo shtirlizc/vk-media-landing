@@ -3,6 +3,9 @@ import { Swiper } from "swiper";
 const AUTOPLAY_TIME = 4000;
 
 export function moreThan() {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   const body: HTMLElement | null = document.querySelector(".more-than__body");
   const pagination: HTMLElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__pagination",
@@ -14,7 +17,15 @@ export function moreThan() {
 
   const swiper = new Swiper(".js-more-than-swiper", {
     loop: true,
-    speed: 300,
+    speed: prefersReducedMotion ? 0 : 600,
+    slidesPerView: "auto",
+    centeredSlides: true,
+    spaceBetween: -141,
+    on: {
+      init: setSlideStack,
+      click: handleSlideClick,
+      slideChangeTransitionStart: setSlideStack,
+    },
   });
   let isBodyActive = false;
   let autoplayTimer: number | undefined;
@@ -97,6 +108,56 @@ export function moreThan() {
     activateSlide(activeSlide);
   });
 
+  function handleSlideClick(event: Swiper) {
+    if (event.animating || !event.clickedSlide) {
+      return;
+    }
+
+    if (event.clickedSlide.classList.contains("is-more-than-slide-prev")) {
+      event.slidePrev();
+    }
+
+    if (event.clickedSlide.classList.contains("is-more-than-slide-next")) {
+      event.slideNext();
+    }
+
+    if (event.clickedSlide.classList.contains("is-more-than-slide-before")) {
+      event.slidePrev(2);
+    }
+
+    if (event.clickedSlide.classList.contains("is-more-than-slide-after")) {
+      event.slideNext(2);
+    }
+  }
+
+  function setSlideStack(event: Swiper) {
+    const classNames = [
+      "is-more-than-slide-active",
+      "is-more-than-slide-prev",
+      "is-more-than-slide-next",
+      "is-more-than-slide-before",
+      "is-more-than-slide-after",
+    ];
+
+    event.slides.forEach((slide) => {
+      slide.classList.remove(...classNames);
+    });
+
+    const setSlideClass = (offset: number, className: string) => {
+      const index =
+        (event.activeIndex + offset + event.slides.length) %
+        event.slides.length;
+
+      event.slides[index]?.classList.add(className);
+    };
+
+    setSlideClass(0, "is-more-than-slide-active");
+    setSlideClass(-1, "is-more-than-slide-prev");
+    setSlideClass(1, "is-more-than-slide-next");
+    setSlideClass(-2, "is-more-than-slide-before");
+    setSlideClass(2, "is-more-than-slide-after");
+  }
+
   function setActiveBullet(index: number) {
     const currentBullet = bullets.find(
       (bullet) => bullet.dataset.index === String(index),
@@ -158,6 +219,10 @@ export function moreThan() {
     setProgress(0);
 
     if (!isBodyActive) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
       return;
     }
 
