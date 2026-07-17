@@ -224,7 +224,10 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 
       /* widescreen */
       @media (width >= 1200px) {
-        --container-offset: max(0px, calc((100vw - var(--container)) / 2));
+        --container-offset: max(
+          var(--space40),
+          calc((100vw - var(--container)) / 2)
+        );
       }
 
       .swiper {
