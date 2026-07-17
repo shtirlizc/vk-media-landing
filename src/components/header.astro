@@ -72,6 +72,11 @@ import Container from "./container.astro";
         calc(2 * var(--border-radius16));
     }
 
+    /* fullhd */
+    @media (width >= 1600px) {
+      box-shadow: 0 4px 78px 0 var(--color-primary);
+    }
+
     &.is-open {
       border-radius: 0;
 
@@ -93,6 +98,19 @@ import Container from "./container.astro";
       font-size: 0;
       color: var(--color-text-primary);
       transition: color var(--transition);
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        height: 60px;
+      }
+
+      svg {
+        /* fullhd */
+        @media (width >= 1600px) {
+          width: 60px;
+          height: 60px;
+        }
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -197,11 +215,21 @@ import Container from "./container.astro";
       gap: 90px;
     }
 
-    & a {
+    /* fullhd */
+    @media (width >= 1600px) {
+      gap: 115px;
+    }
+
+    a {
       font-weight: 300;
       font-size: 16px;
       color: var(--color-text-primary);
       transition: color var(--transition);
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 20px;
+      }
 
       &:hover {
         color: var(--color-primary);

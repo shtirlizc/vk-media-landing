@@ -102,6 +102,12 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         letter-spacing: -2px;
       }
 
+      /* fullhd */
+      @media (width >= 1600px) {
+        letter-spacing: -2px;
+        padding-right: 15%;
+      }
+
       span {
         white-space: nowrap;
       }
@@ -124,6 +130,13 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       /* widescreen */
       @media (width >= 1200px) {
         font-size: 28px;
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 32px;
+        padding-right: 15%;
+        margin-top: 34px;
       }
     }
 
@@ -228,6 +241,11 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       /* widescreen */
       @media (width >= 1200px) {
         margin-top: 80px;
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        margin-top: 96px;
       }
     }
 
@@ -343,6 +361,11 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       /* tablet */
       @media (width >= 768px) {
         background-size: 404px auto;
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        background-size: 600px auto;
       }
 
       &.group__bg--compact {

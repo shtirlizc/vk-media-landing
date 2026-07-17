@@ -284,4 +284,28 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       }
     }
   }
+
+  /* fullhd */
+  @media (width >= 1600px) {
+    .hero {
+      & .hero__decor {
+        width: 1040px;
+        margin-top: -290px;
+      }
+
+      & .hero__eyebrow {
+        font-size: 36px;
+        margin-bottom: var(--space40);
+      }
+
+      & .hero__description {
+        font-size: 36px;
+        margin-top: var(--space40);
+      }
+
+      & .hero__title {
+        font-size: 72px;
+      }
+    }
+  }
 </style>
