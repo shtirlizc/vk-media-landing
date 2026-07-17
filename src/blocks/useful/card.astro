@@ -9,9 +9,11 @@ export interface ICard {
     position: string;
     positionDesktop?: string;
     positionWidescreen?: string;
+    positionFullhd?: string;
     size: string;
     sizeDesktop?: string;
     sizeWidescreen?: string;
+    sizeFullhd?: string;
   };
   links: { href: string; label: string }[];
 }
@@ -28,9 +30,13 @@ const bgStyle = {
   "--card-bg-position-desktop": bg.positionDesktop ?? bg.position,
   "--card-bg-position-widescreen":
     bg.positionWidescreen ?? bg.positionDesktop ?? bg.position,
+  "--card-bg-position-fullhd":
+    bg.positionFullhd ?? bg.positionWidescreen ?? bg.positionDesktop ?? bg.position,
   "--card-bg-size": bg.size,
   "--card-bg-size-desktop": bg.sizeDesktop ?? bg.size,
   "--card-bg-size-widescreen": bg.sizeWidescreen ?? bg.sizeDesktop ?? bg.size,
+  "--card-bg-size-fullhd":
+    bg.sizeFullhd ?? bg.sizeWidescreen ?? bg.sizeDesktop ?? bg.size,
 };
 ---
 
@@ -132,6 +138,12 @@ const bgStyle = {
       @media (width >= 1200px) {
         background-position: var(--card-bg-position-widescreen);
         background-size: var(--card-bg-size-widescreen);
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        background-position: var(--card-bg-position-fullhd);
+        background-size: var(--card-bg-size-fullhd);
       }
     }
 
