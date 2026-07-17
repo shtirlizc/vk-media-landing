@@ -236,44 +236,63 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     }
 
     & .more-than__body {
-      --slide-width: min(80vw, 360px);
+      --slide-width: min(76.1716vw, 274.2176px);
+      --slide-radius: 25.69px;
+      --slide-secondary-radius: 22.5px;
+      --active-offset-x: 0px;
+      --side-offset-x: 0px;
+      --side-offset-y: 83px;
+      --side-scale: 0.66;
+      --far-prev-offset-x: 0px;
+      --far-next-offset-x: 0px;
+      --far-offset-y: 100px;
+      --far-scale: 0.42;
 
       position: relative;
       margin-top: var(--space40);
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      overflow: clip;
+      width: 100%;
 
       /* desktop */
       @media (width >= 960px) {
-        --slide-width: 427px;
+        --slide-width: 360.6153px;
+        --slide-radius: 33.78px;
+        --slide-secondary-radius: 29.58px;
+        --side-offset-y: 91px;
+        --side-scale: 0.716;
+        --far-prev-offset-x: 43px;
+        --far-next-offset-x: -43px;
+        --far-offset-y: 138px;
+        --far-scale: 0.568;
 
         margin-top: 60px;
       }
 
       /* widescreen */
       @media (width >= 1200px) {
+        --side-offset-y: 84.46px;
+        --far-prev-offset-x: 64.5px;
+        --far-next-offset-x: -64.5px;
+        --far-offset-y: 131.68px;
+
         margin-top: 78px;
+      }
+
+      @media (width >= 1600px) {
+        --slide-width: 427px;
+        --slide-radius: 40px;
+        --slide-secondary-radius: 35px;
+        --side-offset-x: 62px;
+        --side-offset-y: 100px;
+        --side-scale: 0.716;
+        --far-prev-offset-x: -46px;
+        --far-next-offset-x: 46px;
+        --far-offset-y: 156px;
+        --far-scale: 0.568;
       }
 
       .swiper {
         position: relative;
         overflow: visible;
-
-        &::before {
-          content: "";
-          position: absolute;
-          bottom: var(--space8);
-          left: 50%;
-          transform: translateX(-50%);
-          width: 50%;
-          height: 5px;
-          border-radius: 4px;
-          background-color: var(--color-text-primary);
-          pointer-events: none;
-          z-index: 2;
-          opacity: 1;
-        }
 
         .more-than__pagination {
           --bg: rgba(255, 255, 255, 0.4);
@@ -379,9 +398,10 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         z-index: 5;
 
         .more-than__slide {
-          --slide-offset-x: 0px;
+          --slide-offset-x: var(--active-offset-x);
           --slide-offset-y: 0px;
           --slide-scale: 1;
+          --slide-blur: 0px;
         }
       }
 
@@ -396,56 +416,46 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       }
 
       &.is-more-than-slide-prev .more-than__slide {
-        --slide-offset-x: -62px;
-        --slide-offset-y: 100px;
-        --slide-scale: 0.716;
+        --slide-offset-x: calc(-1 * var(--side-offset-x));
+        --slide-offset-y: var(--side-offset-y);
+        --slide-scale: var(--side-scale);
+        --slide-blur: 6px;
       }
 
       &.is-more-than-slide-next .more-than__slide {
-        --slide-offset-x: 62px;
-        --slide-offset-y: 100px;
-        --slide-scale: 0.716;
+        --slide-offset-x: var(--side-offset-x);
+        --slide-offset-y: var(--side-offset-y);
+        --slide-scale: var(--side-scale);
+        --slide-blur: 6px;
       }
 
       &.is-more-than-slide-before .more-than__slide {
-        --slide-offset-x: -46px;
-        --slide-offset-y: 156px;
-        --slide-scale: 0.568;
+        --slide-offset-x: var(--far-prev-offset-x);
+        --slide-offset-y: var(--far-offset-y);
+        --slide-scale: var(--far-scale);
+        --slide-blur: 12px;
       }
 
       &.is-more-than-slide-after .more-than__slide {
-        --slide-offset-x: 46px;
-        --slide-offset-y: 156px;
-        --slide-scale: 0.568;
+        --slide-offset-x: var(--far-next-offset-x);
+        --slide-offset-y: var(--far-offset-y);
+        --slide-scale: var(--far-scale);
+        --slide-blur: 12px;
       }
 
       &.is-more-than-slide-prev .more-than__slide-content,
       &.is-more-than-slide-next .more-than__slide-content,
       &.is-more-than-slide-before .more-than__slide-content,
       &.is-more-than-slide-after .more-than__slide-content {
-        border-radius: 35px;
-      }
-
-      @media (width < 960px) {
-        &.is-more-than-slide-prev .more-than__slide,
-        &.is-more-than-slide-next .more-than__slide {
-          --slide-offset-x: 0px;
-          --slide-offset-y: 42px;
-          --slide-scale: 0.78;
-        }
-
-        &.is-more-than-slide-before .more-than__slide,
-        &.is-more-than-slide-after .more-than__slide {
-          --slide-offset-y: 72px;
-          --slide-scale: 0.62;
-        }
+        border-radius: var(--slide-secondary-radius);
       }
     }
 
     & .more-than__slide {
       --slide-offset-x: 0px;
-      --slide-offset-y: 180px;
-      --slide-scale: 0.42;
+      --slide-offset-y: var(--far-offset-y);
+      --slide-scale: var(--far-scale);
+      --slide-blur: 6px;
 
       display: flex;
       justify-content: center;
@@ -453,21 +463,34 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       aspect-ratio: 427 / 759;
       transform: translate(var(--slide-offset-x), var(--slide-offset-y))
         scale(var(--slide-scale));
+      filter: blur(var(--slide-blur));
       transform-origin: center top;
-      transition: transform 600ms var(--timing-func);
+      transition:
+        transform 600ms var(--timing-func),
+        filter 600ms var(--timing-func);
 
       & .more-than__slide-content {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        cursor: grab;
         background-color: var(--color-bg-main);
-        border-radius: 40px;
+        border-radius: var(--slide-radius);
+        cursor: pointer;
         transition: border-radius 600ms var(--timing-func);
 
-        &:active {
-          cursor: grabbing;
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: var(--space8);
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          height: 5px;
+          border-radius: 4px;
+          background-color: var(--color-text-primary);
+          pointer-events: none;
+          z-index: 2;
         }
 
         & .more-than__slide-title {

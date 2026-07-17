@@ -20,10 +20,21 @@ export function moreThan() {
     speed: prefersReducedMotion ? 0 : 600,
     slidesPerView: "auto",
     centeredSlides: true,
-    spaceBetween: -141,
+    spaceBetween: -142.39,
+    slideToClickedSlide: true,
+    breakpoints: {
+      960: {
+        spaceBetween: -172.5,
+      },
+      1200: {
+        spaceBetween: -102.48,
+      },
+      1600: {
+        spaceBetween: -141,
+      },
+    },
     on: {
       init: setSlideStack,
-      click: handleSlideClick,
       slideChangeTransitionStart: setSlideStack,
     },
   });
@@ -107,28 +118,6 @@ export function moreThan() {
 
     activateSlide(activeSlide);
   });
-
-  function handleSlideClick(event: Swiper) {
-    if (event.animating || !event.clickedSlide) {
-      return;
-    }
-
-    if (event.clickedSlide.classList.contains("is-more-than-slide-prev")) {
-      event.slidePrev();
-    }
-
-    if (event.clickedSlide.classList.contains("is-more-than-slide-next")) {
-      event.slideNext();
-    }
-
-    if (event.clickedSlide.classList.contains("is-more-than-slide-before")) {
-      event.slidePrev(2);
-    }
-
-    if (event.clickedSlide.classList.contains("is-more-than-slide-after")) {
-      event.slideNext(2);
-    }
-  }
 
   function setSlideStack(event: Swiper) {
     const classNames = [
