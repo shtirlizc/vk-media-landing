@@ -38,6 +38,13 @@ const { href, inline = false, target } = Astro.props;
       font-size: 14px;
     }
 
+    /* fullhd */
+    @media (width >= 1600px) {
+      --height: 64px;
+
+      font-size: 18px;
+    }
+
     @media (hover: hover) {
       &:hover {
         &::before {

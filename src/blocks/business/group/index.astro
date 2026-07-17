@@ -165,6 +165,12 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         border-radius: 32px;
       }
 
+      /* fullhd */
+      @media (width >= 1600px) {
+        border-radius: 38px;
+        padding: 24px 36px;
+      }
+
       &::before {
         content: "";
         position: absolute;
@@ -196,6 +202,11 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         /* widescreen */
         @media (width >= 1200px) {
           font-size: 20px;
+        }
+
+        /* fullhd */
+        @media (width >= 1600px) {
+          font-size: 24px;
         }
       }
     }
@@ -356,29 +367,23 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       left: 0;
       background-position: top left;
       background-repeat: no-repeat;
-      background-size: 304px auto;
+      /* 304px at the 231px mobile card width */
+      background-size: 131.6% auto;
 
       /* tablet */
       @media (width >= 768px) {
-        background-size: 404px auto;
-      }
-
-      /* fullhd */
-      @media (width >= 1600px) {
-        background-size: 600px auto;
+        /* 404px at the 423px tablet card width */
+        background-size: 95.5% auto;
       }
 
       &.group__bg--compact {
-        background-size: 256px auto;
+        /* 256px at the 231px mobile card width */
+        background-size: 110.8% auto;
 
         /* tablet */
         @media (width >= 768px) {
-          background-size: 344px auto;
-        }
-
-        /* widescreen */
-        @media (width >= 1200px) {
-          background-size: 368px auto;
+          /* 344px at the 423px tablet card width */
+          background-size: 81.3% auto;
         }
       }
     }

@@ -74,6 +74,13 @@ const bgStyle = {
       aspect-ratio: 328 / 173;
     }
 
+    /* fullhd */
+    @media (width >= 1600px) {
+      border-right: 40px;
+      aspect-ratio: 730 / 381;
+      padding: 40px 32px 32px;
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -144,6 +151,11 @@ const bgStyle = {
       @media (width >= 1200px) {
         font-size: 26px;
       }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 32px;
+      }
     }
 
     p {
@@ -164,6 +176,11 @@ const bgStyle = {
         @media (width >= 1200px) {
           max-width: 70%;
         }
+
+        /* fullhd */
+        @media (width >= 1600px) {
+          max-width: 60%;
+        }
       }
 
       /* desktop */
@@ -175,6 +192,13 @@ const bgStyle = {
       /* widescreen */
       @media (width >= 1200px) {
         margin-top: var(--space20);
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 20px;
+        margin-top: var(--space24);
+        max-width: 65%;
       }
     }
 

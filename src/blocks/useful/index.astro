@@ -144,7 +144,7 @@ const cards: ICard[] = [
 
       /* fullhd */
       @media (width >= 1600px) {
-        letter-spacing: 0;
+        letter-spacing: -2px;
       }
     }
 
@@ -155,6 +155,7 @@ const cards: ICard[] = [
       /* widescreen */
       @media (width >= 1200px) {
         transform: scale(1);
+        transform-origin: center;
       }
     }
 
@@ -167,6 +168,11 @@ const cards: ICard[] = [
       @media (width >= 768px) {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space20);
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        margin-top: var(--space40);
       }
     }
 

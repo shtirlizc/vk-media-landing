@@ -78,6 +78,11 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         @media (width >= 1200px) {
           letter-spacing: 0;
         }
+
+        /* fullhd */
+        @media (width >= 1600px) {
+          padding-right: 15%;
+        }
       }
 
       & .title-img {
@@ -93,6 +98,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         /* widescreen */
         @media (width >= 1200px) {
           transform: rotate(-25deg) scale(1);
+          transform-origin: center;
         }
 
         @media (width >= 1300px) {
@@ -183,6 +189,13 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         & .culture__playback svg {
           width: 72px;
           height: 82px;
+        }
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        & .culture__media {
+          margin-top: 75px;
         }
       }
     }

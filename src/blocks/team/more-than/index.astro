@@ -116,7 +116,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           Команда&nbsp;— это&nbsp;больше, чем&nbsp;про&nbsp;работу
         </span>
       </Title>
-      <p class="more-than__description">
+      <p class="more-than__description" data-reveal>
         Праздники, тимбилдинги, события и даже хобби — нас объединяют не только
         общие задачи
       </p>
@@ -217,7 +217,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       max-width: 820px;
 
       @media (width >= 960px) {
-        max-width: 900px;
+        max-width: 90%;
       }
     }
 
@@ -245,12 +245,18 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         margin-top: 26px;
         font-size: 24px;
         max-width: 80%;
+        line-height: 110%;
       }
 
       /* widescreen */
       @media (width >= 1200px) {
         margin-top: var(--space32);
         font-size: 28px;
+      }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 32px;
       }
     }
 
@@ -309,6 +315,8 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         --far-next-offset-x: 46px;
         --far-offset-y: 156px;
         --far-scale: 0.568;
+
+        margin-top: 115px;
       }
 
       .swiper {
@@ -535,10 +543,10 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         &::before {
           content: "";
           position: absolute;
-          bottom: var(--space8);
+          bottom: 10px;
           left: 50%;
           transform: translateX(-50%);
-          width: 50%;
+          width: 36%;
           height: 5px;
           border-radius: 4px;
           background-color: var(--color-text-primary);
@@ -564,10 +572,20 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           padding: var(--space40) var(--space20);
           pointer-events: none;
 
+          /* fullhd */
+          @media (width >= 1600px) {
+            padding-bottom: 50px;
+          }
+
           p {
             font-weight: 500;
             font-size: 16px;
             text-align: center;
+
+            /* fullhd */
+            @media (width >= 1600px) {
+              font-size: 18px;
+            }
           }
         }
       }
