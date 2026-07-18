@@ -26,6 +26,7 @@ export function moreThan() {
     speed: prefersReducedMotion ? 0 : 600,
     slidesPerView: "auto",
     centeredSlides: true,
+    followFinger: false,
     spaceBetween: -142.39,
     breakpoints: {
       960: {
