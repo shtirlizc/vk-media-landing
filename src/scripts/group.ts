@@ -10,6 +10,7 @@ export function initGroup() {
     .forEach((slider) => {
       new Swiper(slider, {
         initialSlide: INITIAL_SLIDE,
+        followFinger: false,
         preventInteractionOnTransition: true,
         speed: 400,
         slidesPerView: 1.5,
