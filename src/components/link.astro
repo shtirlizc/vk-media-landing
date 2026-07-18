@@ -30,6 +30,7 @@ const { href, inline = false, target } = Astro.props;
     padding: 0 var(--space12);
     color: var(--color-text-primary);
     overflow: hidden;
+    transition: letter-spacing var(--transition);
 
     /* desktop */
     @media (width >= 960px) {
@@ -47,6 +48,8 @@ const { href, inline = false, target } = Astro.props;
 
     @media (hover: hover) {
       &:hover {
+        letter-spacing: 0.5px;
+
         &::before {
           transform: translateY(50%);
         }

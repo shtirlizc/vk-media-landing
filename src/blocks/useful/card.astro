@@ -31,7 +31,10 @@ const bgStyle = {
   "--card-bg-position-widescreen":
     bg.positionWidescreen ?? bg.positionDesktop ?? bg.position,
   "--card-bg-position-fullhd":
-    bg.positionFullhd ?? bg.positionWidescreen ?? bg.positionDesktop ?? bg.position,
+    bg.positionFullhd ??
+    bg.positionWidescreen ??
+    bg.positionDesktop ??
+    bg.position,
   "--card-bg-size": bg.size,
   "--card-bg-size-desktop": bg.sizeDesktop ?? bg.size,
   "--card-bg-size-widescreen": bg.sizeWidescreen ?? bg.sizeDesktop ?? bg.size,
@@ -179,6 +182,7 @@ const bgStyle = {
       font-size: 12px;
       line-height: 110%;
       text-transform: lowercase;
+      white-space: pre-line;
       z-index: 1;
 
       &.is-short {
@@ -186,7 +190,7 @@ const bgStyle = {
 
         /* widescreen */
         @media (width >= 1200px) {
-          max-width: 70%;
+          max-width: 60%;
         }
 
         /* fullhd */

@@ -2,9 +2,9 @@
 import Title from "../../../components/title.astro";
 import Container from "../../../components/container.astro";
 import card1Img from "./assets/1.webp";
+import card2Img from "./assets/2.webp";
 import card3Img from "./assets/3.webp";
 import card4Img from "./assets/4.webp";
-import card5Img from "./assets/5.webp";
 
 const cards = [
   {
@@ -13,18 +13,18 @@ const cards = [
       "Трансляции в каналах MAX реализованы через интеграцию с платформой VK Видео",
   },
   {
-    image: card3Img,
+    image: card2Img,
     title:
       "Единая панель VK Games для публикации и управления играми для ВКонтакте и ОК",
     isImageCompact: true,
   },
   {
-    image: card4Img,
-    title: "Интеграция новостей Дзена в ОК",
+    image: card3Img,
+    title: "Интеграция новостей\nДзена в ОК",
     isImageCompact: true,
   },
   {
-    image: card5Img,
+    image: card4Img,
     title:
       "VK ID — единый сервис авторизации в OK, ВКонтакте и на других платформах",
     isImageCompact: true,
@@ -32,6 +32,7 @@ const cards = [
 ];
 
 const sliderCards = Array.from({ length: 3 }, () => cards).flat();
+const title = "Как мы усиляем друг друга\nвнутри бизнес‑группы";
 ---
 
 <section class="group" aria-labelledby="group-title">
@@ -39,7 +40,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
     <div class="group__head">
       <Title title="h3" id="group-title">
         <span class="group__title">
-          Как мы усиляем друг друга внутри <span>бизнес-группы</span>
+          {title}
         </span>
       </Title>
 
@@ -95,6 +96,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       @media (width >= 960px) {
         letter-spacing: -1.5px;
         line-height: 100%;
+        white-space: pre-line;
       }
 
       /* widescreen */
@@ -149,7 +151,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       display: flex;
       align-items: flex-end;
       aspect-ratio: 231 / 344;
-      padding: 23px 14px 8px 18px;
+      padding: 16px 10px;
       border-radius: 20px;
       color: var(--color-text-primary);
 
@@ -193,6 +195,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
         max-width: 100%;
         font-size: 12px;
         line-height: 1.1;
+        white-space: pre-line;
 
         /* tablet */
         @media (width >= 768px) {
@@ -226,7 +229,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
       @media (width >= 1200px) {
         --container-offset: max(
           var(--space40),
-          calc((100vw - var(--container)) / 2)
+          calc((100vw - var(--container)) / 2 + var(--space40))
         );
       }
 
@@ -259,6 +262,7 @@ const sliderCards = Array.from({ length: 3 }, () => cards).flat();
 
       /* fullhd */
       @media (width >= 1600px) {
+        --container-offset: calc((100vw - var(--container)) / 2);
         margin-top: 96px;
       }
     }
