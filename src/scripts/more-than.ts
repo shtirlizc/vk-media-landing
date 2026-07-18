@@ -7,8 +7,8 @@ export function moreThan() {
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const body: HTMLElement | null = document.querySelector(".more-than__body");
-  const pagination: HTMLElement | null = document.querySelector(
-    ".js-more-than-swiper .more-than__pagination",
+  const paginations: HTMLElement[] = Array.from(
+    document.querySelectorAll(".js-more-than-swiper .more-than__pagination"),
   );
   const previousButton: HTMLButtonElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__navigation-button--prev",
@@ -16,10 +16,9 @@ export function moreThan() {
   const nextButton: HTMLButtonElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__navigation-button--next",
   );
-  let bullets: HTMLElement[] = [];
-  if (pagination) {
-    bullets = Array.from(pagination.querySelectorAll("button"));
-  }
+  const bullets = paginations.flatMap((pagination) =>
+    Array.from(pagination.querySelectorAll<HTMLElement>("button")),
+  );
 
   const swiper = new Swiper(".js-more-than-swiper", {
     loop: true,
@@ -108,7 +107,8 @@ export function moreThan() {
   bullets.forEach((bullet) => {
     const index = Number(bullet.dataset.index);
 
-    bullet.addEventListener("click", () => {
+    bullet.addEventListener("click", (event) => {
+      event.stopPropagation();
       swiper.slideToLoop(index);
     });
   });
@@ -178,20 +178,15 @@ export function moreThan() {
   }
 
   function setActiveBullet(index: number) {
-    const currentBullet = bullets.find(
-      (bullet) => bullet.dataset.index === String(index),
-    );
-
-    if (currentBullet) {
-      bullets.forEach((bullet) => {
-        bullet.classList.remove("active");
-      });
-      currentBullet.classList.add("active");
-    }
+    bullets.forEach((bullet) => {
+      bullet.classList.toggle("active", bullet.dataset.index === String(index));
+    });
   }
 
   function setProgress(progress: number) {
-    pagination?.style.setProperty("--progress", String(progress));
+    paginations.forEach((pagination) => {
+      pagination.style.setProperty("--progress", String(progress));
+    });
   }
 
   function getSlideVideo(slide: HTMLElement | undefined) {

@@ -124,21 +124,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
     <div class="more-than__body" data-reveal>
       <div class="swiper js-more-than-swiper">
-        <div class="more-than__pagination">
-          {
-            slides.map((_, index) => (
-              <button
-                type="button"
-                class:list={[index === 0 && "active"]}
-                data-index={index}
-                aria-label={`Показать историю ${index + 1}`}
-              >
-                <span>{index}</span>
-              </button>
-            ))
-          }
-        </div>
-
         <nav class="more-than__navigation" aria-label="Навигация по историям">
           <button
             type="button"
@@ -185,6 +170,19 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
                       <div class="more-than__slide-title">
                         {item?.title && <p>{item.title}</p>}
+                      </div>
+
+                      <div class="more-than__pagination">
+                        {slides.map((_, index) => (
+                          <button
+                            type="button"
+                            class:list={[index === 0 && "active"]}
+                            data-index={index}
+                            aria-label={`Показать историю ${index + 1}`}
+                          >
+                            <span>{index}</span>
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -323,84 +321,6 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         position: relative;
         overflow: visible;
 
-        .more-than__pagination {
-          --bg: rgba(255, 255, 255, 0.4);
-          --bg-active: rgba(255, 255, 255, 1);
-
-          position: absolute;
-          top: 6px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: calc(var(--slide-width) - 12px);
-          z-index: 2;
-          display: flex;
-          gap: 3px;
-
-          button {
-            background: none;
-            border: none;
-            font-size: 0;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            padding: var(--space16) 2px;
-            cursor: pointer;
-
-            &.active span::before {
-              transform: scaleX(var(--progress));
-            }
-
-            &.active ~ button {
-              span::before {
-                transform: scaleX(0);
-              }
-            }
-
-            span {
-              position: relative;
-              width: 100%;
-              height: 2px;
-              overflow: hidden;
-              background-color: var(--bg);
-              border-radius: 2px;
-              transition: background-color var(--transition);
-
-              &::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                transform: scaleX(1);
-                transform-origin: left;
-                background-color: var(--bg-active);
-                transition: transform var(--transition);
-              }
-
-              &::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: var(--color-primary);
-                opacity: 0;
-                transition: opacity var(--transition);
-              }
-            }
-
-            @media (hover: hover) {
-              &:hover {
-                span::after {
-                  opacity: 1;
-                }
-              }
-            }
-          }
-        }
-
         .more-than__navigation {
           position: absolute;
           inset: 0;
@@ -463,6 +383,11 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           --slide-offset-y: 0px;
           --slide-scale: 1;
           --slide-blur: 0px;
+        }
+
+        .more-than__pagination {
+          opacity: 1;
+          pointer-events: auto;
         }
       }
 
@@ -586,6 +511,86 @@ const slides: (ISlideImage | ISlideVideo)[] = [
             /* fullhd */
             @media (width >= 1600px) {
               font-size: 18px;
+            }
+          }
+        }
+
+        & .more-than__pagination {
+          --bg: rgba(255, 255, 255, 0.4);
+          --bg-active: rgba(255, 255, 255, 1);
+
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          width: calc(100% - 12px);
+          z-index: 3;
+          display: flex;
+          gap: 3px;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 200ms ease;
+
+          button {
+            background: none;
+            border: none;
+            font-size: 0;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            padding: var(--space16) 2px;
+            cursor: pointer;
+
+            &.active span::before {
+              transform: scaleX(var(--progress));
+            }
+
+            &.active ~ button {
+              span::before {
+                transform: scaleX(0);
+              }
+            }
+
+            span {
+              position: relative;
+              width: 100%;
+              height: 2px;
+              overflow: hidden;
+              background-color: var(--bg);
+              border-radius: 2px;
+              transition: background-color var(--transition);
+
+              &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: scaleX(1);
+                transform-origin: left;
+                background-color: var(--bg-active);
+                transition: transform var(--transition);
+              }
+
+              &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--color-primary);
+                opacity: 0;
+                transition: opacity var(--transition);
+              }
+            }
+
+            @media (hover: hover) {
+              &:hover {
+                span::after {
+                  opacity: 1;
+                }
+              }
             }
           }
         }
