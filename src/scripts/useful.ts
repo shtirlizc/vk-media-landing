@@ -15,6 +15,11 @@ const clamp = (value: number, min: number, max: number) =>
 const mix = (from: number, to: number, progress: number) =>
   from + (to - from) * progress;
 
+type StackMetrics = {
+  stackTop: number;
+  scaleDistance: number;
+};
+
 export function initUseful() {
   const sections = gsap.utils.toArray<HTMLElement>("[data-useful]");
 
@@ -40,6 +45,7 @@ function createUsefulStack(
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
+  let metrics = updateStackMetrics(section, head, cards);
 
   const trigger = ScrollTrigger.create({
     trigger: section,
@@ -47,14 +53,13 @@ function createUsefulStack(
     end: "bottom top",
     invalidateOnRefresh: true,
     onRefresh: () => {
-      updateStackOffset(section, head);
-      renderCards(section, cards, reduceMotion);
+      metrics = updateStackMetrics(section, head, cards);
+      renderCards(cards, metrics, reduceMotion);
     },
-    onUpdate: () => renderCards(section, cards, reduceMotion),
+    onUpdate: () => renderCards(cards, metrics, reduceMotion),
   });
 
-  updateStackOffset(section, head);
-  renderCards(section, cards, reduceMotion);
+  renderCards(cards, metrics, reduceMotion);
 
   return () => {
     trigger.kill();
@@ -64,33 +69,41 @@ function createUsefulStack(
   };
 }
 
-function updateStackOffset(section: HTMLElement, head: HTMLElement) {
+function updateStackMetrics(
+  section: HTMLElement,
+  head: HTMLElement,
+  cards: HTMLElement[],
+): StackMetrics {
   const header = document.querySelector<HTMLElement>(".header");
   const headerHeight = header?.getBoundingClientRect().height ?? 0;
   const headHeight = head.getBoundingClientRect().height;
   const headTop = headerHeight + HEAD_OFFSET;
+  const stackTop = headTop + headHeight + STACK_GAP;
+  const cardHeight = cards[0]?.getBoundingClientRect().height ?? 0;
 
   section.style.setProperty("--useful-head-top", `${headTop}px`);
-  section.style.setProperty(
-    "--useful-stack-top",
-    `${headTop + headHeight + STACK_GAP}px`,
-  );
+  section.style.setProperty("--useful-stack-top", `${stackTop}px`);
+
+  return {
+    stackTop,
+    scaleDistance: Math.min(cardHeight * 0.7, 160),
+  };
 }
 
 function renderCards(
-  section: HTMLElement,
   cards: HTMLElement[],
+  { stackTop, scaleDistance }: StackMetrics,
   reduceMotion: boolean,
 ) {
-  const stackTop = getStackTop(section);
-  const cardHeight = cards[0]?.getBoundingClientRect().height ?? 0;
-  const scaleDistance = Math.min(cardHeight * 0.7, 160);
+  const nextCardTops = cards.map((_, index) =>
+    cards[index + 1]?.getBoundingClientRect().top,
+  );
 
   cards.forEach((card, index) => {
-    const nextCard = cards[index + 1];
+    const nextCardTop = nextCardTops[index];
     const progress =
-      nextCard && scaleDistance > 0
-        ? getCoverProgress(nextCard, stackTop, scaleDistance)
+      nextCardTop !== undefined && scaleDistance > 0
+        ? getCoverProgress(nextCardTop, stackTop, scaleDistance)
         : 0;
     const scale = reduceMotion ? 1 : mix(1, MIN_SCALE, progress);
     const blur = reduceMotion ? 0 : mix(0, MAX_BLUR, progress);
@@ -106,19 +119,11 @@ function renderCards(
 }
 
 function getCoverProgress(
-  nextCard: HTMLElement,
+  nextCardTop: number,
   stackTop: number,
   scaleDistance: number,
 ) {
-  const distanceToStack = nextCard.getBoundingClientRect().top - stackTop;
+  const distanceToStack = nextCardTop - stackTop;
 
   return clamp((scaleDistance - distanceToStack) / scaleDistance, 0, 1);
-}
-
-function getStackTop(section: HTMLElement) {
-  const rawValue =
-    getComputedStyle(section).getPropertyValue("--useful-stack-top");
-  const value = Number.parseFloat(rawValue);
-
-  return Number.isFinite(value) ? value : 0;
 }

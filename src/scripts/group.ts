@@ -82,9 +82,10 @@ function setSlideStack(swiper: Swiper, skipLeaving = false) {
     const activeSlide = swiper.slides[swiper.activeIndex];
 
     activeSlide?.classList.add("is-group-slide-entering-from-left");
-    void activeSlide?.offsetWidth;
     requestAnimationFrame(() => {
-      activeSlide?.classList.remove("is-group-slide-entering-from-left");
+      requestAnimationFrame(() => {
+        activeSlide?.classList.remove("is-group-slide-entering-from-left");
+      });
     });
   }
 }
@@ -103,7 +104,6 @@ function clearLeavingSlides(swiper: Swiper) {
 
   if (resetIndex !== null) {
     swiper.el.classList.add("is-group-slider-resetting");
-    void swiper.el.offsetWidth;
   }
 
   swiper.slides.forEach((slide) => {
