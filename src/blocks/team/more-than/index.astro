@@ -172,12 +172,13 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                         {item?.title && <p>{item.title}</p>}
                       </div>
 
-                      <div class="more-than__pagination">
+                      <div class="more-than__pagination" aria-hidden="true">
                         {slides.map((_, index) => (
                           <button
                             type="button"
                             class:list={[index === 0 && "active"]}
                             data-index={index}
+                            tabindex="-1"
                             aria-label={`Показать историю ${index + 1}`}
                           >
                             <span>{index}</span>
@@ -384,8 +385,10 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           --slide-scale: 1;
           --slide-blur: 0px;
         }
+      }
 
-        .more-than__pagination {
+      &.swiper-slide-active {
+        .more-than__slide-content .more-than__pagination {
           opacity: 1;
           pointer-events: auto;
         }

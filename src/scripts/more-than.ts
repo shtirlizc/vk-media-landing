@@ -7,19 +7,12 @@ export function moreThan() {
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const body: HTMLElement | null = document.querySelector(".more-than__body");
-  const paginations: HTMLElement[] = Array.from(
-    document.querySelectorAll(".js-more-than-swiper .more-than__pagination"),
-  );
   const previousButton: HTMLButtonElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__navigation-button--prev",
   );
   const nextButton: HTMLButtonElement | null = document.querySelector(
     ".js-more-than-swiper .more-than__navigation-button--next",
   );
-  const bullets = paginations.flatMap((pagination) =>
-    Array.from(pagination.querySelectorAll<HTMLElement>("button")),
-  );
-
   const swiper = new Swiper(".js-more-than-swiper", {
     loop: true,
     speed: prefersReducedMotion ? 0 : 600,
@@ -104,14 +97,28 @@ export function moreThan() {
     exitObserver.observe(body);
   }
 
-  bullets.forEach((bullet) => {
-    const index = Number(bullet.dataset.index);
+  swiper.el.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
 
-    bullet.addEventListener("click", (event) => {
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const bullet = target.closest<HTMLButtonElement>(
+        ".more-than__pagination button",
+      );
+
+      if (!bullet) {
+        return;
+      }
+
       event.stopPropagation();
-      swiper.slideToLoop(index);
-    });
-  });
+      swiper.slideToLoop(Number(bullet.dataset.index));
+    },
+    { capture: true },
+  );
 
   previousButton?.addEventListener("click", () => {
     if (!swiper.animating) {
@@ -175,17 +182,47 @@ export function moreThan() {
     setSlideClass(1, "is-more-than-slide-next");
     setSlideClass(-2, "is-more-than-slide-before");
     setSlideClass(2, "is-more-than-slide-after");
+
+    updatePaginationAccessibility();
   }
 
   function setActiveBullet(index: number) {
-    bullets.forEach((bullet) => {
-      bullet.classList.toggle("active", bullet.dataset.index === String(index));
+    getPaginations().forEach((pagination) => {
+      const bullets = pagination.querySelectorAll<HTMLButtonElement>("button");
+
+      bullets.forEach((bullet) => {
+        bullet.classList.toggle(
+          "active",
+          bullet.dataset.index === String(index),
+        );
+      });
     });
   }
 
   function setProgress(progress: number) {
-    paginations.forEach((pagination) => {
+    getPaginations().forEach((pagination) => {
       pagination.style.setProperty("--progress", String(progress));
+    });
+  }
+
+  function getPaginations() {
+    return Array.from(
+      swiper.el.querySelectorAll<HTMLElement>(".more-than__pagination"),
+    );
+  }
+
+  function updatePaginationAccessibility() {
+    getPaginations().forEach((pagination) => {
+      const isActive = pagination
+        .closest(".swiper-slide")
+        ?.classList.contains("is-more-than-slide-active");
+
+      pagination.setAttribute("aria-hidden", String(!isActive));
+      pagination
+        .querySelectorAll<HTMLButtonElement>("button")
+        .forEach((button) => {
+          button.tabIndex = isActive ? 0 : -1;
+        });
     });
   }
 
