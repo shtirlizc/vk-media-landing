@@ -183,11 +183,11 @@ export function moreThan() {
     setSlideClass(-2, "is-more-than-slide-before");
     setSlideClass(2, "is-more-than-slide-after");
 
-    updatePaginationAccessibility();
+    updatePaginationAccessibility(event);
   }
 
   function setActiveBullet(index: number) {
-    getPaginations().forEach((pagination) => {
+    getPaginations(swiper).forEach((pagination) => {
       const bullets = pagination.querySelectorAll<HTMLButtonElement>("button");
 
       bullets.forEach((bullet) => {
@@ -200,19 +200,21 @@ export function moreThan() {
   }
 
   function setProgress(progress: number) {
-    getPaginations().forEach((pagination) => {
+    getPaginations(swiper).forEach((pagination) => {
       pagination.style.setProperty("--progress", String(progress));
     });
   }
 
-  function getPaginations() {
+  function getPaginations(currentSwiper: Swiper) {
     return Array.from(
-      swiper.el.querySelectorAll<HTMLElement>(".more-than__pagination"),
+      currentSwiper.el.querySelectorAll<HTMLElement>(
+        ".more-than__pagination",
+      ),
     );
   }
 
-  function updatePaginationAccessibility() {
-    getPaginations().forEach((pagination) => {
+  function updatePaginationAccessibility(currentSwiper: Swiper) {
+    getPaginations(currentSwiper).forEach((pagination) => {
       const isActive = pagination
         .closest(".swiper-slide")
         ?.classList.contains("is-more-than-slide-active");
