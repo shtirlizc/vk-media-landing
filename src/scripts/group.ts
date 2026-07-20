@@ -11,12 +11,13 @@ export function initGroup() {
       new Swiper(slider, {
         initialSlide: INITIAL_SLIDE,
         followFinger: true,
-        touchRatio: 0.4,
+        touchRatio: 1,
         preventInteractionOnTransition: true,
         speed: 400,
         slidesPerView: 1.5,
         breakpoints: {
           960: {
+            touchRatio: 0.4,
             speed: 600,
             slidesPerView: 2.08,
           },

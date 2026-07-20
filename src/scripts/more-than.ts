@@ -19,17 +19,20 @@ export function moreThan() {
     slidesPerView: "auto",
     centeredSlides: true,
     followFinger: true,
-    touchRatio: 0.25,
+    touchRatio: 1,
     spaceBetween: -142.39,
     breakpoints: {
       960: {
         spaceBetween: -172.5,
+        touchRatio: 0.25,
       },
       1200: {
         spaceBetween: -102.48,
+        touchRatio: 0.25,
       },
       1600: {
         spaceBetween: -141,
+        touchRatio: 0.25,
       },
     },
     on: {
