@@ -18,7 +18,8 @@ export function moreThan() {
     speed: prefersReducedMotion ? 0 : 600,
     slidesPerView: "auto",
     centeredSlides: true,
-    followFinger: false,
+    followFinger: true,
+    touchRatio: 0.25,
     spaceBetween: -142.39,
     breakpoints: {
       960: {
@@ -207,9 +208,7 @@ export function moreThan() {
 
   function getPaginations(currentSwiper: Swiper) {
     return Array.from(
-      currentSwiper.el.querySelectorAll<HTMLElement>(
-        ".more-than__pagination",
-      ),
+      currentSwiper.el.querySelectorAll<HTMLElement>(".more-than__pagination"),
     );
   }
 
