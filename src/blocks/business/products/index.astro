@@ -239,8 +239,8 @@ const rows: RowItem[][] = [
     animation-direction: reverse;
   }
 
-  .products__row:hover .products__track,
-  .products__row:focus-within .products__track {
+  .products__row:hover:not(:focus-within) .products__track,
+  .products__row:has(:focus-visible) .products__track {
     animation-play-state: paused;
   }
 
