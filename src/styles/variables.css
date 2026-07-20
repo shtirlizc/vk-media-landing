@@ -38,11 +38,6 @@
 
   /* desktop */
   @media (width >= 960px) {
-    --header: 104px;
-  }
-
-  /* fullhd */
-  @media (width >= 1600px) {
-    --header: 140px;
+    --header: 100px;
   }
 }
