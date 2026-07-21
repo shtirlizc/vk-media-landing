@@ -89,16 +89,18 @@ const cards = [
   }
 
   .group__title {
-    letter-spacing: -1px;
+    line-height: 110%;
 
     /* desktop */
     @media (width >= 960px) {
       letter-spacing: -1.5px;
+      line-height: 100%;
     }
 
     /* widescreen */
     @media (width >= 1200px) {
       letter-spacing: -2px;
+      line-height: 90%;
     }
 
     span {
@@ -107,10 +109,11 @@ const cards = [
   }
 
   .group__description {
-    margin-top: var(--space20);
+    margin-top: var(--space24);
     font-family: var(--font-secondary), sans-serif;
     font-weight: 500;
     font-size: 16px;
+    line-height: 110%;
 
     /* desktop */
     @media (width >= 960px) {
@@ -161,7 +164,7 @@ const cards = [
     display: flex;
     align-items: flex-end;
     aspect-ratio: 231 / 328;
-    padding: 23px 14px 23px 18px;
+    padding: 20px 14px 20px 18px;
     letter-spacing: -0.3px;
     border-radius: var(--card-radius);
     color: var(--color-text-primary);
@@ -204,6 +207,11 @@ const cards = [
     @media (width >= 960px) {
       background-size: 404px auto;
     }
+
+    /* widescreen */
+    @media (width >= 1200px) {
+      background-size: 436px auto;
+    }
   }
 
   .group__bg--compact {
@@ -216,7 +224,7 @@ const cards = [
 
     /* widescreen */
     @media (width >= 1200px) {
-      background-size: 368px auto;
+      background-size: 380px auto;
     }
   }
 
@@ -237,7 +245,7 @@ const cards = [
       min-height: 0;
       grid-template-rows: auto auto minmax(0, 1fr);
       align-content: stretch;
-      padding-top: var(--space32);
+      padding-top: calc(var(--header) + var(--space16));
       padding-bottom: var(--space20);
     }
 
@@ -269,10 +277,10 @@ const cards = [
 
     .group__viewport {
       --card-width: 423px;
-      --card-height: 392px;
+      --card-height: 391px;
       --deck-height: var(--card-height);
 
-      margin-top: 48px;
+      margin-top: 58px;
 
       /* widescreen */
       @media (width >= 1200px) {
@@ -281,8 +289,9 @@ const cards = [
     }
 
     .group__card {
-      aspect-ratio: 423 / 392;
-      padding: 30px 20px 30px 24px;
+      height: var(--card-height);
+      aspect-ratio: auto;
+      padding: 30px 24px;
       letter-spacing: -0.5px;
       border-radius: 32px;
     }
@@ -309,6 +318,32 @@ const cards = [
     .group__viewport {
       --card-width: 462px;
       --card-height: 428px;
+    }
+
+    .group__card {
+      border-radius: 32px;
+    }
+  }
+
+  @media (1200px <= width < 1600px) {
+    .group__viewport {
+      width: calc(100% + var(--space8));
+      margin-left: calc(-1 * var(--space8));
+    }
+  }
+
+  @media (width >= 1600px) {
+    .group__viewport {
+      --card-width: 485px;
+      --card-height: 450px;
+      --deck-height: var(--card-height);
+
+      width: min(1262px, 100%);
+      margin-inline: auto;
+    }
+
+    .group__card {
+      border-radius: 33.63px;
     }
   }
 </style>

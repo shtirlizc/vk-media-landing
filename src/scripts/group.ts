@@ -7,7 +7,9 @@ type StackMode = "desktop" | "mobile";
 
 type CardState = {
   x: number;
-  scale: number;
+  y: number;
+  scaleX: number;
+  scaleY: number;
   opacity: number;
   blur: number;
   zIndex: number;
@@ -53,8 +55,9 @@ function createGroupScroll(
 
   const render = (progress: number) => {
     const cardWidth = cards[0]?.offsetWidth ?? 0;
+    const cardHeight = cards[0]?.offsetHeight ?? 0;
     const deckWidth = cards[0]?.parentElement?.clientWidth ?? cardWidth;
-    const slots = getSlots(cardWidth, deckWidth, mode);
+    const slots = getSlots(cardWidth, cardHeight, deckWidth, mode);
     const rawIndex = progress * (cards.length - 1);
     const nextActiveIndex = clamp(Math.round(rawIndex), 0, cards.length - 1);
 
@@ -70,7 +73,9 @@ function createGroupScroll(
 
       gsap.set(card, {
         x: state.x,
-        scale: state.scale,
+        y: state.y,
+        scaleX: state.scaleX,
+        scaleY: state.scaleY,
         opacity: state.opacity,
         filter: `blur(${state.blur}px)`,
         zIndex: state.zIndex,
@@ -102,32 +107,65 @@ function createGroupScroll(
   };
 }
 
-function getSlots(cardWidth: number, deckWidth: number, mode: StackMode): Slot[] {
+function getSlots(
+  cardWidth: number,
+  cardHeight: number,
+  deckWidth: number,
+  mode: StackMode,
+): Slot[] {
   if (mode === "mobile") {
-    const nextCardScale = 0.86;
+    const nextCardScaleX = 0.8195023970170454;
+    const nextCardScaleY = 0.8170039479325457;
     const nextCardX = Math.max(
       0,
       Math.min(
-        cardWidth * 0.82,
-        deckWidth - cardWidth * nextCardScale,
+        cardWidth * 0.4632034632034632,
+        deckWidth - cardWidth * nextCardScaleX,
       ),
     );
 
     return [
-      { x: 0, scale: 1, opacity: 1, blur: 0 },
-      { x: nextCardX, scale: nextCardScale, opacity: 1, blur: 3 },
+      { x: 0, y: 0, scaleX: 1, scaleY: 1, opacity: 1, blur: 0 },
+      {
+        x: nextCardX,
+        y: 0,
+        scaleX: nextCardScaleX,
+        scaleY: nextCardScaleY,
+        opacity: 1,
+        blur: 3,
+      },
     ];
   }
 
-  const lastScale = 0.6;
-  const lastX = Math.max(0, deckWidth - cardWidth * lastScale);
-
-  return [
-    { x: 0, scale: 1, opacity: 1, blur: 0 },
-    { x: lastX * 0.42, scale: 0.82, opacity: 1, blur: 2.5 },
-    { x: lastX * 0.69, scale: 0.7, opacity: 1, blur: 5 },
-    { x: lastX, scale: lastScale, opacity: 1, blur: 7 },
+  const scaleX = [
+    1, 0.8125398974397998, 0.6782357352120536, 0.5179162624078396,
   ];
+  const scaleY = [
+    1, 0.8101099317318925, 0.6762074265524606, 0.5163673329576154,
+  ];
+  const yFactors = [
+    0, 0.0008493583893107476, -0.0006813334527416764, -0.0011621279137156834,
+  ];
+  const xFactors = [
+    0, 0.7248484848484849, 1.3007359307359307, 1.7676623376623375,
+  ];
+  const lastSlotIndex = scaleX.length - 1;
+  const targetLastX = cardWidth * xFactors[lastSlotIndex];
+  const availableLastX = Math.max(
+    0,
+    deckWidth - cardWidth * scaleX[lastSlotIndex],
+  );
+  const xScale =
+    targetLastX > 0 ? Math.min(1, availableLastX / targetLastX) : 1;
+
+  return scaleX.map((scale, index) => ({
+    x: cardWidth * xFactors[index] * xScale,
+    y: cardHeight * yFactors[index],
+    scaleX: scale,
+    scaleY: scaleY[index],
+    opacity: 1,
+    blur: [0, 2.5, 5, 7][index],
+  }));
 }
 
 function getCardState(
@@ -140,7 +178,9 @@ function getCardState(
 
     return {
       x: -cardWidth * 1.18 * progress,
-      scale: mix(1, 0.92, progress),
+      y: 0,
+      scaleX: mix(1, 0.92, progress),
+      scaleY: mix(1, 0.92, progress),
       opacity: mix(1, 0, progress),
       blur: 0,
       zIndex: 120,
@@ -158,7 +198,9 @@ function getCardState(
 
     return {
       x: mix(from.x, to.x, progress),
-      scale: mix(from.scale, to.scale, progress),
+      y: mix(from.y, to.y, progress),
+      scaleX: mix(from.scaleX, to.scaleX, progress),
+      scaleY: mix(from.scaleY, to.scaleY, progress),
       opacity: mix(from.opacity, to.opacity, progress),
       blur: mix(from.blur, to.blur, progress),
       zIndex: Math.round(100 - relativeIndex * 10),
@@ -170,7 +212,9 @@ function getCardState(
 
   return {
     x: lastSlot.x + cardWidth * 0.16 * overflowProgress,
-    scale: lastSlot.scale,
+    y: lastSlot.y,
+    scaleX: lastSlot.scaleX,
+    scaleY: lastSlot.scaleY,
     opacity: mix(lastSlot.opacity, 0, overflowProgress),
     blur: lastSlot.blur + 2 * overflowProgress,
     zIndex: 1,
