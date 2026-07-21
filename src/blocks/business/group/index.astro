@@ -37,7 +37,7 @@ const cards = [
     <div class="group__pin">
       <Title title="h3" id="group-title">
         <span class="group__title">
-          Как мы усиляем друг друга внутри <span>бизнес-группы</span>
+          Как мы усиляем друг друга<br />внутри <span>бизнес-группы</span>
         </span>
       </Title>
 
@@ -125,6 +125,12 @@ const cards = [
     /* widescreen */
     @media (width >= 1200px) {
       font-size: 28px;
+    }
+
+    /* fullhd */
+    @media (width >= 1600px) {
+      margin-top: 42px;
+      max-width: 75%;
     }
   }
 
@@ -311,6 +317,11 @@ const cards = [
       @media (width >= 1200px) {
         font-size: 20px;
       }
+
+      /* fullhd */
+      @media (width >= 1600px) {
+        font-size: 24px;
+      }
     }
   }
 
@@ -322,6 +333,13 @@ const cards = [
 
     .group__card {
       border-radius: 32px;
+    }
+  }
+
+  /* fullhd */
+  @media (width >= 1600px) {
+    .group__card {
+      padding: 30px 37px 34px 24px;
     }
   }
 
@@ -337,9 +355,6 @@ const cards = [
       --card-width: 485px;
       --card-height: 450px;
       --deck-height: var(--card-height);
-
-      width: min(1262px, 100%);
-      margin-inline: auto;
     }
 
     .group__card {

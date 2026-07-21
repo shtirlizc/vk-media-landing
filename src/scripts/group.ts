@@ -17,6 +17,8 @@ type CardState = {
 
 type Slot = Omit<CardState, "zIndex">;
 
+const FULLHD_STACK_COMPRESSION = 0.9;
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
@@ -155,8 +157,13 @@ function getSlots(
     0,
     deckWidth - cardWidth * scaleX[lastSlotIndex],
   );
+  const fillsDeck = cardWidth >= 485;
   const xScale =
-    targetLastX > 0 ? Math.min(1, availableLastX / targetLastX) : 1;
+    targetLastX > 0
+      ? fillsDeck
+        ? (availableLastX / targetLastX) * FULLHD_STACK_COMPRESSION
+        : Math.min(1, availableLastX / targetLastX)
+      : 1;
 
   return scaleX.map((scale, index) => ({
     x: cardWidth * xFactors[index] * xScale,
