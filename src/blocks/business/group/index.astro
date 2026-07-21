@@ -231,6 +231,35 @@ const cards = [
     line-height: 1;
   }
 
+  @media (width < 960px) {
+    .group__pin {
+      height: 100svh;
+      min-height: 0;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      align-content: stretch;
+      padding-top: var(--space32);
+      padding-bottom: var(--space20);
+    }
+
+    .group__viewport {
+      min-height: 0;
+      display: grid;
+      align-items: end;
+      margin-top: var(--space24);
+    }
+
+    .group__deck {
+      min-height: 0;
+      height: 100%;
+    }
+
+    .group__card {
+      width: auto;
+      max-width: 100%;
+      height: min(var(--deck-height), 100%);
+    }
+  }
+
   @media (width >= 960px) {
     .group__pin {
       padding-top: 128px;
