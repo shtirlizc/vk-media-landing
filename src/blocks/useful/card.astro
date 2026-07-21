@@ -3,7 +3,6 @@ import Link from "../../components/link.astro";
 export interface ICard {
   title: string;
   description: string;
-  isShortDesc?: boolean;
   bg: {
     image: ImageMetadata;
     position: string;
@@ -23,7 +22,7 @@ interface Props {
 }
 
 const { card } = Astro.props;
-const { title, description, isShortDesc = false, bg, links } = card;
+const { title, description, bg, links } = card;
 const bgStyle = {
   "--card-bg-image": `url("${bg.image.src}")`,
   "--card-bg-position": bg.position,
@@ -46,7 +45,7 @@ const bgStyle = {
 <article class="card" data-useful-card>
   <div class="card__bg" style={bgStyle}></div>
   <h4>{title}</h4>
-  <p class:list={[isShortDesc && "is-short"]}>{description}</p>
+  <p>{description}</p>
   <ul class="card__links">
     {
       links.map(({ href, label }) => (
@@ -184,20 +183,6 @@ const bgStyle = {
       text-transform: lowercase;
       white-space: pre-line;
       z-index: 1;
-
-      &.is-short {
-        max-width: 76%;
-
-        /* widescreen */
-        @media (width >= 1200px) {
-          max-width: 60%;
-        }
-
-        /* fullhd */
-        @media (width >= 1600px) {
-          max-width: 60%;
-        }
-      }
 
       /* desktop */
       @media (width >= 960px) {
