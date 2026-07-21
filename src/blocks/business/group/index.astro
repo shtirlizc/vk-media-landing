@@ -75,9 +75,15 @@ const cards = [
 <style>
   .group {
     overflow: clip;
-    margin-top: calc(-0.5 * var(--section-gap));
-    margin-bottom: calc(-1 * var(--section-gap));
+    margin-top: calc(-0.75 * var(--section-gap));
+    margin-bottom: calc(-0.75 * var(--section-gap));
     max-width: 100vw;
+
+    /* desktop */
+    @media (width >= 960px) {
+      margin-top: calc(-2 * var(--section-gap));
+      margin-bottom: calc(-1.5 * var(--section-gap));
+    }
   }
 
   .group__pin {
