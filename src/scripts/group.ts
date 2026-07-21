@@ -33,16 +33,19 @@ export function initGroup() {
     const cards = gsap.utils.toArray<HTMLElement>(
       section.querySelectorAll("[data-group-card]"),
     );
+    const scrollCards = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll("[data-group-scroll-card]"),
+    );
 
-    if (!pin || cards.length === 0) return;
+    if (!pin || cards.length === 0 || scrollCards.length === 0) return;
 
     const media = gsap.matchMedia();
 
     media.add("(min-width: 960px)", () =>
-      createGroupScroll(section, pin, cards, "desktop"),
+      createGroupScroll(section, pin, cards, scrollCards, "desktop"),
     );
     media.add("(max-width: 959px)", () =>
-      createGroupScroll(section, pin, cards, "mobile"),
+      createGroupScroll(section, pin, cards, scrollCards, "mobile"),
     );
   });
 }
@@ -51,6 +54,7 @@ function createGroupScroll(
   section: HTMLElement,
   pin: HTMLElement,
   cards: HTMLElement[],
+  scrollCards: HTMLElement[],
   mode: StackMode,
 ) {
   let activeIndex = -1;
@@ -60,11 +64,15 @@ function createGroupScroll(
     const cardHeight = cards[0]?.offsetHeight ?? 0;
     const deckWidth = cards[0]?.parentElement?.clientWidth ?? cardWidth;
     const slots = getSlots(cardWidth, cardHeight, deckWidth, mode);
-    const rawIndex = progress * (cards.length - 1);
-    const nextActiveIndex = clamp(Math.round(rawIndex), 0, cards.length - 1);
+    const rawIndex = progress * (scrollCards.length - 1);
+    const nextActiveIndex = clamp(
+      Math.round(rawIndex),
+      0,
+      scrollCards.length - 1,
+    );
 
     if (nextActiveIndex !== activeIndex) {
-      cards.forEach((card, index) => {
+      scrollCards.forEach((card, index) => {
         card.classList.toggle("is-active", index === nextActiveIndex);
       });
       activeIndex = nextActiveIndex;
@@ -103,7 +111,7 @@ function createGroupScroll(
     trigger.kill();
     activeIndex = -1;
     gsap.set(cards, { clearProps: "transform,filter,opacity,zIndex" });
-    cards.forEach((card, index) => {
+    scrollCards.forEach((card, index) => {
       card.classList.toggle("is-active", index === 0);
     });
   };
