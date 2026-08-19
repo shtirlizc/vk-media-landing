@@ -17,6 +17,11 @@ type CardState = {
 
 type Slot = Omit<CardState, "zIndex">;
 
+type GroupMetrics = {
+  cardWidth: number;
+  slots: Slot[];
+};
+
 const FULLHD_STACK_COMPRESSION = 0.9;
 
 const clamp = (value: number, min: number, max: number) =>
@@ -58,12 +63,9 @@ function createGroupScroll(
   mode: StackMode,
 ) {
   let activeIndex = -1;
+  let metrics = getGroupMetrics(cards, mode);
 
   const render = (progress: number) => {
-    const cardWidth = cards[0]?.offsetWidth ?? 0;
-    const cardHeight = cards[0]?.offsetHeight ?? 0;
-    const deckWidth = cards[0]?.parentElement?.clientWidth ?? cardWidth;
-    const slots = getSlots(cardWidth, cardHeight, deckWidth, mode);
     const rawIndex = progress * (scrollCards.length - 1);
     const nextActiveIndex = clamp(
       Math.round(rawIndex),
@@ -79,7 +81,12 @@ function createGroupScroll(
     }
 
     cards.forEach((card, index) => {
-      const state = getCardState(index - rawIndex, slots, cardWidth);
+      const state = getCardState(
+        index - rawIndex,
+        metrics.slots,
+        metrics.cardWidth,
+      );
+      const blur = mode === "mobile" ? 0 : state.blur;
 
       gsap.set(card, {
         x: state.x,
@@ -87,9 +94,9 @@ function createGroupScroll(
         scaleX: state.scaleX,
         scaleY: state.scaleY,
         opacity: state.opacity,
-        filter: `blur(${state.blur}px)`,
+        filter: blur > 0 ? `blur(${blur}px)` : "none",
         zIndex: state.zIndex,
-        force3D: true,
+        force3D: mode === "desktop",
       });
     });
   };
@@ -100,10 +107,14 @@ function createGroupScroll(
     trigger: section,
     pin,
     start: "top top",
-    end: () => `+=${window.innerHeight}`,
+    end: () => `+=${pin.offsetHeight}`,
     scrub: true,
+    anticipatePin: 1,
     invalidateOnRefresh: true,
-    onRefresh: (self) => render(self.progress),
+    onRefresh: (self) => {
+      metrics = getGroupMetrics(cards, mode);
+      render(self.progress);
+    },
     onUpdate: (self) => render(self.progress),
   });
 
@@ -114,6 +125,17 @@ function createGroupScroll(
     scrollCards.forEach((card, index) => {
       card.classList.toggle("is-active", index === 0);
     });
+  };
+}
+
+function getGroupMetrics(cards: HTMLElement[], mode: StackMode): GroupMetrics {
+  const cardWidth = cards[0]?.offsetWidth ?? 0;
+  const cardHeight = cards[0]?.offsetHeight ?? 0;
+  const deckWidth = cards[0]?.parentElement?.clientWidth ?? cardWidth;
+
+  return {
+    cardWidth,
+    slots: getSlots(cardWidth, cardHeight, deckWidth, mode),
   };
 }
 
