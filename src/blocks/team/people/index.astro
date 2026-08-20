@@ -2,60 +2,78 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/people.webp";
-import defaultPhoto from "./photos/default.png";
 import Container from "../../../components/container.astro";
 import PlayButton from "../../../assets/images/play-button.svg";
 import CloseIcon from "../../../assets/images/x.svg";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
-const rows = [8, 7, 6];
 const copies = [0, 1, 2, 3];
-const peopleVideoSrc = getVideoSrc("people-1");
-
-const people = [
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
-  {
-    photo: defaultPhoto,
-    alt: "defaultPhoto",
-    video: peopleVideoSrc,
-  },
+const peopleVideoNames = [
+  "01-01-oleg-nikitin",
+  "01-02-natalya-bezrodnaya",
+  "01-03-yaroslav-kindsfater",
+  "01-05-kristina-zolotykh",
+  "02-02-ekaterina-efimova",
+  "02-03-vladimir-veselov",
+  "02-04-elizaveta-pavlova",
+  "02-05-daniil-kurpachenko",
+  "02-06-sergey-voskoboynikov",
+  "02-07-daniil-samoylov",
+  "02-08-aleksandr-popov",
+  "03-01-anastasiya-romanova",
+  "03-02-ekaterina-komissarova",
+  "03-03-ivan-kharlamov",
+  "03-05-anna-kosareva",
+  "03-06-alisa-kolesnikova",
+  "03-07-daniil-kamenev",
+  "03-08-nikolay-koroteev",
+  "03-09-natalya-boronenkova",
+  "03-10-evgeniy-krotov",
+  "03-11-ekaterina-orlova",
+  "04-01-nadezhda-fateeva",
+  "04-02-mark-khabarov",
+  "04-03-inessa-zabelina",
+  "04-04-aleksey-krikunov",
+  "04-05-eduard-kovtun",
+  "04-06-dina-bezuglaya",
+  "04-07-daniil-korolyov",
+  "04-08-mariya-avdeeva",
+  "04-09-pyotr-kuzmin",
+  "04-10-darya-lunyova",
+  "04-11-konstantin-izvekov",
+  "05-01-igor-rusyaev",
+  "05-02-kamilla-kiyashova",
+  "05-03-polina-kuralesova",
+  "05-04-vladimir-doronin",
+  "05-05-milana-vozba",
+  "05-06-galina-shirankova",
+  "06-01-darya-rabotskaya",
+  "06-02-vladimir-elenkov",
+  "06-03-anastasiya-rakova",
+  "06-04-sergey-kolesnikov",
+  "06-05-ivan-ostapenko",
+  "06-06-kirill-inyakin",
+  "06-07-vitaliy-smirnov",
+  "06-08-konstantin-tkachenko",
+  "06-09-mikhail-gamayunov",
+  "06-10-kristina-khalatova",
+  "06-11-aleksandr-kharkov",
+  "06-12-elina-ismaeva",
+  "06-13-zarina-akeneva",
 ];
 
-let peopleOffset = 0;
-const peopleRows = rows.map((itemsCount) => {
-  const row = Array.from(
-    { length: itemsCount },
-    (_, index) => people[(peopleOffset + index) % people.length],
-  );
+const people = peopleVideoNames.map((name) => ({
+  initials: name
+    .split("-")
+    .slice(2)
+    .map((part) => part[0].toUpperCase())
+    .join(""),
+  video: getVideoSrc(name),
+}));
 
-  peopleOffset += itemsCount;
-
-  return row;
-});
+const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
+  people.filter((_, personIndex) => personIndex % 3 === rowIndex),
+);
 ---
 
 <div class="people">
@@ -92,13 +110,7 @@ const peopleRows = rows.map((itemsCount) => {
                     class="people__photo"
                     tabindex={copyIndex > 0 ? "-1" : undefined}
                   >
-                    <Image
-                      src={person.photo}
-                      width="250"
-                      height="250"
-                      alt={person.alt}
-                      loading="lazy"
-                    />
+                    <span aria-hidden="true">{person.initials}</span>
                   </button>
                 ))}
               </div>
@@ -203,24 +215,27 @@ const peopleRows = rows.map((itemsCount) => {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: none;
+      background: transparent;
       width: 77px;
       height: 77px;
       border-radius: 50%;
       border: none;
+      border: 1px solid #c9ddff;
       overflow: hidden;
       cursor: pointer;
       box-shadow: 0 3px 58px 0 transparent;
-      transition: box-shadow var(--transition-long);
+      color: #0062ff;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1;
+
+      transition:
+        background-color var(--transition-long),
+        box-shadow var(--transition-long);
 
       &:hover {
+        background: #c9ddff;
         box-shadow: 0 3px 58px 0 #0062ff;
-      }
-
-      img {
-        width: 102%;
-        height: 102%;
-        object-fit: cover;
       }
     }
 
