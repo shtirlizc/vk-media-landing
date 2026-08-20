@@ -15,6 +15,17 @@ export function initVideos() {
 
     pauseVideoOutsideViewport(video);
 
+    const loadVideo = () => {
+      const source = video.dataset.src;
+
+      if (!source || video.currentSrc || video.src) {
+        return;
+      }
+
+      video.src = source;
+      video.load();
+    };
+
     const togglePlayback = async () => {
       if (!video.paused) {
         video.pause();
@@ -22,15 +33,14 @@ export function initVideos() {
       }
 
       try {
+        loadVideo();
         await video.play();
       } catch {
         delete player.dataset.playing;
       }
     };
 
-    const playbackClickTarget = player.hasAttribute(
-      "data-video-player-surface",
-    )
+    const playbackClickTarget = player.hasAttribute("data-video-player-surface")
       ? player
       : playbackButton;
 

@@ -36,9 +36,9 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       <video
         class="hero__video"
         data-video-player-video
-        src={getVideoSrc("hero")}
+        data-src={getVideoSrc("hero")}
         title="Видео о бизнес-группе"
-        preload="auto"
+        preload="none"
         poster={videoPoster.src}
         playsinline
       >

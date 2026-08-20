@@ -35,9 +35,9 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       <video
         class="culture__video"
         data-video-player-video
-        src={getVideoSrc("hero")}
+        data-src={getVideoSrc("hero")}
         title="Видео о культуре в команде"
-        preload="metadata"
+        preload="none"
         poster={videoPoster.src}
         playsinline
       >
