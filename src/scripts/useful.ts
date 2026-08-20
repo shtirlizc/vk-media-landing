@@ -9,9 +9,6 @@ const STACK_GAP = 16;
 const MIN_SCALE = 0.5;
 const MAX_BLUR = 3;
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
-
 const mix = (from: number, to: number, progress: number) =>
   from + (to - from) * progress;
 
@@ -46,23 +43,65 @@ function createUsefulStack(
     "(prefers-reduced-motion: reduce)",
   ).matches;
   let metrics = updateStackMetrics(section, head, cards);
+  const progress = cards.map(() => 0);
 
-  const trigger = ScrollTrigger.create({
-    trigger: section,
-    start: "top bottom",
-    end: "bottom top",
-    invalidateOnRefresh: true,
-    onRefresh: () => {
-      metrics = updateStackMetrics(section, head, cards);
-      renderCards(cards, metrics, reduceMotion);
-    },
-    onUpdate: () => renderCards(cards, metrics, reduceMotion),
-  });
+  const renderCard = (index: number) => {
+    const card = cards[index];
 
-  renderCards(cards, metrics, reduceMotion);
+    if (!card) {
+      return;
+    }
+
+    const scale = reduceMotion ? 1 : mix(1, MIN_SCALE, progress[index] ?? 0);
+    const blur = reduceMotion ? 0 : mix(0, MAX_BLUR, progress[index] ?? 0);
+
+    gsap.set(card, {
+      scale,
+      filter: blur > 0 ? `blur(${blur}px)` : "none",
+      transformOrigin: "center top",
+      zIndex: index + 1,
+      force3D: true,
+    });
+  };
+
+  const renderCards = () => cards.forEach((_, index) => renderCard(index));
+
+  renderCards();
+
+  if (reduceMotion) {
+    return () => {
+      section.style.removeProperty("--useful-head-top");
+      section.style.removeProperty("--useful-stack-top");
+      gsap.set(cards, {
+        clearProps: "filter,transform,transformOrigin,zIndex",
+      });
+    };
+  }
+
+  const refreshMetrics = () => {
+    metrics = updateStackMetrics(section, head, cards);
+  };
+  ScrollTrigger.addEventListener("refreshInit", refreshMetrics);
+
+  const triggers = cards.slice(1).map((nextCard, index) =>
+    ScrollTrigger.create({
+      trigger: nextCard,
+      start: () => `top ${metrics.stackTop + metrics.scaleDistance}`,
+      end: () => `top ${metrics.stackTop}`,
+      onUpdate: (trigger) => {
+        progress[index] = trigger.progress;
+        renderCard(index);
+      },
+      onRefresh: (trigger) => {
+        progress[index] = trigger.progress;
+        renderCard(index);
+      },
+    }),
+  );
 
   return () => {
-    trigger.kill();
+    triggers.forEach((trigger) => trigger.kill());
+    ScrollTrigger.removeEventListener("refreshInit", refreshMetrics);
     section.style.removeProperty("--useful-head-top");
     section.style.removeProperty("--useful-stack-top");
     gsap.set(cards, { clearProps: "filter,transform,transformOrigin,zIndex" });
@@ -88,42 +127,4 @@ function updateStackMetrics(
     stackTop,
     scaleDistance: Math.min(cardHeight * 0.7, 160),
   };
-}
-
-function renderCards(
-  cards: HTMLElement[],
-  { stackTop, scaleDistance }: StackMetrics,
-  reduceMotion: boolean,
-) {
-  const nextCardTops = cards.map((_, index) =>
-    cards[index + 1]?.getBoundingClientRect().top,
-  );
-
-  cards.forEach((card, index) => {
-    const nextCardTop = nextCardTops[index];
-    const progress =
-      nextCardTop !== undefined && scaleDistance > 0
-        ? getCoverProgress(nextCardTop, stackTop, scaleDistance)
-        : 0;
-    const scale = reduceMotion ? 1 : mix(1, MIN_SCALE, progress);
-    const blur = reduceMotion ? 0 : mix(0, MAX_BLUR, progress);
-
-    gsap.set(card, {
-      scale,
-      filter: `blur(${blur}px)`,
-      transformOrigin: "center top",
-      zIndex: index + 1,
-      force3D: true,
-    });
-  });
-}
-
-function getCoverProgress(
-  nextCardTop: number,
-  stackTop: number,
-  scaleDistance: number,
-) {
-  const distanceToStack = nextCardTop - stackTop;
-
-  return clamp((scaleDistance - distanceToStack) / scaleDistance, 0, 1);
 }
