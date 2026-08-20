@@ -189,10 +189,13 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
         animation-direction: reverse;
       }
 
-      &:hover .people__track,
-      &:focus-within .people__track {
+      &:hover .people__track {
         animation-play-state: paused;
       }
+    }
+
+    & .people__marquee[data-modal-open] .people__track {
+      animation-play-state: paused;
     }
 
     & .people__track {

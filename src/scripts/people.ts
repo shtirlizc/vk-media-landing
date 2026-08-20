@@ -7,6 +7,7 @@ export function initPeople() {
   const playbackButton = popover?.querySelector<HTMLButtonElement>(
     "[data-people-playback]",
   );
+  const marquee = popover?.closest<HTMLElement>(".people__marquee");
   const buttons = document.querySelectorAll<HTMLButtonElement>(
     ".people__photo[data-video]",
   );
@@ -74,6 +75,13 @@ export function initPeople() {
   video.addEventListener("ended", setPausedState);
 
   popover.addEventListener("toggle", (event) => {
+    if (event.newState === "open") {
+      marquee?.setAttribute("data-modal-open", "");
+      return;
+    }
+
+    marquee?.removeAttribute("data-modal-open");
+
     if (event.newState === "closed") {
       showPlaybackButton();
       video.pause();
