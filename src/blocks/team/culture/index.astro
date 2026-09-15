@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/culture.webp";
-import videoPoster from "../../business/hero/assets/buisness-video-preview.webp";
+import videoPoster from "./assets/culture-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
 import Container from "../../../components/container.astro";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
@@ -35,7 +35,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       <video
         class="culture__video"
         data-video-player-video
-        data-src={getVideoSrc("hero")}
+        data-src={getVideoSrc("culture")}
         title="Видео о культуре в команде"
         preload="none"
         poster={videoPoster.src}
@@ -124,6 +124,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         width: 100%;
         height: auto;
         aspect-ratio: 1920 / 1080;
+        margin-bottom: -4px;
         border-radius: inherit;
         object-fit: contain;
         cursor: pointer;
