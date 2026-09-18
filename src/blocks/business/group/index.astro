@@ -289,7 +289,23 @@ const visualCards = [...cards, ...cards];
       width: auto;
       max-width: 100%;
       height: min(var(--deck-height), 100%);
+      box-shadow: 0 16px 48px 0 rgb(0 0 0 / 20%);
       will-change: auto;
+    }
+
+    .group__card::before {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      background: radial-gradient(
+        circle at 0 0,
+        #0062ff 0%,
+        #50337f 38%,
+        transparent 72%
+      );
+      filter: none;
     }
   }
 

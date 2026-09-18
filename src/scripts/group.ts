@@ -92,7 +92,6 @@ function createGroupScroll(
         metrics.slots,
         metrics.cardWidth,
       );
-      const blur = mode === "mobile" ? 0 : state.blur;
 
       gsap.set(card, {
         x: state.x,
@@ -100,7 +99,11 @@ function createGroupScroll(
         scaleX: state.scaleX,
         scaleY: state.scaleY,
         opacity: state.opacity,
-        filter: blur > 0 ? `blur(${blur}px)` : "none",
+        ...(mode === "mobile"
+          ? {}
+          : {
+              filter: state.blur > 0 ? `blur(${state.blur}px)` : "none",
+            }),
         zIndex: state.zIndex,
         force3D: mode === "desktop",
       });
@@ -176,11 +179,20 @@ function getSlots(
         deckWidth - cardWidth * nextCardScaleX,
       ),
     );
+    const stackWidth = nextCardX + cardWidth * nextCardScaleX;
+    const stackOffsetX = Math.max(0, (deckWidth - stackWidth) / 2);
 
     return [
-      { x: 0, y: 0, scaleX: 1, scaleY: 1, opacity: 1, blur: 0 },
       {
-        x: nextCardX,
+        x: stackOffsetX,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: 1,
+        blur: 0,
+      },
+      {
+        x: stackOffsetX + nextCardX,
         y: 0,
         scaleX: nextCardScaleX,
         scaleY: nextCardScaleY,
