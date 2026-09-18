@@ -215,9 +215,11 @@ function getSlots(
         ? (availableLastX / targetLastX) * FULLHD_STACK_COMPRESSION
         : Math.min(1, availableLastX / targetLastX)
       : 1;
+  const stackWidth = targetLastX * xScale + cardWidth * scaleX[lastSlotIndex];
+  const stackOffsetX = Math.max(0, (deckWidth - stackWidth) / 2);
 
   return scaleX.map((scale, index) => ({
-    x: cardWidth * xFactors[index] * xScale,
+    x: stackOffsetX + cardWidth * xFactors[index] * xScale,
     y: cardHeight * yFactors[index],
     scaleX: scale,
     scaleY: scaleY[index],
@@ -233,9 +235,10 @@ function getCardState(
 ): CardState {
   if (relativeIndex < 0) {
     const progress = clamp(Math.abs(relativeIndex), 0, 1);
+    const activeX = slots[0]?.x ?? 0;
 
     return {
-      x: -cardWidth * 1.18 * progress,
+      x: mix(activeX, -cardWidth * 1.18, progress),
       y: 0,
       scaleX: mix(1, 0.92, progress),
       scaleY: mix(1, 0.92, progress),
