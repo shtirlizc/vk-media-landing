@@ -279,7 +279,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
 
       /* desktop */
       @media (width >= 960px) {
-        --slide-width: 360.6153px;
+        --slide-width: min(360.6153px, calc(60vh * 427 / 759));
         --slide-radius: 33.78px;
         --slide-secondary-radius: 29.58px;
         --side-offset-y: 91px;
@@ -291,6 +291,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
         --navigation-overlap: 0px;
 
         margin-top: 60px;
+        max-height: 60vh;
       }
 
       /* widescreen */
@@ -304,7 +305,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
       }
 
       @media (width >= 1600px) {
-        --slide-width: 427px;
+        --slide-width: min(427px, calc(60vh * 427 / 759));
         --slide-radius: 40px;
         --slide-secondary-radius: 35px;
         --side-offset-x: 62px;
