@@ -24,15 +24,15 @@ export function moreThan() {
     breakpoints: {
       960: {
         spaceBetween: -172.5,
-        touchRatio: 0.25,
+        touchRatio: 0.5,
       },
       1200: {
         spaceBetween: -102.48,
-        touchRatio: 0.25,
+        touchRatio: 0.5,
       },
       1600: {
         spaceBetween: -141,
-        touchRatio: 0.25,
+        touchRatio: 0.5,
       },
     },
     on: {

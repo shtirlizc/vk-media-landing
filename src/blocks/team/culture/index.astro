@@ -40,6 +40,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         preload="none"
         poster={videoPoster.src}
         playsinline
+        controls
       >
       </video>
 
@@ -113,7 +114,9 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         display: grid;
         place-items: center;
         width: 100%;
+        max-width: calc(60vh * 1920 / 1080);
         margin-top: var(--space32);
+        margin-inline: auto;
         overflow: hidden;
         border-radius: 20px;
         background-color: #071b49;
@@ -123,6 +126,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         display: block;
         width: 100%;
         height: auto;
+        max-height: 60vh;
         aspect-ratio: 1920 / 1080;
         margin-bottom: -4px;
         border-radius: inherit;

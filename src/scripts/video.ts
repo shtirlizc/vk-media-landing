@@ -44,7 +44,13 @@ export function initVideos() {
       ? player
       : playbackButton;
 
-    playbackClickTarget.addEventListener("click", togglePlayback);
+    playbackClickTarget.addEventListener("click", (event) => {
+      if (video.controls && event.target === video) {
+        return;
+      }
+
+      void togglePlayback();
+    });
 
     video.addEventListener("play", () => {
       player.dataset.playing = "";
