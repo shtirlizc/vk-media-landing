@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type StackMode = "desktop" | "mobile";
+type StackMode = "desktop" | "desktop-short" | "mobile";
 
 type CardState = {
   x: number;
@@ -35,6 +35,7 @@ export function initGroup() {
 
   sections.forEach((section) => {
     const pin = section.querySelector<HTMLElement>(".group__pin");
+    const viewport = section.querySelector<HTMLElement>(".group__viewport");
     const cards = gsap.utils.toArray<HTMLElement>(
       section.querySelectorAll("[data-group-card]"),
     );
@@ -42,12 +43,16 @@ export function initGroup() {
       section.querySelectorAll("[data-group-scroll-card]"),
     );
 
-    if (!pin || cards.length === 0 || scrollCards.length === 0) return;
+    if (!pin || !viewport || cards.length === 0 || scrollCards.length === 0)
+      return;
 
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 960px)", () =>
+    media.add("(min-width: 960px) and (min-height: 901px)", () =>
       createGroupScroll(section, pin, cards, scrollCards, "desktop"),
+    );
+    media.add("(min-width: 960px) and (max-height: 900px)", () =>
+      createGroupScroll(section, viewport, cards, scrollCards, "desktop-short"),
     );
     media.add("(max-width: 959px)", () =>
       createGroupScroll(section, pin, cards, scrollCards, "mobile"),
@@ -62,6 +67,7 @@ function createGroupScroll(
   scrollCards: HTMLElement[],
   mode: StackMode,
 ) {
+  const isShortDesktop = mode === "desktop-short";
   let activeIndex = -1;
   let metrics = getGroupMetrics(cards, mode);
 
@@ -104,10 +110,12 @@ function createGroupScroll(
   render(0);
 
   const trigger = ScrollTrigger.create({
-    trigger: section,
+    trigger: isShortDesktop ? pin : section,
     pin,
-    start: "top top",
-    end: () => `+=${pin.offsetHeight}`,
+    start: isShortDesktop
+      ? () => `top ${getShortDesktopPinOffset()}px`
+      : "top top",
+    end: () => `+=${isShortDesktop ? window.innerHeight : pin.offsetHeight}`,
     scrub: true,
     anticipatePin: 1,
     invalidateOnRefresh: true,
@@ -126,6 +134,19 @@ function createGroupScroll(
       card.classList.toggle("is-active", index === 0);
     });
   };
+}
+
+function getShortDesktopPinOffset() {
+  const rootStyles = getComputedStyle(document.documentElement);
+  const headerHeight = Number.parseFloat(
+    rootStyles.getPropertyValue("--header"),
+  );
+  const gap = Number.parseFloat(rootStyles.getPropertyValue("--space40"));
+
+  return (
+    (Number.isFinite(headerHeight) ? headerHeight : 0) +
+    (Number.isFinite(gap) ? gap : 40)
+  );
 }
 
 function getGroupMetrics(cards: HTMLElement[], mode: StackMode): GroupMetrics {

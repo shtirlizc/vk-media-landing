@@ -70,7 +70,7 @@ const visualCards = [...cards, ...cards];
                   <div
                     class:list={[
                       "group__bg",
-                      card.isImageCompact && "group__bg--compact",
+                      card?.isImageCompact && "group__bg--compact",
                     ]}
                     style={`background-image: url("${card.image.src}")`}
                   />
@@ -93,8 +93,8 @@ const visualCards = [...cards, ...cards];
 
     /* desktop */
     @media (width >= 960px) {
-      margin-top: calc(-2 * var(--section-gap));
-      margin-bottom: calc(-1.5 * var(--section-gap));
+      margin-top: calc(-1.5 * var(--section-gap));
+      margin-bottom: calc(-1 * var(--section-gap));
     }
   }
 
