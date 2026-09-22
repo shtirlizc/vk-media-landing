@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Title from "../../../components/title.astro";
 import decorImg from "../../../assets/images/decor/people.webp";
 import Container from "../../../components/container.astro";
@@ -8,6 +9,10 @@ import CloseIcon from "../../../assets/images/x.svg";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
 const copies = [0, 1, 2, 3];
+const peoplePhotos = import.meta.glob<{ default: ImageMetadata }>(
+  "./photos/*.webp",
+  { eager: true },
+);
 const peopleVideoNames = [
   "01-01-oleg-nikitin",
   "01-02-natalya-bezrodnaya",
@@ -23,6 +28,7 @@ const peopleVideoNames = [
   "03-01-anastasiya-romanova",
   "03-02-ekaterina-komissarova",
   "03-03-ivan-kharlamov",
+  "03-04-ksenia-varenik",
   "03-05-anna-kosareva",
   "03-06-alisa-kolesnikova",
   "03-07-daniil-kamenev",
@@ -52,6 +58,7 @@ const peopleVideoNames = [
   "06-03-anastasiya-rakova",
   "06-04-sergey-kolesnikov",
   "06-05-ivan-ostapenko",
+  "06-06-evgenia-voronina",
   "06-06-kirill-inyakin",
   "06-07-vitaliy-smirnov",
   "06-08-konstantin-tkachenko",
@@ -62,14 +69,19 @@ const peopleVideoNames = [
   "06-13-zarina-akeneva",
 ];
 
-const people = peopleVideoNames.map((name) => ({
-  initials: name
+const people = peopleVideoNames.map((name) => {
+  const displayName = name
     .split("-")
     .slice(2)
-    .map((part) => part[0].toUpperCase())
-    .join(""),
-  video: getVideoSrc(name),
-}));
+    .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
+    .join(" ");
+
+  return {
+    displayName,
+    photo: peoplePhotos[`./photos/${name}.webp`].default,
+    video: getVideoSrc(name),
+  };
+});
 
 const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
   people.filter((_, personIndex) => personIndex % 3 === rowIndex),
@@ -110,7 +122,12 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
                     class="people__photo"
                     tabindex={copyIndex > 0 ? "-1" : undefined}
                   >
-                    <span aria-hidden="true">{person.initials}</span>
+                    <Image
+                      class="people__photo-image"
+                      src={person.photo}
+                      alt={person.displayName}
+                      loading="lazy"
+                    />
                   </button>
                 ))}
               </div>
@@ -241,6 +258,13 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
         background: #c9ddff;
         box-shadow: 0 3px 58px 0 #0062ff;
       }
+    }
+
+    & .people__photo-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     @media (prefers-reduced-motion: reduce) {
