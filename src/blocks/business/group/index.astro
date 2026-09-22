@@ -265,7 +265,7 @@ const visualCards = [...cards, ...cards];
 
   @media (width < 960px) {
     .group__pin {
-      height: 100svh;
+      height: min(100svh, 700px);
       min-height: 0;
       grid-template-rows: auto auto minmax(0, 1fr);
       align-content: stretch;
