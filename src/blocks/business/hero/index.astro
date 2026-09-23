@@ -41,7 +41,6 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         preload="none"
         poster={videoPoster.src}
         playsinline
-        controls
       >
       </video>
 
@@ -53,6 +52,17 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       >
         <span class="hero__play-icon"><PlayButton /></span>
       </button>
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="0.1"
+        value="0"
+        aria-label="Перемотать видео"
+        aria-valuetext="0:00 из 0:00"
+        data-video-player-progress
+      />
     </div>
   </Container>
 </section>
@@ -154,7 +164,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       z-index: 3;
       margin-top: -170px;
       margin-inline: auto;
-      aspect-ratio: 328 / 211;
+      aspect-ratio: 1920 / 1080;
       max-width: calc(70vh * 1920 / 1080);
       overflow: hidden;
       border-radius: 20px;
@@ -165,8 +175,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
     & .hero__video {
       display: block;
       width: 100%;
-      height: auto;
-      max-height: 70vh;
+      height: 100%;
       aspect-ratio: 1920 / 1080;
       border-radius: inherit;
       object-fit: contain;

@@ -297,8 +297,9 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
       margin: auto;
       padding: 0;
       border: 0;
-      overflow: visible;
-      background-color: transparent;
+      background-color: var(--color-bg-main);
+      border-radius: var(--border-radius20);
+      overflow: hidden;
       opacity: 0;
       transform: scale(0.75);
       transition:
@@ -306,6 +307,11 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
         transform calc(2 * var(--delay)) var(--timing-func),
         overlay calc(2 * var(--delay)) var(--timing-func) allow-discrete,
         display calc(2 * var(--delay)) var(--timing-func) allow-discrete;
+
+      /* desktop */
+      @media (width >= 960px) {
+        border-radius: 32px;
+      }
     }
 
     ._modal video {
@@ -315,13 +321,10 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: var(--border-radius20);
-      overflow: hidden;
       cursor: pointer;
 
       /* desktop */
       @media (width >= 960px) {
-        border-radius: 32px;
         object-fit: cover;
       }
     }

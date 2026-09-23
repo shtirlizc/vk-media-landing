@@ -40,7 +40,6 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         preload="none"
         poster={videoPoster.src}
         playsinline
-        controls
       >
       </video>
 
@@ -52,6 +51,17 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       >
         <span class="culture__play-icon"><PlayButton /></span>
       </button>
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="0.1"
+        value="0"
+        aria-label="Перемотать видео"
+        aria-valuetext="0:00 из 0:00"
+        data-video-player-progress
+      />
     </div>
   </Container>
 
@@ -114,6 +124,7 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         display: grid;
         place-items: center;
         width: 100%;
+        aspect-ratio: 1920 / 1080;
         max-width: calc(60vh * 1920 / 1080);
         margin-top: var(--space32);
         margin-inline: auto;
@@ -125,10 +136,8 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       & .culture__video {
         display: block;
         width: 100%;
-        height: auto;
-        max-height: 60vh;
+        height: 100%;
         aspect-ratio: 1920 / 1080;
-        margin-bottom: -4px;
         border-radius: inherit;
         object-fit: contain;
         cursor: pointer;

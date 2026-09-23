@@ -48,10 +48,10 @@ export function initGroup() {
 
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 960px) and (min-height: 901px)", () =>
+    media.add("(min-width: 960px) and (min-height: 851px)", () =>
       createGroupScroll(section, pin, cards, scrollCards, "desktop"),
     );
-    media.add("(min-width: 960px) and (max-height: 900px)", () =>
+    media.add("(min-width: 960px) and (max-height: 850px)", () =>
       createGroupScroll(section, viewport, cards, scrollCards, "desktop-short"),
     );
     media.add("(max-width: 959px)", () =>
