@@ -146,6 +146,16 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
       >
         <span class="_modal__play-icon"><PlayButton /></span>
       </button>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="0.1"
+        value="0"
+        aria-label="Перемотать видео"
+        aria-valuetext="0:00 из 0:00"
+        data-video-player-progress
+      />
       <button
         class="_modal__close"
         type="button"

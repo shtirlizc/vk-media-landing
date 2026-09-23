@@ -1,4 +1,5 @@
 import { pauseVideoOutsideViewport } from "./video-visibility.ts";
+import { initVideoProgress } from "./video.ts";
 
 export function initPeople() {
   const playbackHideDelay = 1000;
@@ -6,6 +7,9 @@ export function initPeople() {
   const video = popover?.querySelector("video");
   const playbackButton = popover?.querySelector<HTMLButtonElement>(
     "[data-people-playback]",
+  );
+  const progress = popover?.querySelector<HTMLInputElement>(
+    "[data-video-player-progress]",
   );
   const marquee = popover?.closest<HTMLElement>(".people__marquee");
   const buttons = document.querySelectorAll<HTMLButtonElement>(
@@ -15,6 +19,10 @@ export function initPeople() {
   if (!(video instanceof HTMLVideoElement) || !popover) return;
 
   pauseVideoOutsideViewport(video);
+
+  const videoProgress = progress
+    ? initVideoProgress(video, progress)
+    : undefined;
 
   let playbackHideTimer: number | undefined;
 
@@ -41,6 +49,7 @@ export function initPeople() {
 
       if (!videoUrl) return;
 
+      videoProgress?.reset();
       video.src = videoUrl;
       video.load();
       popover.showPopover();
@@ -86,6 +95,7 @@ export function initPeople() {
       showPlaybackButton();
       video.pause();
       video.removeAttribute("src");
+      videoProgress?.reset();
     }
   });
 }
