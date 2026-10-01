@@ -42,6 +42,7 @@ export function moreThan() {
     },
   });
   let isBodyActive = false;
+  let isSoundEnabled = false;
   let autoplayTimer: number | undefined;
   let autoplayVideo: HTMLVideoElement | null = null;
   let autoplayVideoEndedHandler: (() => void) | null = null;
@@ -107,6 +108,36 @@ export function moreThan() {
       const target = event.target;
 
       if (!(target instanceof Element)) {
+        return;
+      }
+
+      const soundButton = target.closest<HTMLButtonElement>(
+        ".more-than__sound-button",
+      );
+
+      if (soundButton) {
+        event.stopPropagation();
+
+        if (!soundButton.closest(".is-more-than-slide-active")) {
+          return;
+        }
+
+        isSoundEnabled = !isSoundEnabled;
+        swiper.el
+          .querySelectorAll<HTMLVideoElement>("video")
+          .forEach((video) => {
+            video.muted = !isSoundEnabled;
+          });
+        swiper.el
+          .querySelectorAll<HTMLButtonElement>(".more-than__sound-button")
+          .forEach((button) => {
+            button.setAttribute("aria-pressed", String(isSoundEnabled));
+            button.setAttribute(
+              "aria-label",
+              isSoundEnabled ? "Выключить звук" : "Включить звук",
+            );
+          });
+
         return;
       }
 
@@ -188,6 +219,11 @@ export function moreThan() {
     setSlideClass(2, "is-more-than-slide-after");
 
     updatePaginationAccessibility(event);
+    event.el
+      .querySelectorAll<HTMLButtonElement>(".more-than__sound-button")
+      .forEach((button) => {
+        button.tabIndex = button.closest(".is-more-than-slide-active") ? 0 : -1;
+      });
   }
 
   function setActiveBullet(index: number) {

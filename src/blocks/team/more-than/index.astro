@@ -11,6 +11,8 @@ import slide11Img from "./assets/story-11.webp";
 import slide12Img from "./assets/story-12.webp";
 import prevIcon from "./assets/prev.svg";
 import nextIcon from "./assets/next.svg";
+import muteIcon from "./assets/icon-mute.svg";
+import speakerIcon from "./assets/icon-speaker.svg";
 import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
 
 interface ISlide {
@@ -160,6 +162,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                             poster={item.poster}
                             title={item?.title}
                             preload="metadata"
+                            muted
                           />
                         </div>
                       ) : (
@@ -171,6 +174,29 @@ const slides: (ISlideImage | ISlideVideo)[] = [
                       <div class="more-than__slide-title">
                         {item?.title && <p>{item.title}</p>}
                       </div>
+
+                      {isVideo && (
+                        <button
+                          type="button"
+                          class="more-than__sound-button swiper-no-swiping"
+                          aria-label="Включить звук"
+                          aria-pressed="false"
+                          tabindex="-1"
+                        >
+                          <Image
+                            src={muteIcon}
+                            alt=""
+                            aria-hidden="true"
+                            class="more-than__sound-icon--muted"
+                          />
+                          <Image
+                            src={speakerIcon}
+                            alt=""
+                            aria-hidden="true"
+                            class="more-than__sound-icon--enabled"
+                          />
+                        </button>
+                      )}
 
                       <div class="more-than__pagination" aria-hidden="true">
                         {slides.map((_, index) => (
@@ -516,6 +542,61 @@ const slides: (ISlideImage | ISlideVideo)[] = [
             @media (width >= 1600px) {
               font-size: 18px;
             }
+          }
+        }
+
+        &:has(.more-than__sound-button) .more-than__slide-title {
+          padding-bottom: 72px;
+        }
+
+        & .more-than__sound-button {
+          position: absolute;
+          bottom: 16px;
+          right: 12px;
+          z-index: 3;
+          display: grid;
+          place-items: center;
+          width: 44px;
+          height: 44px;
+          padding: 8px;
+          border: 0;
+          border-radius: 50%;
+          background: transparent;
+          cursor: pointer;
+          visibility: hidden;
+
+          .is-more-than-slide-active & {
+            visibility: visible;
+          }
+
+          img {
+            grid-area: 1 / 1;
+            width: 28px;
+            height: 28px;
+            filter: invert(1);
+          }
+
+          .more-than__sound-icon--enabled {
+            display: none;
+          }
+
+          &[aria-pressed="true"] {
+            .more-than__sound-icon--muted {
+              display: none;
+            }
+
+            .more-than__sound-icon--enabled {
+              display: block;
+            }
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.15);
+          }
+
+          &:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
           }
         }
 
