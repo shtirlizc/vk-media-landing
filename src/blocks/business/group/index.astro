@@ -30,8 +30,6 @@ const cards = [
     isImageCompact: true,
   },
 ];
-
-const visualCards = [...cards, ...cards];
 ---
 
 <section class="group" aria-labelledby="group-title">
@@ -52,31 +50,22 @@ const visualCards = [...cards, ...cards];
       <div class="group__viewport">
         <div class="group__deck" data-group-deck>
           {
-            visualCards.map((card, index) => {
-              const isVisualCopy = index >= cards.length;
-
-              return (
-                <article
+            cards.map((card, index) => (
+              <article
+                class:list={["group__card", index === 0 && "is-active"]}
+                data-group-card
+                data-group-scroll-card
+              >
+                <p>{card.title}</p>
+                <div
                   class:list={[
-                    "group__card",
-                    index === 0 && "is-active",
-                    isVisualCopy && "group__card--visual-copy",
+                    "group__bg",
+                    card?.isImageCompact && "group__bg--compact",
                   ]}
-                  aria-hidden={isVisualCopy ? "true" : undefined}
-                  data-group-card
-                  data-group-scroll-card={isVisualCopy ? undefined : ""}
-                >
-                  <p>{card.title}</p>
-                  <div
-                    class:list={[
-                      "group__bg",
-                      card?.isImageCompact && "group__bg--compact",
-                    ]}
-                    style={`background-image: url("${card.image.src}")`}
-                  />
-                </article>
-              );
-            })
+                  style={`background-image: url("${card.image.src}")`}
+                />
+              </article>
+            ))
           }
         </div>
       </div>
