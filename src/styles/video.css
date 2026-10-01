@@ -13,6 +13,19 @@
   appearance: none;
   background: transparent;
   cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-long),
+    visibility 0s var(--transition-long);
+}
+
+[data-video-started] [data-video-player-progress] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
 [data-video-player-progress]::-webkit-slider-runnable-track {

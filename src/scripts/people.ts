@@ -49,6 +49,7 @@ export function initPeople() {
 
       if (!videoUrl) return;
 
+      delete popover.dataset.videoStarted;
       videoProgress?.reset();
       video.src = videoUrl;
       video.load();
@@ -70,6 +71,7 @@ export function initPeople() {
 
   video.addEventListener("play", () => {
     popover.dataset.playing = "";
+    popover.dataset.videoStarted = "";
     playbackButton?.setAttribute("aria-label", "Поставить видео на паузу");
     schedulePlaybackButtonHide();
   });
@@ -95,6 +97,7 @@ export function initPeople() {
       showPlaybackButton();
       video.pause();
       video.removeAttribute("src");
+      delete popover.dataset.videoStarted;
       videoProgress?.reset();
     }
   });

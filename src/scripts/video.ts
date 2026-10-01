@@ -144,6 +144,7 @@ export function initVideos() {
 
     video.addEventListener("play", () => {
       player.dataset.playing = "";
+      player.dataset.videoStarted = "";
       playbackButton.setAttribute("aria-label", "Поставить видео на паузу");
     });
 
