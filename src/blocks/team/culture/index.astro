@@ -5,7 +5,9 @@ import decorImg from "../../../assets/images/decor/culture.webp";
 import videoPoster from "./assets/culture-preview.webp";
 import PlayButton from "../../../assets/images/play-button.svg";
 import Container from "../../../components/container.astro";
-import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
+
+const videoEmbedSrc =
+  "https://vkvideo.ru/video_ext.php?oid=-220924762&id=456239223&list=ln-EJXdPU6QK5YVMxqxsx&uh=e61efbabdfd736&hd=4&autoplay=1";
 ---
 
 <section class="culture" aria-labelledby="culture-title">
@@ -26,22 +28,17 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       />
     </Title>
 
-    <div
-      class="culture__media"
-      data-reveal
-      data-video-player
-      data-video-player-surface
-    >
-      <video
+    <div class="culture__media" data-reveal data-video-player>
+      <iframe
         class="culture__video"
-        data-video-player-video
-        data-src={getVideoSrc("culture")}
+        data-video-player-iframe
+        data-src={videoEmbedSrc}
         title="Видео о культуре в команде"
-        preload="none"
-        poster={videoPoster.src}
-        playsinline
-      >
-      </video>
+        width="1920"
+        height="1080"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+        hidden
+        allowfullscreen></iframe>
 
       <button
         class="culture__playback"
@@ -49,19 +46,14 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         aria-label="Запустить видео"
         data-video-player-playback
       >
+        <Image
+          src={videoPoster}
+          class="culture__poster"
+          alt=""
+          loading="lazy"
+        />
         <span class="culture__play-icon"><PlayButton /></span>
       </button>
-
-      <input
-        type="range"
-        min="0"
-        max="100"
-        step="0.1"
-        value="0"
-        aria-label="Перемотать видео"
-        aria-valuetext="0:00 из 0:00"
-        data-video-player-progress
-      />
     </div>
   </Container>
 
@@ -138,9 +130,21 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         width: 100%;
         height: 100%;
         aspect-ratio: 1920 / 1080;
+        border: 0;
         border-radius: inherit;
+      }
+
+      & .culture__video[hidden],
+      & .culture__playback[hidden] {
+        display: none;
+      }
+
+      & .culture__poster {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
-        cursor: pointer;
       }
 
       & .culture__playback {
@@ -148,17 +152,14 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
         inset: 0;
         display: grid;
         place-items: center;
-        width: 48px;
-        height: 48px;
-        margin: auto;
+        width: 100%;
+        height: 100%;
         padding: 0;
         border: 0;
         background: transparent;
         color: var(--color-text-primary);
         cursor: pointer;
-        transition:
-          color var(--transition),
-          opacity var(--transition);
+        transition: color var(--transition);
       }
 
       & .culture__playback:hover {
@@ -166,38 +167,18 @@ import { getVideoSrc } from "../../../utils/getVideoSrc.ts";
       }
 
       & .culture__play-icon {
+        position: relative;
         font-size: 0;
-        transition:
-          opacity var(--transition),
-          transform var(--transition);
       }
 
       & .culture__playback:focus-visible {
         outline: 2px solid var(--color-text-primary);
-        outline-offset: 4px;
-      }
-
-      & .culture__media[data-playing] .culture__play-icon {
-        opacity: 0;
-        transform: scale(0.25);
-      }
-
-      @media (hover: hover) {
-        &
-          .culture__media[data-playing]:not(:hover)
-          .culture__playback:not(:focus-visible) {
-          opacity: 0;
-        }
+        outline-offset: -4px;
       }
 
       @media (width >= 960px) {
         & .culture__media {
           margin-top: var(--space44);
-        }
-
-        & .culture__playback {
-          width: 72px;
-          height: 82px;
         }
 
         & .culture__playback svg {

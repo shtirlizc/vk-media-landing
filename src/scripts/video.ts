@@ -1,9 +1,6 @@
-import { pauseVideoOutsideViewport } from "./video-visibility.ts";
-
 export function initVideoProgress(
   video: HTMLVideoElement,
   progress: HTMLInputElement,
-  loadVideo: () => void = () => {},
 ) {
   let pendingSeek: number | null = null;
 
@@ -58,8 +55,6 @@ export function initVideoProgress(
   };
 
   progress.addEventListener("input", () => {
-    loadVideo();
-
     const ratio = Number(progress.value) / 100;
     progress.style.setProperty("--video-progress", `${progress.value}%`);
 
@@ -83,81 +78,27 @@ export function initVideos() {
   const players = document.querySelectorAll<HTMLElement>("[data-video-player]");
 
   players.forEach((player) => {
-    const video = player.querySelector<HTMLVideoElement>(
-      "[data-video-player-video]",
-    );
     const playbackButton = player.querySelector<HTMLButtonElement>(
       "[data-video-player-playback]",
     );
-    const progress = player.querySelector<HTMLInputElement>(
-      "[data-video-player-progress]",
+    const iframe = player.querySelector<HTMLIFrameElement>(
+      "[data-video-player-iframe]",
     );
 
-    if (!video || !playbackButton) return;
+    if (!iframe || !playbackButton) return;
 
-    pauseVideoOutsideViewport(video);
+    playbackButton.addEventListener(
+      "click",
+      () => {
+        const source = iframe.dataset.src;
+        if (!source) return;
 
-    const loadVideo = () => {
-      const source = video.dataset.src;
-
-      if (!source || video.currentSrc || video.src) {
-        return;
-      }
-
-      video.src = source;
-      video.load();
-    };
-
-    const togglePlayback = async () => {
-      if (!video.paused) {
-        video.pause();
-        return;
-      }
-
-      try {
-        loadVideo();
-        await video.play();
-      } catch {
-        delete player.dataset.playing;
-      }
-    };
-
-    const playbackClickTarget = player.hasAttribute("data-video-player-surface")
-      ? player
-      : playbackButton;
-
-    playbackClickTarget.addEventListener("click", (event) => {
-      if (
-        progress &&
-        event.target instanceof Node &&
-        progress.contains(event.target)
-      ) {
-        return;
-      }
-
-      if (video.controls && event.target === video) {
-        return;
-      }
-
-      void togglePlayback();
-    });
-
-    video.addEventListener("play", () => {
-      player.dataset.playing = "";
-      player.dataset.videoStarted = "";
-      playbackButton.setAttribute("aria-label", "Поставить видео на паузу");
-    });
-
-    const setPausedState = (ariaLabel: string) => {
-      delete player.dataset.playing;
-      playbackButton.setAttribute("aria-label", ariaLabel);
-    };
-
-    video.addEventListener("pause", () =>
-      setPausedState("Продолжить воспроизведение"),
+        iframe.src = source;
+        iframe.hidden = false;
+        playbackButton.hidden = true;
+        iframe.focus();
+      },
+      { once: true },
     );
-    video.addEventListener("ended", () => setPausedState("Запустить видео"));
-
-    if (progress) initVideoProgress(video, progress, loadVideo);
   });
 }
