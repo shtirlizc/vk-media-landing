@@ -7,7 +7,7 @@ import PlayButton from "../../../assets/images/play-button.svg";
 import Container from "../../../components/container.astro";
 
 const videoEmbedSrc =
-  "https://vkvideo.ru/video_ext.php?oid=-220924762&id=456239223&list=ln-EJXdPU6QK5YVMxqxsx&uh=e61efbabdfd736&hd=4&autoplay=1";
+  "https://vkvideo.ru/video_ext.php?oid=-220924762&id=456239223&hash=7082973593492ef3&hd=3&autoplay=1";
 ---
 
 <section class="culture" aria-labelledby="culture-title">
@@ -34,9 +34,10 @@ const videoEmbedSrc =
         data-video-player-iframe
         data-src={videoEmbedSrc}
         title="Видео о культуре в команде"
-        width="1920"
-        height="1080"
+        width="1280"
+        height="720"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+        frameborder="0"
         hidden
         allowfullscreen></iframe>
 
