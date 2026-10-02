@@ -4,8 +4,12 @@ import { Font } from "astro:assets";
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const siteUrl = Astro.site;
 const faviconPath = (path: string) => `${baseUrl}/favicon/${path}`;
-const pageUrl = new URL(`${baseUrl}/`, siteUrl).toString();
-const shareImageUrl = new URL(`${baseUrl}/cover.jpg`, siteUrl).toString();
+const pageUrl = siteUrl
+  ? new URL(`${baseUrl}/`, siteUrl).toString()
+  : undefined;
+const shareImageUrl = siteUrl
+  ? new URL(`${baseUrl}/cover.jpg`, siteUrl).toString()
+  : undefined;
 
 const title = "Социальные платформы и медиаконтент | VK";
 const description =
@@ -45,26 +49,40 @@ const imageAlt = "Сцена на мероприятии бизнес-групп
   <meta name="description" content={description} />
   <meta name="keywords" content={keywords} />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href={pageUrl} />
+  {pageUrl && <link rel="canonical" href={pageUrl} />}
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:site_name" content="VK" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={pageUrl} />
-  <meta property="og:image" content={shareImageUrl} />
-  <meta property="og:image:secure_url" content={shareImageUrl} />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="960" />
-  <meta property="og:image:height" content="540" />
-  <meta property="og:image:alt" content={imageAlt} />
+  {pageUrl && <meta property="og:url" content={pageUrl} />}
+  {
+    shareImageUrl && (
+      <>
+        <meta property="og:image" content={shareImageUrl} />
+        {shareImageUrl.startsWith("https://") && (
+          <meta property="og:image:secure_url" content={shareImageUrl} />
+        )}
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="960" />
+        <meta property="og:image:height" content="540" />
+        <meta property="og:image:alt" content={imageAlt} />
+      </>
+    )
+  }
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={shareImageUrl} />
-  <meta name="twitter:image:alt" content={imageAlt} />
+  {
+    shareImageUrl && (
+      <>
+        <meta name="twitter:image" content={shareImageUrl} />
+        <meta name="twitter:image:alt" content={imageAlt} />
+      </>
+    )
+  }
 
   <title>{title}</title>
 </head>
