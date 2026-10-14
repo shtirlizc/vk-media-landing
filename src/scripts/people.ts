@@ -1,47 +1,47 @@
-import { pauseVideoOutsideViewport } from "./video-visibility.ts";
-import { initVideoProgress } from "./video.ts";
-
 export function initPeople() {
-  const playbackHideDelay = 1000;
   const popover = document.getElementById("popover-people");
-  const video = popover?.querySelector("video");
-  const playbackButton = popover?.querySelector<HTMLButtonElement>(
-    "[data-people-playback]",
-  );
-  const progress = popover?.querySelector<HTMLInputElement>(
-    "[data-video-player-progress]",
-  );
+  const iframe = popover?.querySelector("iframe");
   const marquee = popover?.closest<HTMLElement>(".people__marquee");
   const buttons = document.querySelectorAll<HTMLButtonElement>(
     ".people__photo[data-video]",
   );
 
-  if (!(video instanceof HTMLVideoElement) || !popover) return;
+  if (!iframe || !popover) return;
 
-  pauseVideoOutsideViewport(video);
+  let playerOrigin: string | undefined;
+  let soundRequested = false;
 
-  const videoProgress = progress
-    ? initVideoProgress(video, progress)
-    : undefined;
+  const sendPlayerCommand = (command: { method: string; volume?: number }) => {
+    if (playerOrigin) {
+      iframe.contentWindow?.postMessage(command, playerOrigin);
+    }
+  };
 
-  let playbackHideTimer: number | undefined;
+  // Протокол официального VK Video API: vk.com/js/api/videoplayer.js.
+  iframe.addEventListener("load", () => {
+    sendPlayerCommand({ method: "init" });
+  });
 
-  const showPlaybackButton = () => {
-    if (playbackHideTimer !== undefined) {
-      window.clearTimeout(playbackHideTimer);
-      playbackHideTimer = undefined;
+  window.addEventListener("message", (event: MessageEvent) => {
+    if (
+      !playerOrigin ||
+      event.origin !== playerOrigin ||
+      event.source !== iframe.contentWindow
+    ) {
+      return;
     }
 
-    delete popover.dataset.playbackHidden;
-  };
+    if (event.data?.event === "inited") {
+      sendPlayerCommand({ method: "set_volume", volume: 1 });
+      sendPlayerCommand({ method: "unmute" });
+      sendPlayerCommand({ method: "play" });
+    }
 
-  const schedulePlaybackButtonHide = () => {
-    showPlaybackButton();
-    playbackHideTimer = window.setTimeout(() => {
-      popover.dataset.playbackHidden = "";
-      playbackHideTimer = undefined;
-    }, playbackHideDelay);
-  };
+    if (event.data?.event === "started" && !soundRequested) {
+      soundRequested = true;
+      sendPlayerCommand({ method: "unmute" });
+    }
+  });
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -49,41 +49,16 @@ export function initPeople() {
 
       if (!videoUrl) return;
 
-      delete popover.dataset.videoStarted;
-      videoProgress?.reset();
-      video.src = videoUrl;
-      video.load();
+      const source = new URL(videoUrl);
+      source.searchParams.set("js_api", "1");
+      playerOrigin = source.origin;
+      soundRequested = false;
+      iframe.title = `Видео: ${button.querySelector("img")?.alt || "сотрудник"}`;
+      iframe.src = source.href;
       popover.showPopover();
-      video.play();
+      iframe.focus();
     });
   });
-
-  const togglePlayback = () => {
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
-  };
-
-  video.addEventListener("click", togglePlayback);
-  playbackButton?.addEventListener("click", togglePlayback);
-
-  video.addEventListener("play", () => {
-    popover.dataset.playing = "";
-    popover.dataset.videoStarted = "";
-    playbackButton?.setAttribute("aria-label", "Поставить видео на паузу");
-    schedulePlaybackButtonHide();
-  });
-
-  const setPausedState = () => {
-    showPlaybackButton();
-    delete popover.dataset.playing;
-    playbackButton?.setAttribute("aria-label", "Продолжить воспроизведение");
-  };
-
-  video.addEventListener("pause", setPausedState);
-  video.addEventListener("ended", setPausedState);
 
   popover.addEventListener("toggle", (event) => {
     if (event.newState === "open") {
@@ -94,11 +69,9 @@ export function initPeople() {
     marquee?.removeAttribute("data-modal-open");
 
     if (event.newState === "closed") {
-      showPlaybackButton();
-      video.pause();
-      video.removeAttribute("src");
-      delete popover.dataset.videoStarted;
-      videoProgress?.reset();
+      playerOrigin = undefined;
+      soundRequested = false;
+      iframe.removeAttribute("src");
     }
   });
 }
