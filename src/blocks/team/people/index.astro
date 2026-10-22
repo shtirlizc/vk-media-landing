@@ -215,17 +215,21 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
 
     ._modal {
       --modal-width: 309px;
-      --modal-height: 174px;
 
       position: fixed;
       inset: 0;
       box-sizing: border-box;
-      width: var(--modal-width);
-      min-width: var(--modal-width);
-      max-width: var(--modal-width);
-      height: var(--modal-height);
-      min-height: var(--modal-height);
-      max-height: var(--modal-height);
+      width: min(
+        var(--modal-width),
+        calc(100vw - 32px),
+        calc((100dvh - 32px) * 16 / 9)
+      );
+      min-width: 0;
+      max-width: none;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      aspect-ratio: 16 / 9;
       margin: auto;
       padding: 0;
       border: 0;
@@ -318,7 +322,6 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
     @media (width >= 960px) {
       & ._modal {
         --modal-width: 881px;
-        --modal-height: 485px;
       }
 
       & ._modal__close {
@@ -341,7 +344,6 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
     @media (width >= 1200px) {
       & ._modal {
         --modal-width: 1120px;
-        --modal-height: 657px;
       }
 
       & .people__photo {
