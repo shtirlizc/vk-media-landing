@@ -148,7 +148,7 @@ export const peopleVideos = [
     name: "04-03-inessa-zabelina",
     displayName: "Инесса Забелина",
     videoEmbedSrc:
-      "https://vkvideo.ru/video_ext.php?oid=-220924762&id=456239260&hash=bef9733fee1b3371&hd=3&autoplay=1&muted=0",
+      "https://vkvideo.ru/video_ext.php?oid=-220924762&id=456239292&hash=063c1c9732de957f&hd=3&autoplay=1&muted=0",
   },
   {
     name: "04-04-aleksei-krikunov",
