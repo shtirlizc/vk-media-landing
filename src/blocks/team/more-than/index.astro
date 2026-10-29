@@ -32,31 +32,31 @@ const checkIsVideo = (item: ISlideImage | ISlideVideo): item is ISlideVideo => {
 
 const slides: (ISlideImage | ISlideVideo)[] = [
   {
-    title: "8 марта",
+    title: "8\u00A0Марта",
     src: getVideoSrc("story-1"),
   },
   {
-    title: "14 февраля",
+    title: "14\u00A0февраля",
     src: slide2Img,
   },
   {
-    title: "Drop Store Запуск магазина мерча бизнес‑группы",
+    title: "Drop\u00A0Store, запуск магазина мерча бизнес-группы",
     src: getVideoSrc("story-3"),
   },
   {
-    title: "VK Fest",
+    title: "VK\u00A0Fest",
     src: getVideoSrc("story-4"),
   },
   {
-    title: "Афтепати VK Fest",
+    title: "Афтепати VK\u00A0Fest",
     src: slide5Img,
   },
   {
-    title: "Гаражная распродажа Дзен",
+    title: "Гаражная распродажа Дзена",
     src: slide6Img,
   },
   {
-    title: "День рождения VK Музыки",
+    title: "День рождения\nVK\u00A0Музыки",
     src: getVideoSrc("story-7"),
   },
   {
@@ -68,7 +68,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     src: slide9Img,
   },
   {
-    title: "Новый год Дзен",
+    title: "Новый год Дзена",
     src: getVideoSrc("story-10"),
   },
   {
@@ -84,11 +84,11 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     src: getVideoSrc("story-12_5"),
   },
   {
-    title: "ИТ неделя",
+    title: "IT-неделя",
     src: getVideoSrc("story-13"),
   },
   {
-    title: "Фандом фест",
+    title: "Фандом Фест",
     src: getVideoSrc("story-14"),
   },
   {
@@ -108,7 +108,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
     src: getVideoSrc("story-18"),
   },
   {
-    title: "День рождения VK Видео",
+    title: "День рождения VK\u00A0Видео",
     src: getVideoSrc("story-19"),
   },
 ];
@@ -530,6 +530,7 @@ const slides: (ISlideImage | ISlideVideo)[] = [
           align-items: flex-end;
           padding: var(--space40) var(--space20);
           pointer-events: none;
+          white-space: pre-line;
 
           /* fullhd */
           @media (width >= 1600px) {
