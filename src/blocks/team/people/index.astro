@@ -138,6 +138,12 @@ const peopleRows = Array.from({ length: 3 }, (_, rowIndex) =>
         animation-direction: reverse;
       }
 
+      @media (prefers-reduced-motion: no-preference) {
+        &:nth-child(odd) .people__photo {
+          will-change: transform;
+        }
+      }
+
       &:hover .people__track {
         animation-play-state: paused;
       }
