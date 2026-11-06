@@ -24,6 +24,8 @@ import stars13 from "./assets/decor/stars_13.webp";
 
 type Product = {
   logo: ImageMetadata | string;
+  // Logo width at the full HD breakpoint; smaller sizes scale with square logos.
+  logoWidth?: number;
   text: string;
   href: string;
 };
@@ -70,11 +72,13 @@ const products = {
   },
   mediaProjects: {
     logo: mediaProjectsLogo,
+    logoWidth: 433,
     text: "крупнейшая информационная\nэкосистема из 17 медиа",
     href: "https://home.vk.team/blog/mediaproektyi-mailru",
   },
   discovery: {
     logo: discoveryLogo,
+    logoWidth: 349,
     text: "технологии discovery\nдля рекомендаций, поиска и рекламы",
     href: "https://team.vk.company/projects/315",
   },
@@ -143,7 +147,12 @@ const rows: RowItem[][] = [
                     />
                   ) : (
                     <a
-                      class="products__card"
+                      class:list={[
+                        "products__card",
+                        {
+                          "products__card--wide": Boolean(item.product.logoWidth),
+                        },
+                      ]}
                       href={item.product.href}
                       target="_blank"
                       rel="noreferrer"
@@ -151,15 +160,27 @@ const rows: RowItem[][] = [
                     >
                       <img
                         class="products__logo"
+                        style={
+                          item.product.logoWidth
+                            ? `--product-logo-width-factor: ${item.product.logoWidth / 90}`
+                            : undefined
+                        }
                         src={
                           typeof item.product.logo === "string"
                             ? item.product.logo
                             : item.product.logo.src
                         }
                         alt=""
-                        width="40"
-                        height="40"
-                        loading="lazy"
+                        width={
+                          typeof item.product.logo === "string"
+                            ? 40
+                            : item.product.logo.width
+                        }
+                        height={
+                          typeof item.product.logo === "string"
+                            ? 40
+                            : item.product.logo.height
+                        }
                       />
                       <span>{item.product.text}</span>
                     </a>
@@ -239,6 +260,7 @@ const rows: RowItem[][] = [
 
   .products__row {
     width: 100%;
+    min-width: 0;
   }
 
   .products__track {
@@ -272,14 +294,17 @@ const rows: RowItem[][] = [
   }
 
   .products__card {
+    --product-logo-size: 40px;
+    --product-card-padding: var(--space16);
+
     font-family: var(--font-secondary), sans-serif;
     line-height: 1.1;
     display: flex;
     flex-shrink: 0;
     align-items: center;
     gap: 20px;
-    min-height: 72px;
-    padding: var(--space16);
+    min-height: calc(var(--product-logo-size) + var(--product-card-padding) * 2);
+    padding: var(--product-card-padding);
     border-radius: 20px;
     background: #101010;
     font-size: 16px;
@@ -290,13 +315,18 @@ const rows: RowItem[][] = [
 
     /* desktop */
     @media (width >= 960px) {
+      --product-logo-size: 70px;
+      --product-card-padding: var(--space24);
+
       font-weight: 500;
       font-size: 24px;
-      padding: var(--space24);
     }
 
     /* fullhd */
     @media (width >= 1600px) {
+      --product-logo-size: 90px;
+      --product-card-padding: var(--space40);
+
       font-size: 32px;
       gap: 36px;
     }
@@ -319,22 +349,11 @@ const rows: RowItem[][] = [
   }
 
   .products__logo {
-    width: 40px;
-    height: 40px;
+    display: block;
+    width: calc(var(--product-logo-size) * var(--product-logo-width-factor, 1));
+    height: auto;
     flex-shrink: 0;
     object-fit: contain;
-
-    /* desktop */
-    @media (width >= 960px) {
-      width: 70px;
-      height: 70px;
-    }
-
-    /* fullhd */
-    @media (width >= 1600px) {
-      width: 90px;
-      height: 90px;
-    }
   }
 
   .products__decor {
@@ -356,9 +375,31 @@ const rows: RowItem[][] = [
     }
   }
 
+  @media (width < 768px) {
+    .products__group {
+      align-items: stretch;
+    }
+
+    .products__decor {
+      align-self: center;
+    }
+
+    .products__card--wide {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space12);
+      width: min(280px, calc(100vw - var(--space32)));
+    }
+
+    .products__card--wide span {
+      flex: initial;
+      white-space: normal;
+    }
+  }
+
   @keyframes products-marquee {
     to {
-      transform: translateX(-25%);
+      transform: translateX(calc(-100% / var(--products-repeat-count, 4)));
     }
   }
 

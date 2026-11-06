@@ -5,8 +5,10 @@ import { moreThan } from "./more-than.ts";
 import { initPeople } from "./people.ts";
 import { initUseful } from "./useful.ts";
 import { initReveal } from "./reveal.ts";
+import { initProducts } from "./products.ts";
 
 initHeader();
+initProducts();
 initVideos();
 initGroup();
 moreThan();
