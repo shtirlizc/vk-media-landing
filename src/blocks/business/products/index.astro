@@ -73,13 +73,13 @@ const products = {
   mediaProjects: {
     logo: mediaProjectsLogo,
     logoWidth: 433,
-    text: "крупнейшая информационная\nэкосистема из 17 медиа",
+    text: "крупнейшее медиа в России:\nвсе темы, все форматы, вся страна",
     href: "https://home.vk.team/blog/mediaproektyi-mailru",
   },
   discovery: {
     logo: discoveryLogo,
     logoWidth: 349,
-    text: "технологии discovery\nдля рекомендаций, поиска и рекламы",
+    text: "технологии для рекомендации,\nпоиска и рекламы",
     href: "https://team.vk.company/projects/315",
   },
 } satisfies Record<string, Product>;
@@ -298,7 +298,9 @@ const rows: RowItem[][] = [
     flex-shrink: 0;
     align-items: center;
     gap: 20px;
-    min-height: calc(var(--product-logo-size) + var(--product-card-padding) * 2);
+    min-height: calc(
+      var(--product-logo-size) + var(--product-card-padding) * 2
+    );
     padding: var(--product-card-padding);
     border-radius: 20px;
     background: #101010;
