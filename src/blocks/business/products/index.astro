@@ -9,6 +9,8 @@ import clipsLogo from "./assets/logos/vk-clips.svg";
 import musicLogo from "./assets/logos/vk-music.svg";
 import videoLogo from "./assets/logos/vk-video.svg";
 import vkLogo from "./assets/logos/vk.svg";
+import mediaProjectsLogo from "./assets/logos/media-projects.webp";
+import discoveryLogo from "./assets/logos/discovery.webp";
 
 import stars1 from "./assets/decor/stars_1.webp";
 import stars2 from "./assets/decor/stars_2.webp";
@@ -17,6 +19,8 @@ import stars4 from "./assets/decor/stars_4.webp";
 import stars5 from "./assets/decor/stars_5.webp";
 import stars6 from "./assets/decor/stars_6.webp";
 import stars7 from "./assets/decor/stars_7.webp";
+import stars12 from "./assets/decor/stars_12.webp";
+import stars13 from "./assets/decor/stars_13.webp";
 
 type Product = {
   logo: ImageMetadata | string;
@@ -64,6 +68,16 @@ const products = {
     text: "крупнейшая\nновостная платформа",
     href: "https://dzen.ru/about",
   },
+  mediaProjects: {
+    logo: mediaProjectsLogo,
+    text: "крупнейшая информационная\nэкосистема из 17 медиа",
+    href: "https://home.vk.team/blog/mediaproektyi-mailru",
+  },
+  discovery: {
+    logo: discoveryLogo,
+    text: "технологии discovery\nдля рекомендаций, поиска и рекламы",
+    href: "https://team.vk.company/projects/315",
+  },
 } satisfies Record<string, Product>;
 
 const product = (item: Product): RowItem => ({
@@ -84,20 +98,18 @@ const rows: RowItem[][] = [
   [
     decor(stars5),
     product(products.clips),
+    decor(stars12),
+    product(products.mediaProjects),
     decor(stars7),
     product(products.vk),
-    decor(stars6),
-    product(products.ok),
   ],
   [
-    decor(stars7),
-    product(products.vk),
     decor(stars6),
     product(products.ok),
     decor(stars1),
     product(products.dzen),
-    decor(stars4),
-    product(products.music),
+    decor(stars13),
+    product(products.discovery),
   ],
 ];
 ---
@@ -272,7 +284,6 @@ const rows: RowItem[][] = [
     background: #101010;
     font-size: 16px;
     font-weight: 500;
-    text-transform: lowercase;
     color: var(--color-text-primary);
     box-shadow: 0 3px 58.6px 0 transparent;
     transition: box-shadow var(--transition-long) ease;
