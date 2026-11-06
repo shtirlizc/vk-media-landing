@@ -147,12 +147,7 @@ const rows: RowItem[][] = [
                     />
                   ) : (
                     <a
-                      class:list={[
-                        "products__card",
-                        {
-                          "products__card--wide": Boolean(item.product.logoWidth),
-                        },
-                      ]}
+                      class="products__card"
                       href={item.product.href}
                       target="_blank"
                       rel="noreferrer"
@@ -372,28 +367,6 @@ const rows: RowItem[][] = [
     @media (width >= 1600px) {
       width: 170px;
       height: 170px;
-    }
-  }
-
-  @media (width < 768px) {
-    .products__group {
-      align-items: stretch;
-    }
-
-    .products__decor {
-      align-self: center;
-    }
-
-    .products__card--wide {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space12);
-      width: min(280px, calc(100vw - var(--space32)));
-    }
-
-    .products__card--wide span {
-      flex: initial;
-      white-space: normal;
     }
   }
 
